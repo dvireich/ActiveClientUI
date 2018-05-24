@@ -284,6 +284,7 @@ namespace WindowsFormsApp1
 
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listView1.View == View.Details) return;
             OptimisticTryAndFail(() =>
             {
                 listView1.View = View.Details;
@@ -299,6 +300,7 @@ namespace WindowsFormsApp1
 
         private void smallIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listView1.View == View.SmallIcon) return;
             OptimisticTryAndFail(() =>
             {
                 var needToSwitchCol = listView1.View == View.Details;
@@ -310,6 +312,7 @@ namespace WindowsFormsApp1
 
         private void largIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listView1.View == View.LargeIcon) return;
             OptimisticTryAndFail(() =>
             {
                 var needToSwitchCol = listView1.View == View.Details;
@@ -1151,7 +1154,7 @@ namespace WindowsFormsApp1
                     numOfTry--;
                 }
             }
-            throw new Exception(exception);
+             throw new Exception(exception);
         }
 
         private void currentPathTextBox_KeyDown(object sender, KeyEventArgs e)

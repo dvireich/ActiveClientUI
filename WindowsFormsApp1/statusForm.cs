@@ -250,7 +250,7 @@ namespace WindowsFormsApp1
             if (_activated) return;
             _activated = true;
             GetStatusFromServer();
-            PefromTaskEveryXTime(GetStatusFromServer, 5);
+            PefromTaskEveryXTime(GetStatusFromServer, 1);
         }
 
         private ContextMenuOvveride CreatePopUpMenu(Status type)
