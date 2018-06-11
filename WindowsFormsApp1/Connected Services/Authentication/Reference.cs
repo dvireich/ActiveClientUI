@@ -20,6 +20,12 @@ namespace WindowsFormsApp1.Authentication {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/Authenticate", ReplyAction="http://tempuri.org/IAuthentication/AuthenticateResponse")]
         System.Threading.Tasks.Task<string> AuthenticateAsync(string userName, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignIn", ReplyAction="http://tempuri.org/IAuthentication/SignInResponse")]
+        bool SignIn(string userName, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignIn", ReplyAction="http://tempuri.org/IAuthentication/SignInResponse")]
+        System.Threading.Tasks.Task<bool> SignInAsync(string userName, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace WindowsFormsApp1.Authentication {
         
         public System.Threading.Tasks.Task<string> AuthenticateAsync(string userName, string password) {
             return base.Channel.AuthenticateAsync(userName, password);
+        }
+        
+        public bool SignIn(string userName, string password) {
+            return base.Channel.SignIn(userName, password);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SignInAsync(string userName, string password) {
+            return base.Channel.SignInAsync(userName, password);
         }
     }
 }

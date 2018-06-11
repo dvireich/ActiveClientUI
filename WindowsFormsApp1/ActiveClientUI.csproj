@@ -78,6 +78,12 @@
     <Compile Include="ListViewNF.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LogInForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogInForm.Designer.cs">
+      <DependentUpon>LogInForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="statusForm.cs">
       <SubType>Form</SubType>
     </Compile>
