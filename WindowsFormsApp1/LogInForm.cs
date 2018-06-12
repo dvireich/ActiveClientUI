@@ -19,8 +19,6 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             initializeServiceReferences(ref authenticationService);
-            authenticationService.SignIn("dvir", "1234");
-            authenticationService.Authenticate("dvir", "1234");
         }
 
         private static void initializeServiceReferences(ref IAuthentication shellService)

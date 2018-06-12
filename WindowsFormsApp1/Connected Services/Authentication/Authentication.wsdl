@@ -18,6 +18,30 @@
   <wsdl:message name="IAuthentication_SignIn_OutputMessage">
     <wsdl:part name="parameters" element="tns:SignInResponse" />
   </wsdl:message>
+  <wsdl:message name="IAuthentication_ChangeUserPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_ChangeUserPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeUserPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_SetSecurityQuestionAndAnswer_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetSecurityQuestionAndAnswer" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_SetSecurityQuestionAndAnswer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetSecurityQuestionAndAnswerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_GetSecurityQuestion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSecurityQuestion" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_GetSecurityQuestion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSecurityQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_RestorePasswordFromUserNameAndSecurityQuestion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RestorePasswordFromUserNameAndSecurityQuestion" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_RestorePasswordFromUserNameAndSecurityQuestion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RestorePasswordFromUserNameAndSecurityQuestionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAuthentication">
     <wsdl:operation name="Authenticate">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/Authenticate" message="tns:IAuthentication_Authenticate_InputMessage" />
@@ -26,6 +50,22 @@
     <wsdl:operation name="SignIn">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/SignIn" message="tns:IAuthentication_SignIn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/SignInResponse" message="tns:IAuthentication_SignIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeUserPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/ChangeUserPassword" message="tns:IAuthentication_ChangeUserPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/ChangeUserPasswordResponse" message="tns:IAuthentication_ChangeUserPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSecurityQuestionAndAnswer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/SetSecurityQuestionAndAnswer" message="tns:IAuthentication_SetSecurityQuestionAndAnswer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/SetSecurityQuestionAndAnswerResponse" message="tns:IAuthentication_SetSecurityQuestionAndAnswer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSecurityQuestion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/GetSecurityQuestion" message="tns:IAuthentication_GetSecurityQuestion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/GetSecurityQuestionResponse" message="tns:IAuthentication_GetSecurityQuestion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RestorePasswordFromUserNameAndSecurityQuestion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/RestorePasswordFromUserNameAndSecurityQuestion" message="tns:IAuthentication_RestorePasswordFromUserNameAndSecurityQuestion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/RestorePasswordFromUserNameAndSecurityQuestionResponse" message="tns:IAuthentication_RestorePasswordFromUserNameAndSecurityQuestion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAuthentication" type="tns:IAuthentication">
@@ -41,6 +81,42 @@
     </wsdl:operation>
     <wsdl:operation name="SignIn">
       <soap:operation soapAction="http://tempuri.org/IAuthentication/SignIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeUserPassword">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/ChangeUserPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSecurityQuestionAndAnswer">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/SetSecurityQuestionAndAnswer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSecurityQuestion">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/GetSecurityQuestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestorePasswordFromUserNameAndSecurityQuestion">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/RestorePasswordFromUserNameAndSecurityQuestion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

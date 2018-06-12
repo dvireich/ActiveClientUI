@@ -107,6 +107,7 @@
     <Compile Include="Tasks.Designer.cs">
       <DependentUpon>Tasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestUserAuthentication.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +136,24 @@
     </None>
     <None Include="Connected Services\Authentication\Authentication1.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.AuthenticateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.ChangeUserPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.GetSecurityQuestionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.SignInResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\LoadUser\LoadUser.wsdl" />
     <None Include="Connected Services\LoadUser\LoadUser.xsd">

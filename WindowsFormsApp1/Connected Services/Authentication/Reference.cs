@@ -16,16 +16,298 @@ namespace WindowsFormsApp1.Authentication {
     public interface IAuthentication {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/Authenticate", ReplyAction="http://tempuri.org/IAuthentication/AuthenticateResponse")]
-        string Authenticate(string userName, string password);
+        WindowsFormsApp1.Authentication.AuthenticateResponse Authenticate(WindowsFormsApp1.Authentication.AuthenticateRequest request);
         
+        // CODEGEN: Generating message contract since the operation has multiple return values.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/Authenticate", ReplyAction="http://tempuri.org/IAuthentication/AuthenticateResponse")]
-        System.Threading.Tasks.Task<string> AuthenticateAsync(string userName, string password);
+        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.AuthenticateResponse> AuthenticateAsync(WindowsFormsApp1.Authentication.AuthenticateRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignIn", ReplyAction="http://tempuri.org/IAuthentication/SignInResponse")]
-        bool SignIn(string userName, string password);
+        WindowsFormsApp1.Authentication.SignInResponse SignIn(WindowsFormsApp1.Authentication.SignInRequest request);
         
+        // CODEGEN: Generating message contract since the operation has multiple return values.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignIn", ReplyAction="http://tempuri.org/IAuthentication/SignInResponse")]
-        System.Threading.Tasks.Task<bool> SignInAsync(string userName, string password);
+        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SignInResponse> SignInAsync(WindowsFormsApp1.Authentication.SignInRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/ChangeUserPassword", ReplyAction="http://tempuri.org/IAuthentication/ChangeUserPasswordResponse")]
+        WindowsFormsApp1.Authentication.ChangeUserPasswordResponse ChangeUserPassword(WindowsFormsApp1.Authentication.ChangeUserPasswordRequest request);
+        
+        // CODEGEN: Generating message contract since the operation has multiple return values.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/ChangeUserPassword", ReplyAction="http://tempuri.org/IAuthentication/ChangeUserPasswordResponse")]
+        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.ChangeUserPasswordResponse> ChangeUserPasswordAsync(WindowsFormsApp1.Authentication.ChangeUserPasswordRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SetSecurityQuestionAndAnswer", ReplyAction="http://tempuri.org/IAuthentication/SetSecurityQuestionAndAnswerResponse")]
+        WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse SetSecurityQuestionAndAnswer(WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest request);
+        
+        // CODEGEN: Generating message contract since the operation has multiple return values.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SetSecurityQuestionAndAnswer", ReplyAction="http://tempuri.org/IAuthentication/SetSecurityQuestionAndAnswerResponse")]
+        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse> SetSecurityQuestionAndAnswerAsync(WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/GetSecurityQuestion", ReplyAction="http://tempuri.org/IAuthentication/GetSecurityQuestionResponse")]
+        WindowsFormsApp1.Authentication.GetSecurityQuestionResponse GetSecurityQuestion(WindowsFormsApp1.Authentication.GetSecurityQuestionRequest request);
+        
+        // CODEGEN: Generating message contract since the operation has multiple return values.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/GetSecurityQuestion", ReplyAction="http://tempuri.org/IAuthentication/GetSecurityQuestionResponse")]
+        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.GetSecurityQuestionResponse> GetSecurityQuestionAsync(WindowsFormsApp1.Authentication.GetSecurityQuestionRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/RestorePasswordFromUserNameAndSecurityQuestion" +
+            "", ReplyAction="http://tempuri.org/IAuthentication/RestorePasswordFromUserNameAndSecurityQuestion" +
+            "Response")]
+        WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse RestorePasswordFromUserNameAndSecurityQuestion(WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest request);
+        
+        // CODEGEN: Generating message contract since the operation has multiple return values.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/RestorePasswordFromUserNameAndSecurityQuestion" +
+            "", ReplyAction="http://tempuri.org/IAuthentication/RestorePasswordFromUserNameAndSecurityQuestion" +
+            "Response")]
+        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse> RestorePasswordFromUserNameAndSecurityQuestionAsync(WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest request);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="Authenticate", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class AuthenticateRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string userName;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string password;
+        
+        public AuthenticateRequest() {
+        }
+        
+        public AuthenticateRequest(string userName, string password) {
+            this.userName = userName;
+            this.password = password;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="AuthenticateResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class AuthenticateResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string AuthenticateResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string error;
+        
+        public AuthenticateResponse() {
+        }
+        
+        public AuthenticateResponse(string AuthenticateResult, string error) {
+            this.AuthenticateResult = AuthenticateResult;
+            this.error = error;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SignIn", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SignInRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string userName;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string password;
+        
+        public SignInRequest() {
+        }
+        
+        public SignInRequest(string userName, string password) {
+            this.userName = userName;
+            this.password = password;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SignInResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SignInResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool SignInResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string error;
+        
+        public SignInResponse() {
+        }
+        
+        public SignInResponse(bool SignInResult, string error) {
+            this.SignInResult = SignInResult;
+            this.error = error;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ChangeUserPassword", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class ChangeUserPasswordRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string userName;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string oldPassword;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public string newPassword;
+        
+        public ChangeUserPasswordRequest() {
+        }
+        
+        public ChangeUserPasswordRequest(string userName, string oldPassword, string newPassword) {
+            this.userName = userName;
+            this.oldPassword = oldPassword;
+            this.newPassword = newPassword;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="ChangeUserPasswordResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class ChangeUserPasswordResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool ChangeUserPasswordResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string error;
+        
+        public ChangeUserPasswordResponse() {
+        }
+        
+        public ChangeUserPasswordResponse(bool ChangeUserPasswordResult, string error) {
+            this.ChangeUserPasswordResult = ChangeUserPasswordResult;
+            this.error = error;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SetSecurityQuestionAndAnswer", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SetSecurityQuestionAndAnswerRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string userName;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string password;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public string question;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        public string answer;
+        
+        public SetSecurityQuestionAndAnswerRequest() {
+        }
+        
+        public SetSecurityQuestionAndAnswerRequest(string userName, string password, string question, string answer) {
+            this.userName = userName;
+            this.password = password;
+            this.question = question;
+            this.answer = answer;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SetSecurityQuestionAndAnswerResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SetSecurityQuestionAndAnswerResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool SetSecurityQuestionAndAnswerResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string error;
+        
+        public SetSecurityQuestionAndAnswerResponse() {
+        }
+        
+        public SetSecurityQuestionAndAnswerResponse(bool SetSecurityQuestionAndAnswerResult, string error) {
+            this.SetSecurityQuestionAndAnswerResult = SetSecurityQuestionAndAnswerResult;
+            this.error = error;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetSecurityQuestion", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetSecurityQuestionRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string userName;
+        
+        public GetSecurityQuestionRequest() {
+        }
+        
+        public GetSecurityQuestionRequest(string userName) {
+            this.userName = userName;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetSecurityQuestionResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetSecurityQuestionResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string GetSecurityQuestionResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string error;
+        
+        public GetSecurityQuestionResponse() {
+        }
+        
+        public GetSecurityQuestionResponse(string GetSecurityQuestionResult, string error) {
+            this.GetSecurityQuestionResult = GetSecurityQuestionResult;
+            this.error = error;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RestorePasswordFromUserNameAndSecurityQuestion", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class RestorePasswordFromUserNameAndSecurityQuestionRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string userName;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string answer;
+        
+        public RestorePasswordFromUserNameAndSecurityQuestionRequest() {
+        }
+        
+        public RestorePasswordFromUserNameAndSecurityQuestionRequest(string userName, string answer) {
+            this.userName = userName;
+            this.answer = answer;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="RestorePasswordFromUserNameAndSecurityQuestionResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class RestorePasswordFromUserNameAndSecurityQuestionResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public string RestorePasswordFromUserNameAndSecurityQuestionResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public string error;
+        
+        public RestorePasswordFromUserNameAndSecurityQuestionResponse() {
+        }
+        
+        public RestorePasswordFromUserNameAndSecurityQuestionResponse(string RestorePasswordFromUserNameAndSecurityQuestionResult, string error) {
+            this.RestorePasswordFromUserNameAndSecurityQuestionResult = RestorePasswordFromUserNameAndSecurityQuestionResult;
+            this.error = error;
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,20 +337,114 @@ namespace WindowsFormsApp1.Authentication {
                 base(binding, remoteAddress) {
         }
         
-        public string Authenticate(string userName, string password) {
-            return base.Channel.Authenticate(userName, password);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WindowsFormsApp1.Authentication.AuthenticateResponse WindowsFormsApp1.Authentication.IAuthentication.Authenticate(WindowsFormsApp1.Authentication.AuthenticateRequest request) {
+            return base.Channel.Authenticate(request);
         }
         
-        public System.Threading.Tasks.Task<string> AuthenticateAsync(string userName, string password) {
-            return base.Channel.AuthenticateAsync(userName, password);
+        public string Authenticate(string userName, string password, out string error) {
+            WindowsFormsApp1.Authentication.AuthenticateRequest inValue = new WindowsFormsApp1.Authentication.AuthenticateRequest();
+            inValue.userName = userName;
+            inValue.password = password;
+            WindowsFormsApp1.Authentication.AuthenticateResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).Authenticate(inValue);
+            error = retVal.error;
+            return retVal.AuthenticateResult;
         }
         
-        public bool SignIn(string userName, string password) {
-            return base.Channel.SignIn(userName, password);
+        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.AuthenticateResponse> AuthenticateAsync(WindowsFormsApp1.Authentication.AuthenticateRequest request) {
+            return base.Channel.AuthenticateAsync(request);
         }
         
-        public System.Threading.Tasks.Task<bool> SignInAsync(string userName, string password) {
-            return base.Channel.SignInAsync(userName, password);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WindowsFormsApp1.Authentication.SignInResponse WindowsFormsApp1.Authentication.IAuthentication.SignIn(WindowsFormsApp1.Authentication.SignInRequest request) {
+            return base.Channel.SignIn(request);
+        }
+        
+        public bool SignIn(string userName, string password, out string error) {
+            WindowsFormsApp1.Authentication.SignInRequest inValue = new WindowsFormsApp1.Authentication.SignInRequest();
+            inValue.userName = userName;
+            inValue.password = password;
+            WindowsFormsApp1.Authentication.SignInResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).SignIn(inValue);
+            error = retVal.error;
+            return retVal.SignInResult;
+        }
+        
+        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SignInResponse> SignInAsync(WindowsFormsApp1.Authentication.SignInRequest request) {
+            return base.Channel.SignInAsync(request);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WindowsFormsApp1.Authentication.ChangeUserPasswordResponse WindowsFormsApp1.Authentication.IAuthentication.ChangeUserPassword(WindowsFormsApp1.Authentication.ChangeUserPasswordRequest request) {
+            return base.Channel.ChangeUserPassword(request);
+        }
+        
+        public bool ChangeUserPassword(string userName, string oldPassword, string newPassword, out string error) {
+            WindowsFormsApp1.Authentication.ChangeUserPasswordRequest inValue = new WindowsFormsApp1.Authentication.ChangeUserPasswordRequest();
+            inValue.userName = userName;
+            inValue.oldPassword = oldPassword;
+            inValue.newPassword = newPassword;
+            WindowsFormsApp1.Authentication.ChangeUserPasswordResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).ChangeUserPassword(inValue);
+            error = retVal.error;
+            return retVal.ChangeUserPasswordResult;
+        }
+        
+        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.ChangeUserPasswordResponse> ChangeUserPasswordAsync(WindowsFormsApp1.Authentication.ChangeUserPasswordRequest request) {
+            return base.Channel.ChangeUserPasswordAsync(request);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse WindowsFormsApp1.Authentication.IAuthentication.SetSecurityQuestionAndAnswer(WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest request) {
+            return base.Channel.SetSecurityQuestionAndAnswer(request);
+        }
+        
+        public bool SetSecurityQuestionAndAnswer(string userName, string password, string question, string answer, out string error) {
+            WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest inValue = new WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest();
+            inValue.userName = userName;
+            inValue.password = password;
+            inValue.question = question;
+            inValue.answer = answer;
+            WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).SetSecurityQuestionAndAnswer(inValue);
+            error = retVal.error;
+            return retVal.SetSecurityQuestionAndAnswerResult;
+        }
+        
+        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse> SetSecurityQuestionAndAnswerAsync(WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest request) {
+            return base.Channel.SetSecurityQuestionAndAnswerAsync(request);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WindowsFormsApp1.Authentication.GetSecurityQuestionResponse WindowsFormsApp1.Authentication.IAuthentication.GetSecurityQuestion(WindowsFormsApp1.Authentication.GetSecurityQuestionRequest request) {
+            return base.Channel.GetSecurityQuestion(request);
+        }
+        
+        public string GetSecurityQuestion(string userName, out string error) {
+            WindowsFormsApp1.Authentication.GetSecurityQuestionRequest inValue = new WindowsFormsApp1.Authentication.GetSecurityQuestionRequest();
+            inValue.userName = userName;
+            WindowsFormsApp1.Authentication.GetSecurityQuestionResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).GetSecurityQuestion(inValue);
+            error = retVal.error;
+            return retVal.GetSecurityQuestionResult;
+        }
+        
+        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.GetSecurityQuestionResponse> GetSecurityQuestionAsync(WindowsFormsApp1.Authentication.GetSecurityQuestionRequest request) {
+            return base.Channel.GetSecurityQuestionAsync(request);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse WindowsFormsApp1.Authentication.IAuthentication.RestorePasswordFromUserNameAndSecurityQuestion(WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest request) {
+            return base.Channel.RestorePasswordFromUserNameAndSecurityQuestion(request);
+        }
+        
+        public string RestorePasswordFromUserNameAndSecurityQuestion(string userName, string answer, out string error) {
+            WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest inValue = new WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest();
+            inValue.userName = userName;
+            inValue.answer = answer;
+            WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).RestorePasswordFromUserNameAndSecurityQuestion(inValue);
+            error = retVal.error;
+            return retVal.RestorePasswordFromUserNameAndSecurityQuestionResult;
+        }
+        
+        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse> RestorePasswordFromUserNameAndSecurityQuestionAsync(WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest request) {
+            return base.Channel.RestorePasswordFromUserNameAndSecurityQuestionAsync(request);
         }
     }
 }
