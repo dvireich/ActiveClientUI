@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -22,6 +23,7 @@ namespace WindowsFormsApp1
         public LogInForm()
         {
             InitializeComponent();
+            RememberMe(false);
         }
 
         private void CloseAllConnections()
@@ -78,16 +80,60 @@ namespace WindowsFormsApp1
             if (SignIn(out error, out string id) && loadUser.LoadUser(id))
             {
                 MessageBox.Show("Successfully Signed In!", "Sign In", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //save username and password for next login
+                if (RememberMeCheckBox.Checked)
+                {
+                    RememberMe(true);
+                }
+
                 using (var mainForm = new mainForm(id))
                 {
                     this.Visible = false;
                     mainForm.ShowDialog();
                 }
+
+                this.Close();
+                    
             }
             else
             {
                 MessageBox.Show(error, "Sign In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private void RememberMe(bool save)
+        {
+            var directoryName = "Files";
+            var fileName = "LoginState";
+            var path = Path.Combine(directoryName, fileName);
+            if (!Directory.Exists(directoryName))
+            {
+                Directory.CreateDirectory(directoryName);
+            }
+
+            if (save)
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                using (var file = File.CreateText(path))
+                {
+                    file.Write(string.Format("{0} {1}", UserNameTextBox.Text, PasswordTextBox.Text));
+                }
+            }
+            else
+            {
+                if (!File.Exists(path)) return;
+
+                var allText = File.ReadAllText(path);
+                var vals = allText.Split(' ');
+
+                UserNameTextBox.Text = vals[0];
+                PasswordTextBox.Text = vals[1];
             }
         }
 
@@ -125,6 +171,17 @@ namespace WindowsFormsApp1
             initializeServiceReferences(ref loadUser, "LoadUser");
         }
 
-        
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void EnterKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                OkButton_Click(null, null);
+            }
+        }
     }
 }

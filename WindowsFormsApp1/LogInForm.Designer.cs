@@ -53,6 +53,7 @@ namespace WindowsFormsApp1
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.Size = new System.Drawing.Size(380, 22);
             this.UserNameTextBox.TabIndex = 0;
+            this.UserNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterKeyDownEvent);
             // 
             // label1
             // 
@@ -78,6 +79,7 @@ namespace WindowsFormsApp1
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.Size = new System.Drawing.Size(380, 22);
             this.PasswordTextBox.TabIndex = 2;
+            this.PasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterKeyDownEvent);
             // 
             // label3
             // 
@@ -94,6 +96,7 @@ namespace WindowsFormsApp1
             this.SecurityQuestionTextBox.Name = "SecurityQuestionTextBox";
             this.SecurityQuestionTextBox.Size = new System.Drawing.Size(380, 22);
             this.SecurityQuestionTextBox.TabIndex = 4;
+            this.SecurityQuestionTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterKeyDownEvent);
             // 
             // label4
             // 
@@ -110,6 +113,7 @@ namespace WindowsFormsApp1
             this.SecurityAnswerTextBox.Name = "SecurityAnswerTextBox";
             this.SecurityAnswerTextBox.Size = new System.Drawing.Size(380, 22);
             this.SecurityAnswerTextBox.TabIndex = 6;
+            this.SecurityAnswerTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterKeyDownEvent);
             // 
             // OkButton
             // 
@@ -129,10 +133,13 @@ namespace WindowsFormsApp1
             this.ExitButton.TabIndex = 9;
             this.ExitButton.Text = "Exit";
             this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // RememberMeCheckBox
             // 
             this.RememberMeCheckBox.AutoSize = true;
+            this.RememberMeCheckBox.Checked = true;
+            this.RememberMeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.RememberMeCheckBox.Location = new System.Drawing.Point(32, 232);
             this.RememberMeCheckBox.Name = "RememberMeCheckBox";
             this.RememberMeCheckBox.Size = new System.Drawing.Size(122, 21);
@@ -177,6 +184,8 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UserNameTextBox);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "LogInForm";
             this.Text = "LogInForm";
             this.Activated += new System.EventHandler(this.LogInForm_Activated);
