@@ -16,7 +16,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SignIn">
+  <xs:element name="SignUp">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
@@ -24,10 +24,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SignInResponse">
+  <xs:element name="SignUpResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="SignInResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="SignUpResult" type="xs:boolean" />
         <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>

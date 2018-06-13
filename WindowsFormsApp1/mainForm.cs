@@ -30,12 +30,28 @@ namespace WindowsFormsApp1
         private string copyPath;
         private string currentPath;
         private bool _currentClientConnected;
+        private string _wcfServicesPathId;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public System.Threading.Timer FolderListTimer { get; private set; }
 
-        public mainForm()
+        private void CloseAllConnections()
         {
+            if (shellService != null)
+                ((ICommunicationObject)shellService).Close();
+
+            if (getStatusShellService != null)
+                ((ICommunicationObject)getStatusShellService).Close();
+
+
+            if (getFolderListShellService != null)
+                ((ICommunicationObject)getFolderListShellService).Close();
+
+        }
+
+        public mainForm(string id)
+        {
+            _wcfServicesPathId = id;
             InitializeComponent();
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             folderActions.AddRange(fileActions);
@@ -43,7 +59,7 @@ namespace WindowsFormsApp1
             all.AddRange(folderActions);
             all.AddRange(fileActions);
             allActions = new HashSet<string>(all);
-            initializeServiceReferences();
+            initializeServiceReferences(_wcfServicesPathId);
             CreateListView();
             listView1.SizeChanged += new EventHandler(ListView_SizeChanged);
         }
@@ -396,13 +412,13 @@ namespace WindowsFormsApp1
             }, 1000, 3, "Fail to listView1_MouseClick");
             
         }
-        private static void initializeServiceReferences()
+        private static void initializeServiceReferences(string wcfServicesPathId)
         {
-            initializeServiceReferences(ref shellService);
-            initializeServiceReferences(ref getStatusShellService);
-            initializeServiceReferences(ref getFolderListShellService);
+            initializeServiceReferences(ref shellService, wcfServicesPathId);
+            initializeServiceReferences(ref getStatusShellService, wcfServicesPathId);
+            initializeServiceReferences(ref getFolderListShellService, wcfServicesPathId);
         }
-        private static void initializeServiceReferences(ref IActiveShell shellService)
+        private static void initializeServiceReferences(ref IActiveShell shellService, string wcfEndpointId)
         {
             //Confuguring the Shell service
             var shellBinding = new BasicHttpBinding();
@@ -415,7 +431,7 @@ namespace WindowsFormsApp1
             shellBinding.MaxBufferPoolSize = int.MaxValue;
             shellBinding.MaxBufferSize = int.MaxValue;
             //Put Public ip of the server copmuter
-            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/ActiveShell");
+            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/ActiveShell/{0}", wcfEndpointId);
             var shellUri = new Uri(shellAdress);
             var shellEndpointAddress = new EndpointAddress(shellUri);
             var shellChannel = new ChannelFactory<IActiveShell>(shellBinding, shellEndpointAddress);
@@ -674,13 +690,13 @@ namespace WindowsFormsApp1
                     op();
                     break;
                 }
-                catch (TimeoutException e)
+                catch (TimeoutException)
                 {
                     if (inTimeOutException != null)
                         inTimeOutException();
                     //try again
                 }
-                catch (CommunicationException e)
+                catch (CommunicationException)
                 {
                     if (inCommunicationException != null)
                         inCommunicationException();
@@ -704,13 +720,13 @@ namespace WindowsFormsApp1
                 {
                     return op();
                 }
-                catch (TimeoutException e)
+                catch (TimeoutException)
                 {
                     if (inTimeOutException != null)
                         inTimeOutException();
                     //try again
                 }
-                catch (CommunicationException e)
+                catch (CommunicationException)
                 {
                     if (inCommunicationException != null)
                         inCommunicationException();
@@ -751,7 +767,7 @@ namespace WindowsFormsApp1
                 FileStream fs = File.Create(path);
                 return fs;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -871,9 +887,12 @@ namespace WindowsFormsApp1
 
         private void statusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            statusForm status = new statusForm();
-            status.BringToFront();
-            status.ShowDialog();
+            using (statusForm status = new statusForm(_wcfServicesPathId))
+            {
+                status.BringToFront();
+                status.ShowDialog();
+            }
+              
         }
 
         Object statusFromServerLock = new Object();
@@ -1059,7 +1078,7 @@ namespace WindowsFormsApp1
                         }));
                         raiseException = 3;
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         if(raiseException == 0)
                         {
@@ -1149,7 +1168,7 @@ namespace WindowsFormsApp1
                     act();
                     return;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     numOfTry--;
                 }

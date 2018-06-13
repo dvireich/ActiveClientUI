@@ -23,15 +23,23 @@ namespace WindowsFormsApp1
         private bool _activated;
         private string _selectedClient;
         static IActiveShell shellService;
+        private string _wcfServicesPathId;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public string SelectedClient { get => _selectedClient; set => _selectedClient = value; }
 
-        public statusForm()
+        private void CloseAllConnections()
         {
+            if (shellService != null)
+                ((ICommunicationObject)shellService).Close();
+        }
+
+        public statusForm(string id)
+        {
+            _wcfServicesPathId = id;
             InitializeComponent();
             CreateListView();
-            initializeServiceReferences();
+            initializeServiceReferences(_wcfServicesPathId);
             listView1.SizeChanged += new EventHandler(ListView_SizeChanged);
             this.FormClosing += StatusForm_FormClosing;  
         }
@@ -80,7 +88,7 @@ namespace WindowsFormsApp1
                         selectedClientLabel.Text = string.Format("Selected client: {0}", statusSplittedNewLine.Last().Split(':').Last());
                         listView1.Items.Clear();
                     }
-                    catch(Exception e)
+                    catch(Exception)
                     {
                         return;
                     }
@@ -167,7 +175,7 @@ namespace WindowsFormsApp1
             listView1.Refresh();
         }
 
-        private static void initializeServiceReferences()
+        private static void initializeServiceReferences(string wcfServicesPathId)
         {
             //Confuguring the Shell service
             var shellBinding = new BasicHttpBinding();
@@ -180,7 +188,7 @@ namespace WindowsFormsApp1
             shellBinding.MaxBufferPoolSize = int.MaxValue;
             shellBinding.MaxBufferSize = int.MaxValue;
             //Put Public ip of the server copmuter
-            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/ActiveShell");
+            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/ActiveShell/{0}", wcfServicesPathId);
             var shellUri = new Uri(shellAdress);
             var shellEndpointAddress = new EndpointAddress(shellUri);
             var shellChannel = new ChannelFactory<IActiveShell>(shellBinding, shellEndpointAddress);
@@ -274,16 +282,20 @@ namespace WindowsFormsApp1
                                        (obj, args) =>
                                        {
                                            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                           Tasks taskFrom = new Tasks(TaskType.Shell, id);
-                                           taskFrom.ShowDialog();
+                                           using (Tasks taskFrom = new Tasks(TaskType.Shell, id, _wcfServicesPathId))
+                                           {
+                                               taskFrom.ShowDialog();
+                                           } 
                                        },
                                        string.Format("Delete this Directory", src));
                 PopupMenu.AddMenuItem("Show unfinished Download\\Upload tasks",
                                         (obj, args) =>
                                         {
                                             var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            Tasks taskFrom = new Tasks(TaskType.UploadDownload, id);
-                                            taskFrom.ShowDialog();
+                                            using (Tasks taskFrom = new Tasks(TaskType.UploadDownload, id, _wcfServicesPathId))
+                                            {
+                                                taskFrom.ShowDialog();
+                                            } 
                                         },
                                         string.Format("Delete this Directory", src));
 
@@ -323,16 +335,20 @@ namespace WindowsFormsApp1
                                         (obj, args) =>
                                         {
                                             var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            Tasks taskFrom = new Tasks(TaskType.Shell, id);
-                                            taskFrom.ShowDialog();
+                                            using (Tasks taskFrom = new Tasks(TaskType.Shell, id, _wcfServicesPathId))
+                                            {
+                                                taskFrom.ShowDialog();
+                                            }
                                         },
                                         string.Format("Delete this Directory", src));
                 PopupMenu.AddMenuItem("Show unfinished Download\\Upload tasks",
                                         (obj, args) =>
                                         {
                                             var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            Tasks taskFrom = new Tasks(TaskType.UploadDownload, id);
-                                            taskFrom.ShowDialog();
+                                            using (Tasks taskFrom = new Tasks(TaskType.UploadDownload, id, _wcfServicesPathId))
+                                            {
+                                                taskFrom.ShowDialog();
+                                            }
                                         },
                                         string.Format("Delete this Directory", src));
             }

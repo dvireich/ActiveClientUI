@@ -24,17 +24,25 @@ namespace WindowsFormsApp1
         private string _selectedClient;
         static IActiveShell shellService;
         private TaskType _currentType;
+        private string _wcfServicesPathId;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public string SelectedClient { get => _selectedClient; set => _selectedClient = value; }
 
-        public Tasks(TaskType type, string client)
+        private void CloseAllConnections()
         {
+            if (shellService != null)
+                ((ICommunicationObject)shellService).Close();
+        }
+
+        public Tasks(TaskType type, string client, string id)
+        {
+            _wcfServicesPathId = id;
             _currentType = type;
             SelectedClient = client;
             InitializeComponent();
             CreateListView();
-            initializeServiceReferences();
+            initializeServiceReferences(_wcfServicesPathId);
         }
 
         
@@ -195,7 +203,7 @@ namespace WindowsFormsApp1
             //listView1.Refresh();
         }
 
-        private static void initializeServiceReferences()
+        private static void initializeServiceReferences(string wcfServicesPathId)
         {
             //Confuguring the Shell service
             var shellBinding = new BasicHttpBinding();
@@ -208,7 +216,7 @@ namespace WindowsFormsApp1
             shellBinding.MaxBufferPoolSize = int.MaxValue;
             shellBinding.MaxBufferSize = int.MaxValue;
             //Put Public ip of the server copmuter
-            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/ActiveShell");
+            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/ActiveShell/{0}", wcfServicesPathId);
             var shellUri = new Uri(shellAdress);
             var shellEndpointAddress = new EndpointAddress(shellUri);
             var shellChannel = new ChannelFactory<IActiveShell>(shellBinding, shellEndpointAddress);

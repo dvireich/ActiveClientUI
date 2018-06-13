@@ -22,12 +22,12 @@ namespace WindowsFormsApp1.Authentication {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/Authenticate", ReplyAction="http://tempuri.org/IAuthentication/AuthenticateResponse")]
         System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.AuthenticateResponse> AuthenticateAsync(WindowsFormsApp1.Authentication.AuthenticateRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignIn", ReplyAction="http://tempuri.org/IAuthentication/SignInResponse")]
-        WindowsFormsApp1.Authentication.SignInResponse SignIn(WindowsFormsApp1.Authentication.SignInRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignUp", ReplyAction="http://tempuri.org/IAuthentication/SignUpResponse")]
+        WindowsFormsApp1.Authentication.SignUpResponse SignUp(WindowsFormsApp1.Authentication.SignUpRequest request);
         
         // CODEGEN: Generating message contract since the operation has multiple return values.
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignIn", ReplyAction="http://tempuri.org/IAuthentication/SignInResponse")]
-        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SignInResponse> SignInAsync(WindowsFormsApp1.Authentication.SignInRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/SignUp", ReplyAction="http://tempuri.org/IAuthentication/SignUpResponse")]
+        System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SignUpResponse> SignUpAsync(WindowsFormsApp1.Authentication.SignUpRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthentication/ChangeUserPassword", ReplyAction="http://tempuri.org/IAuthentication/ChangeUserPasswordResponse")]
         WindowsFormsApp1.Authentication.ChangeUserPasswordResponse ChangeUserPassword(WindowsFormsApp1.Authentication.ChangeUserPasswordRequest request);
@@ -104,8 +104,8 @@ namespace WindowsFormsApp1.Authentication {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SignIn", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class SignInRequest {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SignUp", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SignUpRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
         public string userName;
@@ -113,10 +113,10 @@ namespace WindowsFormsApp1.Authentication {
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
         public string password;
         
-        public SignInRequest() {
+        public SignUpRequest() {
         }
         
-        public SignInRequest(string userName, string password) {
+        public SignUpRequest(string userName, string password) {
             this.userName = userName;
             this.password = password;
         }
@@ -124,20 +124,20 @@ namespace WindowsFormsApp1.Authentication {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="SignInResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class SignInResponse {
+    [System.ServiceModel.MessageContractAttribute(WrapperName="SignUpResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class SignUpResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public bool SignInResult;
+        public bool SignUpResult;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
         public string error;
         
-        public SignInResponse() {
+        public SignUpResponse() {
         }
         
-        public SignInResponse(bool SignInResult, string error) {
-            this.SignInResult = SignInResult;
+        public SignUpResponse(bool SignUpResult, string error) {
+            this.SignUpResult = SignUpResult;
             this.error = error;
         }
     }
@@ -356,21 +356,21 @@ namespace WindowsFormsApp1.Authentication {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        WindowsFormsApp1.Authentication.SignInResponse WindowsFormsApp1.Authentication.IAuthentication.SignIn(WindowsFormsApp1.Authentication.SignInRequest request) {
-            return base.Channel.SignIn(request);
+        WindowsFormsApp1.Authentication.SignUpResponse WindowsFormsApp1.Authentication.IAuthentication.SignUp(WindowsFormsApp1.Authentication.SignUpRequest request) {
+            return base.Channel.SignUp(request);
         }
         
-        public bool SignIn(string userName, string password, out string error) {
-            WindowsFormsApp1.Authentication.SignInRequest inValue = new WindowsFormsApp1.Authentication.SignInRequest();
+        public bool SignUp(string userName, string password, out string error) {
+            WindowsFormsApp1.Authentication.SignUpRequest inValue = new WindowsFormsApp1.Authentication.SignUpRequest();
             inValue.userName = userName;
             inValue.password = password;
-            WindowsFormsApp1.Authentication.SignInResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).SignIn(inValue);
+            WindowsFormsApp1.Authentication.SignUpResponse retVal = ((WindowsFormsApp1.Authentication.IAuthentication)(this)).SignUp(inValue);
             error = retVal.error;
-            return retVal.SignInResult;
+            return retVal.SignUpResult;
         }
         
-        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SignInResponse> SignInAsync(WindowsFormsApp1.Authentication.SignInRequest request) {
-            return base.Channel.SignInAsync(request);
+        public System.Threading.Tasks.Task<WindowsFormsApp1.Authentication.SignUpResponse> SignUpAsync(WindowsFormsApp1.Authentication.SignUpRequest request) {
+            return base.Channel.SignUpAsync(request);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

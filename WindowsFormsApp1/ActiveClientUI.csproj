@@ -111,6 +111,9 @@
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LogInForm.resx">
+      <DependentUpon>LogInForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="statusForm.resx">
       <DependentUpon>statusForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,7 +155,7 @@
     <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.SignInResponse.datasource">
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.SignUpResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\LoadUser\LoadUser.wsdl" />

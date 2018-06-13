@@ -12,11 +12,11 @@
   <wsdl:message name="IAuthentication_Authenticate_OutputMessage">
     <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
   </wsdl:message>
-  <wsdl:message name="IAuthentication_SignIn_InputMessage">
-    <wsdl:part name="parameters" element="tns:SignIn" />
+  <wsdl:message name="IAuthentication_SignUp_InputMessage">
+    <wsdl:part name="parameters" element="tns:SignUp" />
   </wsdl:message>
-  <wsdl:message name="IAuthentication_SignIn_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SignInResponse" />
+  <wsdl:message name="IAuthentication_SignUp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SignUpResponse" />
   </wsdl:message>
   <wsdl:message name="IAuthentication_ChangeUserPassword_InputMessage">
     <wsdl:part name="parameters" element="tns:ChangeUserPassword" />
@@ -47,9 +47,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/Authenticate" message="tns:IAuthentication_Authenticate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateResponse" message="tns:IAuthentication_Authenticate_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SignIn">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/SignIn" message="tns:IAuthentication_SignIn_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/SignInResponse" message="tns:IAuthentication_SignIn_OutputMessage" />
+    <wsdl:operation name="SignUp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/SignUp" message="tns:IAuthentication_SignUp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/SignUpResponse" message="tns:IAuthentication_SignUp_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ChangeUserPassword">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/ChangeUserPassword" message="tns:IAuthentication_ChangeUserPassword_InputMessage" />
@@ -79,8 +79,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="SignIn">
-      <soap:operation soapAction="http://tempuri.org/IAuthentication/SignIn" style="document" />
+    <wsdl:operation name="SignUp">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/SignUp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

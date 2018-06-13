@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
 
         public static void Test1()
         {
-            var resp1 = authenticationService.SignIn(new SignInRequest()
+            var resp1 = authenticationService.SignUp(new SignUpRequest()
             {
                 userName = "dvir",
                 password = "1234"
@@ -75,7 +75,7 @@ namespace WindowsFormsApp1
 
         public static void Test5()
         {
-            var resp5 = authenticationService.SignIn(new SignInRequest()
+            var resp5 = authenticationService.SignUp(new SignUpRequest()
             {
                 userName = "dvir",
                 password = "12347"

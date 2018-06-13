@@ -128,7 +128,7 @@ namespace WindowsFormsApp1
                     act();
                     return;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     numOfTry--;
                 }
