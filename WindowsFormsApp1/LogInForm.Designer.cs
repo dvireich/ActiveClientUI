@@ -170,7 +170,8 @@ namespace WindowsFormsApp1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 280);
+            this.ClientSize = new System.Drawing.Size(674, 319);
+            this.ControlBox = false;
             this.Controls.Add(this.SignUpCheckBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.RememberMeCheckBox);
@@ -184,9 +185,11 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UserNameTextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LogInForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LogInForm";
             this.Activated += new System.EventHandler(this.LogInForm_Activated);
             this.ResumeLayout(false);
