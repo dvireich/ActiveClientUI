@@ -120,7 +120,7 @@ namespace WindowsFormsApp1
             // 
             this.SignInButton.Location = new System.Drawing.Point(287, 230);
             this.SignInButton.Name = "SignInButton";
-            this.SignInButton.Size = new System.Drawing.Size(75, 23);
+            this.SignInButton.Size = new System.Drawing.Size(75, 25);
             this.SignInButton.TabIndex = 8;
             this.SignInButton.Text = "Sign In";
             this.SignInButton.UseVisualStyleBackColor = true;
@@ -161,7 +161,7 @@ namespace WindowsFormsApp1
             // 
             this.SignUpButton.Location = new System.Drawing.Point(192, 230);
             this.SignUpButton.Name = "SignUpButton";
-            this.SignUpButton.Size = new System.Drawing.Size(75, 23);
+            this.SignUpButton.Size = new System.Drawing.Size(75, 25);
             this.SignUpButton.TabIndex = 13;
             this.SignUpButton.Text = "Sign Up";
             this.SignUpButton.UseVisualStyleBackColor = true;
@@ -171,7 +171,7 @@ namespace WindowsFormsApp1
             // 
             this.ForgotPasswordButton.Location = new System.Drawing.Point(381, 230);
             this.ForgotPasswordButton.Name = "ForgotPasswordButton";
-            this.ForgotPasswordButton.Size = new System.Drawing.Size(128, 23);
+            this.ForgotPasswordButton.Size = new System.Drawing.Size(128, 25);
             this.ForgotPasswordButton.TabIndex = 14;
             this.ForgotPasswordButton.Text = "Forgot Password";
             this.ForgotPasswordButton.UseVisualStyleBackColor = true;

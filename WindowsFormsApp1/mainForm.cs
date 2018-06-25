@@ -31,6 +31,7 @@ namespace WindowsFormsApp1
         private string currentPath;
         private bool _currentClientConnected;
         private string _wcfServicesPathId;
+        private LogInForm _loginFrom;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public System.Threading.Timer FolderListTimer { get; private set; }
@@ -49,9 +50,10 @@ namespace WindowsFormsApp1
 
         }
 
-        public mainForm(string id)
+        public mainForm(string id, LogInForm loginForm)
         {
             _wcfServicesPathId = id;
+            _loginFrom = loginForm;
             InitializeComponent();
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             folderActions.AddRange(fileActions);
@@ -1217,6 +1219,18 @@ namespace WindowsFormsApp1
             {
                 about.ShowDialog();
             }
+        }
+
+        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _loginFrom.Logout();
+            this.Close();
+        }
+
+        private void CloseAllThreads()
+        {
+            StatusTimer.Dispose();
+            FolderListTimer.Dispose();
         }
     }
 }

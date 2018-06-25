@@ -19,6 +19,7 @@ namespace WindowsFormsApp1
         IAuthentication authenticationService;
         ILoadUser loadUser;
         private bool _activated;
+        private bool _logout;
 
         public LogInForm()
         {
@@ -70,13 +71,17 @@ namespace WindowsFormsApp1
                     RememberMe(true);
                 }
 
-                using (var mainForm = new mainForm(id))
+                using (var mainForm = new mainForm(id,this))
                 {
                     this.Visible = false;
                     mainForm.ShowDialog();
                 }
 
-                this.Close();
+                if(!_logout)
+                    this.Close();
+
+                _logout = false;
+                this.Visible = true;
 
             }
             else
@@ -227,5 +232,11 @@ namespace WindowsFormsApp1
                 this.Visible = true;
             }
         }
+
+        public void Logout()
+        {
+            _logout = true;
+        }
+
     }
 }
