@@ -12,3 +12,4 @@ C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsF
 C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.LogInForm.resources
 C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\ActiveClientUI.csprojAssemblyReference.cache
+C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.RestorePasswordForm.resources

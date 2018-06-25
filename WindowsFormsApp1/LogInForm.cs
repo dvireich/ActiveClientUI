@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
                 ((ICommunicationObject)loadUser).Close();
         }
 
-        private static void initializeServiceReferences<T>(ref T shellService,string path)
+        private static void initializeServiceReferences<T>(ref T shellService, string path)
         {
             //Confuguring the Shell service
             var shellBinding = new BasicHttpBinding();
@@ -48,33 +48,16 @@ namespace WindowsFormsApp1
             shellBinding.MaxBufferPoolSize = int.MaxValue;
             shellBinding.MaxBufferSize = int.MaxValue;
             //Put Public ip of the server copmuter
-            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/{0}",path);
+            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/{0}", path);
             var shellUri = new Uri(shellAdress);
             var shellEndpointAddress = new EndpointAddress(shellUri);
             var shellChannel = new ChannelFactory<T>(shellBinding, shellEndpointAddress);
             shellService = shellChannel.CreateChannel();
         }
 
-        private void OkButton_Click(object sender, EventArgs e)
+        private void SignInButton_Click(object sender, EventArgs e)
         {
             string error;
-            //Sign Up
-            if (SignUpCheckBox.Checked)
-            {
-                if (!SignUp(out error))
-                {
-                    MessageBox.Show(error, "Sign Up", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Successfully Signed Up!", "Sign Up", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    //Ask user if he want to login
-                    var resp = MessageBox.Show("Would you like to sign in?", "Sign In", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resp == DialogResult.No) return;
-                }
-            }
 
             //Sign In
             if (SignIn(out error, out string id) && loadUser.LoadUser(id))
@@ -94,7 +77,7 @@ namespace WindowsFormsApp1
                 }
 
                 this.Close();
-                    
+
             }
             else
             {
@@ -180,7 +163,68 @@ namespace WindowsFormsApp1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                OkButton_Click(null, null);
+                SignInButton_Click(null, null);
+            }
+        }
+
+        private void SignUpButton_Click(object sender, EventArgs e)
+        {
+            //Sign Up
+            string error;
+            if (!SignUp(out error))
+            {
+                MessageBox.Show(error, "Sign Up", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Successfully Signed Up!", "Sign Up", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //Ask user if he want to login
+                var resp = MessageBox.Show("Would you like to sign in?", "Sign In", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resp == DialogResult.No) return;
+                SignInButton_Click(null, null);
+            }
+
+        }
+
+        private void ForgotPasswordButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Visible = false;
+                var userName = UserNameTextBox.Text;
+
+                var resp = authenticationService.GetSecurityQuestion(new GetSecurityQuestionRequest()
+                {
+                    userName = userName
+                });
+
+                if (!string.IsNullOrEmpty(resp.error) ||
+                    !string.IsNullOrEmpty(resp.error))
+                {
+                    MessageBox.Show(string.Format("Cant get security question for user: {0} with the following error: {1}", userName, resp.error)
+                        , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (string.IsNullOrEmpty(resp.GetSecurityQuestionResult))
+                {
+                    MessageBox.Show(string.Format("There is no security question for user: {0}:", userName)
+                        , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                using (var restorePasswordForm = new RestorePasswordForm(userName, resp.GetSecurityQuestionResult))
+                {
+                    restorePasswordForm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Restore Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Visible = true;
             }
         }
     }

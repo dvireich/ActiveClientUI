@@ -40,11 +40,12 @@ namespace WindowsFormsApp1
             this.SecurityQuestionTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SecurityAnswerTextBox = new System.Windows.Forms.TextBox();
-            this.OkButton = new System.Windows.Forms.Button();
+            this.SignInButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.SignUpCheckBox = new System.Windows.Forms.CheckBox();
+            this.SignUpButton = new System.Windows.Forms.Button();
+            this.ForgotPasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // UserNameTextBox
@@ -115,19 +116,19 @@ namespace WindowsFormsApp1
             this.SecurityAnswerTextBox.TabIndex = 6;
             this.SecurityAnswerTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterKeyDownEvent);
             // 
-            // OkButton
+            // SignInButton
             // 
-            this.OkButton.Location = new System.Drawing.Point(273, 232);
-            this.OkButton.Name = "OkButton";
-            this.OkButton.Size = new System.Drawing.Size(75, 23);
-            this.OkButton.TabIndex = 8;
-            this.OkButton.Text = "Ok";
-            this.OkButton.UseVisualStyleBackColor = true;
-            this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
+            this.SignInButton.Location = new System.Drawing.Point(287, 230);
+            this.SignInButton.Name = "SignInButton";
+            this.SignInButton.Size = new System.Drawing.Size(75, 23);
+            this.SignInButton.TabIndex = 8;
+            this.SignInButton.Text = "Sign In";
+            this.SignInButton.UseVisualStyleBackColor = true;
+            this.SignInButton.Click += new System.EventHandler(this.SignInButton_Click);
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(440, 232);
+            this.ExitButton.Location = new System.Drawing.Point(525, 232);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(75, 23);
             this.ExitButton.TabIndex = 9;
@@ -156,15 +157,25 @@ namespace WindowsFormsApp1
             this.label5.TabIndex = 11;
             this.label5.Text = "Please enter user name and password in order to login";
             // 
-            // SignUpCheckBox
+            // SignUpButton
             // 
-            this.SignUpCheckBox.AutoSize = true;
-            this.SignUpCheckBox.Location = new System.Drawing.Point(160, 232);
-            this.SignUpCheckBox.Name = "SignUpCheckBox";
-            this.SignUpCheckBox.Size = new System.Drawing.Size(80, 21);
-            this.SignUpCheckBox.TabIndex = 12;
-            this.SignUpCheckBox.Text = "Sign Up";
-            this.SignUpCheckBox.UseVisualStyleBackColor = true;
+            this.SignUpButton.Location = new System.Drawing.Point(192, 230);
+            this.SignUpButton.Name = "SignUpButton";
+            this.SignUpButton.Size = new System.Drawing.Size(75, 23);
+            this.SignUpButton.TabIndex = 13;
+            this.SignUpButton.Text = "Sign Up";
+            this.SignUpButton.UseVisualStyleBackColor = true;
+            this.SignUpButton.Click += new System.EventHandler(this.SignUpButton_Click);
+            // 
+            // ForgotPasswordButton
+            // 
+            this.ForgotPasswordButton.Location = new System.Drawing.Point(381, 230);
+            this.ForgotPasswordButton.Name = "ForgotPasswordButton";
+            this.ForgotPasswordButton.Size = new System.Drawing.Size(128, 23);
+            this.ForgotPasswordButton.TabIndex = 14;
+            this.ForgotPasswordButton.Text = "Forgot Password";
+            this.ForgotPasswordButton.UseVisualStyleBackColor = true;
+            this.ForgotPasswordButton.Click += new System.EventHandler(this.ForgotPasswordButton_Click);
             // 
             // LogInForm
             // 
@@ -172,11 +183,12 @@ namespace WindowsFormsApp1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 319);
             this.ControlBox = false;
-            this.Controls.Add(this.SignUpCheckBox);
+            this.Controls.Add(this.ForgotPasswordButton);
+            this.Controls.Add(this.SignUpButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.RememberMeCheckBox);
             this.Controls.Add(this.ExitButton);
-            this.Controls.Add(this.OkButton);
+            this.Controls.Add(this.SignInButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.SecurityAnswerTextBox);
             this.Controls.Add(this.label3);
@@ -190,7 +202,7 @@ namespace WindowsFormsApp1
             this.MinimizeBox = false;
             this.Name = "LogInForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LogInForm";
+            this.Text = "Log In";
             this.Activated += new System.EventHandler(this.LogInForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -207,10 +219,11 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox SecurityQuestionTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox SecurityAnswerTextBox;
-        private System.Windows.Forms.Button OkButton;
+        private System.Windows.Forms.Button SignInButton;
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.CheckBox RememberMeCheckBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox SignUpCheckBox;
+        private System.Windows.Forms.Button SignUpButton;
+        private System.Windows.Forms.Button ForgotPasswordButton;
     }
 }

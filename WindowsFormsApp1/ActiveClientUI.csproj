@@ -78,6 +78,12 @@
     <Compile Include="ListViewNF.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="RestorePasswordFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RestorePasswordFrom.Designer.cs">
+      <DependentUpon>RestorePasswordFrom.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     <Compile Include="TestUserAuthentication.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RestorePasswordFrom.resx">
+      <DependentUpon>RestorePasswordFrom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
