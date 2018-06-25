@@ -77,8 +77,12 @@ namespace WindowsFormsApp1
                     mainForm.ShowDialog();
                 }
 
-                if(!_logout)
+                if (!_logout)
+                {
                     this.Close();
+                    return;
+                }
+                    
 
                 _logout = false;
                 this.Visible = true;

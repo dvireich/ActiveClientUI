@@ -48,6 +48,9 @@ namespace WindowsFormsApp1
             if (getFolderListShellService != null)
                 ((ICommunicationObject)getFolderListShellService).Close();
 
+            shellService = null;
+            getStatusShellService = null;
+            getFolderListShellService = null;
         }
 
         public mainForm(string id, LogInForm loginForm)
@@ -1140,8 +1143,8 @@ namespace WindowsFormsApp1
             if (_activated) return;
             _activated = true;
             GetStatusFromServer();
-            StatusTimer = PefromTaskEveryXTime(GetStatusFromServer, 15);
-            FolderListTimer = PefromTaskEveryXTime(GetFolderListFromServer, 3);
+            StatusTimer = PefromTaskEveryXTime(GetStatusFromServer, 1);
+            FolderListTimer = PefromTaskEveryXTime(GetFolderListFromServer, 1);
         }
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)

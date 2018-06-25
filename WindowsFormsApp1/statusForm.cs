@@ -34,6 +34,11 @@ namespace WindowsFormsApp1
                 ((ICommunicationObject)shellService).Close();
         }
 
+        private void CloseAllThreads()
+        {
+            StatusTimer.Dispose();
+        }
+
         public statusForm(string id)
         {
             _wcfServicesPathId = id;

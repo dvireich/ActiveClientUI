@@ -14,6 +14,7 @@
         protected override void Dispose(bool disposing)
         {
             CloseAllConnections();
+            CloseAllThreads();
             if (disposing && (components != null))
             {
                 components.Dispose();
