@@ -59,7 +59,7 @@ namespace WindowsFormsApp1
         private void SignInButton_Click(object sender, EventArgs e)
         {
             string error;
-
+            Cursor.Current = Cursors.WaitCursor;
             //Sign In
             if (SignIn(out error, out string id) && loadUser.LoadUser(id))
             {
@@ -74,6 +74,7 @@ namespace WindowsFormsApp1
                 using (var mainForm = new mainForm(id,this))
                 {
                     this.Visible = false;
+                    Cursor.Current = Cursors.Default;
                     mainForm.ShowDialog();
                 }
 
@@ -81,8 +82,7 @@ namespace WindowsFormsApp1
                 {
                     this.Close();
                     return;
-                }
-                    
+                } 
 
                 _logout = false;
                 this.Visible = true;
@@ -91,6 +91,7 @@ namespace WindowsFormsApp1
             else
             {
                 MessageBox.Show(error, "Sign In", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Cursor.Current = Cursors.Default;
                 return;
             }
         }
