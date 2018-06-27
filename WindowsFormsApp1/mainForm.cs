@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,7 +9,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.ServiceReference1;
 
@@ -38,19 +36,24 @@ namespace WindowsFormsApp1
 
         private void CloseAllConnections()
         {
-            if (shellService != null)
-                ((ICommunicationObject)shellService).Close();
+            try
+            {
+                if (shellService != null)
+                    ((ICommunicationObject)shellService).Close();
 
-            if (getStatusShellService != null)
-                ((ICommunicationObject)getStatusShellService).Close();
+                if (getStatusShellService != null)
+                    ((ICommunicationObject)getStatusShellService).Close();
 
 
-            if (getFolderListShellService != null)
-                ((ICommunicationObject)getFolderListShellService).Close();
+                if (getFolderListShellService != null)
+                    ((ICommunicationObject)getFolderListShellService).Close();
 
-            shellService = null;
-            getStatusShellService = null;
-            getFolderListShellService = null;
+                shellService = null;
+                getStatusShellService = null;
+                getFolderListShellService = null;
+            }
+            catch { }
+            
         }
 
         public mainForm(string id, LogInForm loginForm)
