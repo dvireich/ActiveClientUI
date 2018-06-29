@@ -1,0 +1,23 @@
+2018-06-29 03:10:00,259 [1] DEBUG Trace - LogInForm..ctor() | Starting.
+2018-06-29 03:10:00,300 [1] DEBUG Trace -   LogInForm.InitializeComponent() | Starting.
+2018-06-29 03:10:00,318 [1] DEBUG Trace -   LogInForm.InitializeComponent() | Succeeded.
+2018-06-29 03:10:00,322 [1] DEBUG Trace -   LogInForm.RememberMe(false) | Starting.
+2018-06-29 03:10:00,322 [1] DEBUG Trace -   LogInForm.RememberMe(false) | Succeeded.
+2018-06-29 03:10:00,322 [1] DEBUG Trace - LogInForm..ctor() | Succeeded.
+2018-06-29 03:10:00,345 [1] DEBUG Trace - LogInForm.LogInForm_Activated({WindowsFormsApp1.LogInForm, Text: Log In}, {System.EventArgs}) | Starting.
+2018-06-29 03:10:00,361 [1] DEBUG Trace -   LogInForm.initializeServiceReferences(null, "Authentication") | Starting.
+2018-06-29 03:10:00,399 [1] DEBUG Trace -   LogInForm.initializeServiceReferences(null, "Authentication") | Succeeded, shellService = {WindowsFormsApp1.Authentication.IAuthentication}.
+2018-06-29 03:10:00,399 [1] DEBUG Trace -   LogInForm.initializeServiceReferences(null, "LoadUser") | Starting.
+2018-06-29 03:10:00,400 [1] DEBUG Trace -   LogInForm.initializeServiceReferences(null, "LoadUser") | Succeeded, shellService = {WindowsFormsApp1.LoadUser.ILoadUser}.
+2018-06-29 03:10:00,400 [1] DEBUG Trace - LogInForm.LogInForm_Activated({WindowsFormsApp1.LogInForm, Text: Log In}, {System.EventArgs}) | Succeeded.
+2018-06-29 03:10:22,633 [1] DEBUG Trace - LogInForm.LogInForm_Activated({WindowsFormsApp1.LogInForm, Text: Log In}, {System.EventArgs}) | Starting.
+2018-06-29 03:10:22,633 [1] DEBUG Trace - LogInForm.LogInForm_Activated({WindowsFormsApp1.LogInForm, Text: Log In}, {System.EventArgs}) | Succeeded.
+2018-06-29 03:10:24,976 [1] DEBUG Trace - LogInForm.SignInButton_Click({System.Windows.Forms.Button, Text: Sign In}, {System.Windows.Forms.MouseEventArgs}) | Starting.
+2018-06-29 03:10:24,978 [1] DEBUG Trace -   LogInForm.SignIn(<out>, <out>) | Starting.
+2018-06-29 03:10:24,979 [1] DEBUG Trace -     AuthenticateRequest..ctor() | Starting.
+2018-06-29 03:10:24,979 [1] DEBUG Trace -     AuthenticateRequest..ctor() | Succeeded.
+2018-06-29 03:10:27,045 [1] WARN Trace -   LogInForm.SignIn(<out>, <out>) | Failed, <out>, <out>, exception = {System.ServiceModel.EndpointNotFoundException}.
+2018-06-29 03:10:27,046 [1] WARN Trace - LogInForm.SignInButton_Click({System.Windows.Forms.Button, Text: Sign In}, {System.Windows.Forms.MouseEventArgs}) | Failed, exception = {System.ServiceModel.EndpointNotFoundException}.
+2018-06-29 03:10:29,529 [1] DEBUG Trace - Program.Application_ThreadException({System.Threading.Thread}, {System.Threading.ThreadExceptionEventArgs}) | Starting.
+2018-06-29 03:10:34,629 [1] DEBUG Trace -   LogInForm.LogInForm_Activated({WindowsFormsApp1.LogInForm, Text: Log In}, {System.EventArgs}) | Starting.
+2018-06-29 03:10:34,629 [1] DEBUG Trace -   LogInForm.LogInForm_Activated({WindowsFormsApp1.LogInForm, Text: Log In}, {System.EventArgs}) | Succeeded.
