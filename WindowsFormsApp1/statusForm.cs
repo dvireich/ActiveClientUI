@@ -47,7 +47,12 @@ namespace WindowsFormsApp1
         private void StatusForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             StatusTimer.Dispose();
-            ((ICommunicationObject)shellService).Close();
+            try
+            {
+                ((ICommunicationObject)shellService).Close();
+            }
+            catch { }
+          
         }
 
         Object statusFromServerLock = new Object();

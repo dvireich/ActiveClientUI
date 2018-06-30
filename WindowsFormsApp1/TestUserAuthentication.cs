@@ -7,7 +7,7 @@ namespace WindowsFormsApp1
     class TestUserAuthentication
     {
         static IAuthentication authenticationService;
-
+        private const string clientType = "ActiveClient";
         public TestUserAuthentication()
         {
             initializeServiceReferences();
@@ -43,10 +43,11 @@ namespace WindowsFormsApp1
         
         public static void Test2()
         {
-            var resp2 = authenticationService.Authenticate(new AuthenticateRequest()
+            var resp2 = authenticationService.AuthenticateAndSignIn(new AuthenticateAndSignInRequest()
             {
                 userName = "dvir",
-                password = "1234"
+                password = "1234",
+                userType  = clientType
             });
         }
 
@@ -62,10 +63,11 @@ namespace WindowsFormsApp1
 
         public static void Test4()
         {
-            var resp4 = authenticationService.Authenticate(new AuthenticateRequest()
+            var resp4 = authenticationService.AuthenticateAndSignIn(new AuthenticateAndSignInRequest()
             {
                 userName = "dvir",
-                password = "12345"
+                password = "12345",
+                userType = clientType
             });
         }
 

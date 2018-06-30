@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
         ILoadUser loadUser;
         private bool _activated;
         private bool _logout;
+        private string userType = "ActiveClient";
 
         public LogInForm()
         {
@@ -71,11 +72,13 @@ namespace WindowsFormsApp1
                     mainForm.ShowDialog();
                 }
 
+                UserLogout();
+
                 if (!_logout)
                 {
                     this.Close();
                     return;
-                } 
+                }
 
                 _logout = false;
                 this.Visible = true;
@@ -86,6 +89,19 @@ namespace WindowsFormsApp1
                 MessageBox.Show(error, "Sign In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Cursor.Current = Cursors.Default;
                 return;
+            }
+        }
+
+        private void UserLogout()
+        {
+            var resp = authenticationService.Logout(new LogoutRequest()
+            {
+                userName = UserNameTextBox.Text,
+                userType = userType
+            });
+            if (!resp.LogoutResult)
+            {
+                MessageBox.Show(resp.error, "Logut", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -137,14 +153,15 @@ namespace WindowsFormsApp1
 
         private bool SignIn(out string error, out string id)
         {
-            var resp = authenticationService.Authenticate(new AuthenticateRequest()
+            var resp = authenticationService.AuthenticateAndSignIn(new AuthenticateAndSignInRequest()
             {
                 userName = UserNameTextBox.Text,
-                password = PasswordTextBox.Text
+                password = PasswordTextBox.Text,
+                userType = userType
             });
 
             error = resp.error;
-            id = resp.AuthenticateResult;
+            id = resp.AuthenticateAndSignInResult;
 
             return !string.IsNullOrEmpty(id);
         }

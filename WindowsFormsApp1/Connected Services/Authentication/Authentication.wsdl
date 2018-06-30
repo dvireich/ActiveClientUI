@@ -6,11 +6,17 @@
       <xsd:import schemaLocation="http://localhost/ShellTrasferServer/Authentication?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IAuthentication_Authenticate_InputMessage">
-    <wsdl:part name="parameters" element="tns:Authenticate" />
+  <wsdl:message name="IAuthentication_AuthenticateAndSignIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateAndSignIn" />
   </wsdl:message>
-  <wsdl:message name="IAuthentication_Authenticate_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
+  <wsdl:message name="IAuthentication_AuthenticateAndSignIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateAndSignInResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_Logout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
   </wsdl:message>
   <wsdl:message name="IAuthentication_SignUp_InputMessage">
     <wsdl:part name="parameters" element="tns:SignUp" />
@@ -43,9 +49,13 @@
     <wsdl:part name="parameters" element="tns:RestorePasswordFromUserNameAndSecurityQuestionResponse" />
   </wsdl:message>
   <wsdl:portType name="IAuthentication">
-    <wsdl:operation name="Authenticate">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/Authenticate" message="tns:IAuthentication_Authenticate_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateResponse" message="tns:IAuthentication_Authenticate_OutputMessage" />
+    <wsdl:operation name="AuthenticateAndSignIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateAndSignIn" message="tns:IAuthentication_AuthenticateAndSignIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateAndSignInResponse" message="tns:IAuthentication_AuthenticateAndSignIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/Logout" message="tns:IAuthentication_Logout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/LogoutResponse" message="tns:IAuthentication_Logout_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SignUp">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/SignUp" message="tns:IAuthentication_SignUp_InputMessage" />
@@ -70,8 +80,17 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAuthentication" type="tns:IAuthentication">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="Authenticate">
-      <soap:operation soapAction="http://tempuri.org/IAuthentication/Authenticate" style="document" />
+    <wsdl:operation name="AuthenticateAndSignIn">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/AuthenticateAndSignIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/Logout" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -1082,7 +1082,17 @@ namespace WindowsFormsApp1
                             listView1.EndUpdate();
                             listView1.ResumeLayout();
                             if (listView1.View == View.Details)
-                                listView1.TopItem = listView1.Items[oldTopItemIndex];
+                            {
+                                try
+                                {
+                                    listView1.TopItem = listView1.Items[oldTopItemIndex];
+                                }
+                                catch
+                                {}
+                                
+                            }
+                            
+                               
                         }));
                         raiseException = 3;
                     }
