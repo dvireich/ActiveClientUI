@@ -13,8 +13,6 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            CloseAllConnections();
-            CloseAllThreads();
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -113,6 +111,7 @@
             this.Name = "statusForm";
             this.Text = "Status";
             this.Activated += new System.EventHandler(this.statusForm_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StatusForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.ConnectedIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DisconnectedIcon)).EndInit();
             this.ResumeLayout(false);

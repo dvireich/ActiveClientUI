@@ -19,19 +19,28 @@ namespace WindowsFormsApp1
         private string _selectedClient;
         static IActiveShell shellService;
         private string _wcfServicesPathId;
+        private static readonly log4net.ILog log
+      = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public string SelectedClient { get => _selectedClient; set => _selectedClient = value; }
 
         private void CloseAllConnections()
         {
-            if (shellService != null)
-                ((ICommunicationObject)shellService).Close();
+            try
+            {
+                if (shellService != null)
+                    ((ICommunicationObject)shellService).Close();
+                shellService = null;
+            }
+            catch { }
+           
         }
 
         private void CloseAllThreads()
         {
             StatusTimer.Dispose();
+            StatusTimer = null;
         }
 
         public statusForm(string id)
@@ -40,24 +49,19 @@ namespace WindowsFormsApp1
             InitializeComponent();
             CreateListView();
             initializeServiceReferences(_wcfServicesPathId);
-            listView1.SizeChanged += new EventHandler(ListView_SizeChanged);
-            this.FormClosing += StatusForm_FormClosing;  
+            listView1.SizeChanged += new EventHandler(ListView_SizeChanged); 
         }
 
         private void StatusForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            StatusTimer.Dispose();
-            try
-            {
-                ((ICommunicationObject)shellService).Close();
-            }
-            catch { }
-          
+            CloseAllThreads();
+            CloseAllConnections();
         }
 
         Object statusFromServerLock = new Object();
         private void GetStatusFromServer()
         {
+            
             lock (statusFromServerLock)
             {
                 //this.Invoke((MethodInvoker)(() =>  listView1.Items.Clear()));
@@ -207,7 +211,15 @@ namespace WindowsFormsApp1
 
             StatusTimer = new System.Threading.Timer((e) =>
             {
-                task();
+                try
+                {
+                    task();
+                }
+                catch(Exception ex)
+                {
+                    log.Debug($"Error in executing task: {task.GetType().FullName} with the following exception: {ex.Message}");
+                }
+               
             }, null, startTimeSpan, periodTimeSpan);
         }
 

@@ -39,5 +39,15 @@
         {
             return _type;
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as CMDFileFolder;
+            return other != null &&
+                   other._type == _type &&
+                   other._name == _name &&
+                   other._size == _size &&
+                   other._lastModificationData == _lastModificationData;
+        }
     }
 }

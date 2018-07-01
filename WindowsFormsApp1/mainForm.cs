@@ -30,6 +30,9 @@ namespace WindowsFormsApp1
         private bool _currentClientConnected;
         private string _wcfServicesPathId;
         private LogInForm _loginFrom;
+        private static readonly log4net.ILog log
+      = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private List<CMDFileFolder> currentFilesAndFolders;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public System.Threading.Timer FolderListTimer { get; private set; }
@@ -79,7 +82,14 @@ namespace WindowsFormsApp1
 
             var timer = new System.Threading.Timer((e) =>
             {
-                task();
+                try
+                {
+                    task();
+                }
+                catch(Exception ex)
+                {
+                    log.Debug($"Error in executing task: {task.GetType().FullName} with the following exception: {ex.Message}");
+                }
             }, null, startTimeSpan, periodTimeSpan);
             return timer;
         }
@@ -781,24 +791,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        
-
-        private static void Help()
-        {
-            Console.WriteLine("The download command: Download file-name path-in-remote path-to-save-in-your-copmuter");
-            Console.WriteLine("The upload command: Upload file-name path-in-your-copmuter path-to-save-in-remote");
-            Console.WriteLine("The status command: Status");
-            Console.WriteLine("The select client command: SelectClient client-id");
-            Console.WriteLine("The clear all clients task queue command: ClearCommands");
-            Console.WriteLine("The exit command: exit");
-            Console.WriteLine("The close client command: CloseClient client-id");
-            Console.WriteLine("The open client shell command: Run");
-            Console.WriteLine("The clear all server data command: ClearAllData");
-            Console.WriteLine("The delete client task command: DeleteClientTask client-id Donwload-Upload/Shell Task-Number");
-            Console.WriteLine("The set nick name command: SetClientNick client-id nick-name");
-            Console.WriteLine("The help command: Help");
-        }
-
         private static void ConsolePrintColor(string text, Dictionary<Regex, ConsoleColor> wordsToColor)
         {
             var replace = text.Replace("\r", "");
@@ -910,22 +902,13 @@ namespace WindowsFormsApp1
             {
                 lock (statusFromServerLock)
                 {
+                    string[] statusSplittedNewLine;
+                    bool isSelectedClientAlive;
+                    string selectedClient;
+
                     var status = getStatusShellService.GetStatus();
-                    status = status.Replace("\r", "");
-                    var statusSplittedNewLine = status.Split('\n');
-                    statusSplittedNewLine = statusSplittedNewLine.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
-                    var selectedClientId = statusSplittedNewLine.Last().Split(':').Last().Trim();
-                    var clients = status.Split(new string[] { "Client" }, StringSplitOptions.RemoveEmptyEntries);
-                    clients = clients.ToArray().Skip(1).Take(clients.Count() - 2).ToArray();
-                    var isSelectedClientAlive = false;
-                    var selectedClient = clients.FirstOrDefault(client =>
-                    {
-                        var fields = client.Replace('\t', '\n').Split('\n');
-                        fields = fields.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str) && str != "The selected ").ToArray();
-                        var id = fields[0].Split(':').Last().Trim();
-                        isSelectedClientAlive = bool.Parse(fields[2].Split(':').Last());
-                        return id == selectedClientId;
-                    });
+                    status = ParseStatus(status, out statusSplittedNewLine, out isSelectedClientAlive, out selectedClient);
+
                     if (statusSplittedNewLine.Length == 2 && statusSplittedNewLine[1] == "There is no clients connected" ||
                     selectedClient != null && !isSelectedClientAlive)
                     {
@@ -958,6 +941,29 @@ namespace WindowsFormsApp1
             }, 1000, 3, "Fail to GetStatusFromServer");
         }
 
+        private static string ParseStatus(string status, out string[] statusSplittedNewLine, out bool isSelectedClientAlive, out string selectedClient)
+        {
+            status = status.Replace("\r", "");
+            statusSplittedNewLine = status.Split('\n');
+            statusSplittedNewLine = statusSplittedNewLine.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
+            var selectedClientId = statusSplittedNewLine.Last().Split(':').Last().Trim();
+            var clients = status.Split(new string[] { "Client" }, StringSplitOptions.RemoveEmptyEntries);
+            clients = clients.ToArray().Skip(1).Take(clients.Count() - 2).ToArray();
+            var SelectedClientAlive = false;
+            selectedClient = clients.FirstOrDefault(client =>
+            {
+                var fields = client.Replace('\t', '\n').Split('\n');
+                fields = fields.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str) && str != "The selected ").ToArray();
+                var id = fields[0].Split(':').Last().Trim();
+                SelectedClientAlive = bool.Parse(fields[2].Split(':').Last());
+                return id == selectedClientId;
+            });
+
+            isSelectedClientAlive = SelectedClientAlive;
+
+            return status;
+        }
+
         static long ConvertBytesToKB(long bytes)
         {
             var ans = (int) (bytes / 1024);
@@ -981,6 +987,7 @@ namespace WindowsFormsApp1
                             getFolderListShellService.ActiveClientRun();
                             _needToActivteCMD = false;
                         }
+
                         var folderListStr = getFolderListShellService.ActiveNextCommand("dir /b /ad").Replace("\r", "");
                         if (folderListStr == "Client CallBack is Not Found" ||
                             folderListStr.StartsWith("Error") ||
@@ -991,109 +998,58 @@ namespace WindowsFormsApp1
                             raiseException = 3;
                             return;
                         }
-                        var folderList = folderListStr.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                        currentPath = folderList.ElementAt(folderList.Count - 1);
-                        currentPathTextBox.KeyDown -= currentPathTextBox_KeyDown;
-                        if (!currentPathTextBoxSelected)
-                            this.Invoke((MethodInvoker)(() => currentPathTextBox.Text = currentPath));
-                        this.Invoke((MethodInvoker)(() =>
-                                this.Width = Math.Max(TextRenderer.MeasureText(currentPathTextBox.Text, currentPathTextBox.Font).Width + 100, this.Width)));
-                        currentPathTextBox.KeyDown += currentPathTextBox_KeyDown;
-                        folderList.RemoveAt(folderList.Count - 1);
-                        folderList.RemoveAt(0);
 
-                        var allListStr = getFolderListShellService.ActiveNextCommand("dir /b").Replace("\r", "");
-                        var allList = allListStr.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                        allList.RemoveAt(allList.Count - 1);
-                        allList.RemoveAt(0);
-                        allList.RemoveAll(file => folderList.Contains(file));
-                        var fileList = allList;
+                        var folderList = GetFolderListFromServerAndAssignTheFolderPath(folderListStr);
 
-                        var dirData = getFolderListShellService.ActiveNextCommand("dir").Replace("\r", "");
-                        var dirDataArr = dirData.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                        for (var i = 0; i < 6; i++)
+                        var fileList = CalculateFileListFromFolderList(folderList);
+
+                        var FileFolderList = CalculateFileAndFolderAdditionalData(folderList);
+
+                        var shouldChangeUi = CheckIfFileFolderListChanged(FileFolderList);
+
+                        if (shouldChangeUi)
                         {
-                            dirDataArr.RemoveAt(0);
-                        }
-                        for (var i = 0; i < 3; i++)
-                        {
-                            dirDataArr.RemoveAt(dirDataArr.Count - 1);
-                        }
-                        var FileFolderList = new List<CMDFileFolder>();
-                        foreach (var line in dirDataArr)
-                        {
-                            
-                            var lineSplit = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                            if(lineSplit[2].ToUpper() == "PM" || lineSplit[2].ToUpper() == "AM")
+                            this.Invoke((MethodInvoker)(() =>
                             {
-                                lineSplit[1] = lineSplit[1] + " " + lineSplit[2];
-                                for(var i = 2; i < lineSplit.Count - 1; i ++)
+                                var oldTopItemIndex = 0;
+                                if (listView1.View == View.Details)
+                                    oldTopItemIndex = listView1.TopItem == null ? 0 : listView1.TopItem.Index;
+                                int oldFocusedIndex = listView1 != null ?
+                                                            listView1.SelectedItems != null ?
+                                                                        listView1.SelectedItems.Count > 0 ?
+                                                                                        listView1.SelectedItems[0].Index :
+                                                                                        -1 :
+                                                                                        -1 :
+                                                                                        -1;
+                                listView1.SuspendLayout();
+                                listView1.BeginUpdate();
+                                listView1.Items.Clear();
+                                AddToListView(0, "..", CmdLineType.Folder);
+                                var index = 1;
+                                foreach (var item in FileFolderList)
                                 {
-                                    lineSplit[i] = lineSplit[i + 1];
+                                    AddToListView(index++, item);
                                 }
-                                lineSplit = lineSplit.Take(lineSplit.Count - 1).ToList();
-                            }
-                            for (var i = 4; i < lineSplit.Count; i++)
-                            {
-                                lineSplit[3] += " " + lineSplit[i];
-                            }
-                            var isDirectory = folderList.Contains(lineSplit[3]);
-                            if (isDirectory)
-                            {
-                                var folder = new CMDFileFolder(CmdLineType.Folder, lineSplit[3], string.Empty, string.Format("{0} {1}", lineSplit[0], lineSplit[1]));
-                                FileFolderList.Add(folder);
-                            }
-                            else
-                            {
-
-                                var persedNumber = long.Parse(lineSplit[2].Replace(",", ""));
-                                var fileSize = string.Format("{0} KB", ConvertBytesToKB(persedNumber));
-                                var modificationDate = string.Format("{0} {1}", lineSplit[0], lineSplit[1]);
-                                var file = new CMDFileFolder(CmdLineType.File, lineSplit[3], fileSize, modificationDate);
-                                FileFolderList.Add(file);
-                            }
-                        }
-                        this.Invoke((MethodInvoker)(() =>
-                        {
-                            var oldTopItemIndex = 0;
-                            if (listView1.View == View.Details)
-                                oldTopItemIndex = listView1.TopItem == null ? 0 : listView1.TopItem.Index;
-                            int oldFocusedIndex = listView1 != null ?
-                                                        listView1.SelectedItems != null ?
-                                                                    listView1.SelectedItems.Count > 0 ?
-                                                                                    listView1.SelectedItems[0].Index :
-                                                                                    -1 :
-                                                                                    -1 :
-                                                                                    -1;
-                            listView1.SuspendLayout();
-                            listView1.BeginUpdate();
-                            listView1.Items.Clear();
-                            AddToListView(0, "..", CmdLineType.Folder);
-                            var index = 1;
-                            foreach (var item in FileFolderList)
-                            {
-                                AddToListView(index++, item);
-                            }
-                            if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
-                            {
-                                listView1.Items[oldFocusedIndex].Selected = true;
-                            }
-
-                            listView1.EndUpdate();
-                            listView1.ResumeLayout();
-                            if (listView1.View == View.Details)
-                            {
-                                try
+                                if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
                                 {
-                                    listView1.TopItem = listView1.Items[oldTopItemIndex];
+                                    listView1.Items[oldFocusedIndex].Selected = true;
                                 }
-                                catch
-                                {}
-                                
-                            }
-                            
-                               
-                        }));
+
+                                listView1.EndUpdate();
+                                listView1.ResumeLayout();
+                                if (listView1.View == View.Details)
+                                {
+                                    try
+                                    {
+                                        listView1.TopItem = listView1.Items[oldTopItemIndex];
+                                    }
+                                    catch
+                                    { }
+
+                                }
+                            }));
+                        }
+
                         raiseException = 3;
                     }
                     catch (Exception)
@@ -1107,6 +1063,118 @@ namespace WindowsFormsApp1
                     }
                 }
             }, 1000, 3, "Fail to GetFolderListFromServer");
+        }
+
+        private static List<CMDFileFolder> CalculateFileAndFolderAdditionalData(List<string> folderList)
+        {
+            var FileFolderList = new List<CMDFileFolder>();
+
+            var dirData = getFolderListShellService.ActiveNextCommand("dir").Replace("\r", "");
+            var dirDataArr = dirData.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            for (var i = 0; i < 6; i++)
+            {
+                dirDataArr.RemoveAt(0);
+            }
+            for (var i = 0; i < 3; i++)
+            {
+                dirDataArr.RemoveAt(dirDataArr.Count - 1);
+            }
+
+            foreach (var line in dirDataArr)
+            {
+
+                var lineSplit = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                if (lineSplit[2].ToUpper() == "PM" || lineSplit[2].ToUpper() == "AM")
+                {
+                    lineSplit[1] = lineSplit[1] + " " + lineSplit[2];
+                    for (var i = 2; i < lineSplit.Count - 1; i++)
+                    {
+                        lineSplit[i] = lineSplit[i + 1];
+                    }
+                    lineSplit = lineSplit.Take(lineSplit.Count - 1).ToList();
+                }
+                for (var i = 4; i < lineSplit.Count; i++)
+                {
+                    lineSplit[3] += " " + lineSplit[i];
+                }
+                var isDirectory = folderList.Contains(lineSplit[3]);
+                if (isDirectory)
+                {
+                    var folder = new CMDFileFolder(CmdLineType.Folder, lineSplit[3], string.Empty, string.Format("{0} {1}", lineSplit[0], lineSplit[1]));
+                    FileFolderList.Add(folder);
+                }
+                else
+                {
+
+                    var persedNumber = long.Parse(lineSplit[2].Replace(",", ""));
+                    var fileSize = string.Format("{0} KB", ConvertBytesToKB(persedNumber));
+                    var modificationDate = string.Format("{0} {1}", lineSplit[0], lineSplit[1]);
+                    var file = new CMDFileFolder(CmdLineType.File, lineSplit[3], fileSize, modificationDate);
+                    FileFolderList.Add(file);
+                }
+            }
+
+            return FileFolderList;
+        }
+
+        private static List<string> CalculateFileListFromFolderList(List<string> folderList)
+        {
+            var allListStr = getFolderListShellService.ActiveNextCommand("dir /b").Replace("\r", "");
+            var allList = allListStr.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            allList.RemoveAt(allList.Count - 1);
+            allList.RemoveAt(0);
+            allList.RemoveAll(file => folderList.Contains(file));
+            return allList;
+        }
+
+        private List<string> GetFolderListFromServerAndAssignTheFolderPath(string folderListStr)
+        {
+            var folderList = folderListStr.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            currentPath = folderList.ElementAt(folderList.Count - 1);
+            currentPathTextBox.KeyDown -= currentPathTextBox_KeyDown;
+            if (!currentPathTextBoxSelected)
+                this.Invoke((MethodInvoker)(() => currentPathTextBox.Text = currentPath));
+            this.Invoke((MethodInvoker)(() =>
+                    this.Width = Math.Max(TextRenderer.MeasureText(currentPathTextBox.Text, currentPathTextBox.Font).Width + 100, this.Width)));
+            currentPathTextBox.KeyDown += currentPathTextBox_KeyDown;
+            folderList.RemoveAt(folderList.Count - 1);
+            folderList.RemoveAt(0);
+            return folderList;
+        }
+
+        private bool CheckIfFileFolderListChanged(List<CMDFileFolder> FileFolderList)
+        {
+            var listChanged = false;
+            if (currentFilesAndFolders == null)
+            {
+                currentFilesAndFolders = FileFolderList;
+                listChanged = true;
+            }
+            else
+            {
+                //Assuming that the order is the same as bedore
+                if (currentFilesAndFolders.Count != FileFolderList.Count)
+                {
+                    currentFilesAndFolders = FileFolderList;
+                    listChanged = true;
+
+                }
+                else
+                {
+                    for (int i = 0; i < currentFilesAndFolders.Count; i++)
+                    {
+                        if (!currentFilesAndFolders[i].Equals(FileFolderList[i]))
+                        {
+                            currentFilesAndFolders = FileFolderList;
+                            listChanged = true;
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+            return listChanged;
         }
 
         private void AddToListView(int index, string name, CmdLineType type, bool check = false)
@@ -1247,6 +1315,12 @@ namespace WindowsFormsApp1
         {
             StatusTimer.Dispose();
             FolderListTimer.Dispose();
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CloseAllThreads();
+            CloseAllConnections();
         }
     }
 }
