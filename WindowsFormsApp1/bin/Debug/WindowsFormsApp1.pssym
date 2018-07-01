@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Symbols LinesOfCode="3384" PostSharpLinesOfCode="0" EnhancedTypesCount="35" SchemaVersion="1" PostSharpVersion="5.0.52.0" xmlns="http://schemas.postsharp.org/2.0/symbols">
+<Symbols LinesOfCode="3516" PostSharpLinesOfCode="0" EnhancedTypesCount="36" SchemaVersion="1" PostSharpVersion="5.0.52.0" xmlns="http://schemas.postsharp.org/2.0/symbols">
   <Class Class="#1=T:[PostSharp.Patterns.Diagnostics]PostSharp.Patterns.Diagnostics.LogAttribute">
     <Instance File="C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\\ActiveClientUI.pssln" Line="4" Column="6">
       <Target Target="#2=M:[WindowsFormsApp1]WindowsFormsApp1.AboutBox::#ctor()">
@@ -77,977 +77,1025 @@
       <Target Target="#27=M:[WindowsFormsApp1]WindowsFormsApp1.ListViewNF::OnNotifyMessage(System.Windows.Forms.Message)">
         <JoinPoint Description="#3" Ordinal="24" LinesAvoided="5" />
       </Target>
-      <Target Target="#28=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::#ctor(System.String, System.String)">
+      <Target Target="#28=M:[WindowsFormsApp1]WindowsFormsApp1.PassiveClientStatusData::#ctor(System.String, [WindowsFormsApp1]WindowsFormsApp1.Status, System.String)">
         <JoinPoint Description="#3" Ordinal="25" LinesAvoided="5" />
       </Target>
-      <Target Target="#29=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::CloseAllConnections()">
+      <Target Target="#29=M:[WindowsFormsApp1]WindowsFormsApp1.PassiveClientStatusData::Equals(System.Object)">
         <JoinPoint Description="#3" Ordinal="26" LinesAvoided="5" />
       </Target>
-      <Target Target="#30=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::initializeServiceReferences{T}(ref T, System.String)">
+      <Target Target="#30=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="27" LinesAvoided="5" />
       </Target>
-      <Target Target="#31=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::OkButton_Click(System.Object, System.EventArgs)">
+      <Target Target="#31=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::CloseAllConnections()">
         <JoinPoint Description="#3" Ordinal="28" LinesAvoided="5" />
       </Target>
-      <Target Target="#32=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::RestorePasswordForm_Activated(System.Object, System.EventArgs)">
+      <Target Target="#32=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::initializeServiceReferences{T}(ref T, System.String)">
         <JoinPoint Description="#3" Ordinal="29" LinesAvoided="5" />
       </Target>
-      <Target Target="#33=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::CancelButton_Click(System.Object, System.EventArgs)">
+      <Target Target="#33=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::OkButton_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="30" LinesAvoided="5" />
       </Target>
-      <Target Target="#34=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::EnterKeyDownEvent(System.Object, System.Windows.Forms.KeyEventArgs)">
+      <Target Target="#34=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::RestorePasswordForm_Activated(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="31" LinesAvoided="5" />
       </Target>
-      <Target Target="#35=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::Dispose(System.Boolean)">
+      <Target Target="#35=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::CancelButton_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="32" LinesAvoided="5" />
       </Target>
-      <Target Target="#36=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::InitializeComponent()">
+      <Target Target="#36=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::EnterKeyDownEvent(System.Object, System.Windows.Forms.KeyEventArgs)">
         <JoinPoint Description="#3" Ordinal="33" LinesAvoided="5" />
       </Target>
-      <Target Target="#37=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::#ctor()">
+      <Target Target="#37=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::Dispose(System.Boolean)">
         <JoinPoint Description="#3" Ordinal="34" LinesAvoided="5" />
       </Target>
-      <Target Target="#38=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::CloseAllConnections()">
+      <Target Target="#38=M:[WindowsFormsApp1]WindowsFormsApp1.RestorePasswordForm::InitializeComponent()">
         <JoinPoint Description="#3" Ordinal="35" LinesAvoided="5" />
       </Target>
-      <Target Target="#39=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::initializeServiceReferences{T}(ref T, System.String)">
+      <Target Target="#39=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::#ctor()">
         <JoinPoint Description="#3" Ordinal="36" LinesAvoided="5" />
       </Target>
-      <Target Target="#40=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignInButton_Click(System.Object, System.EventArgs)">
+      <Target Target="#40=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::CloseAllConnections()">
         <JoinPoint Description="#3" Ordinal="37" LinesAvoided="5" />
       </Target>
-      <Target Target="#41=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::UserLogout()">
+      <Target Target="#41=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::initializeServiceReferences{T}(ref T, System.String)">
         <JoinPoint Description="#3" Ordinal="38" LinesAvoided="5" />
       </Target>
-      <Target Target="#42=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::RememberMe(System.Boolean)">
+      <Target Target="#42=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignInButton_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="39" LinesAvoided="5" />
       </Target>
-      <Target Target="#43=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignUp(out System.String)">
+      <Target Target="#43=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::UserLogout()">
         <JoinPoint Description="#3" Ordinal="40" LinesAvoided="5" />
       </Target>
-      <Target Target="#44=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignIn(out System.String, out System.String)">
+      <Target Target="#44=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::RememberMe(System.Boolean)">
         <JoinPoint Description="#3" Ordinal="41" LinesAvoided="5" />
       </Target>
-      <Target Target="#45=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::LogInForm_Activated(System.Object, System.EventArgs)">
+      <Target Target="#45=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignUp(out System.String)">
         <JoinPoint Description="#3" Ordinal="42" LinesAvoided="5" />
       </Target>
-      <Target Target="#46=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::ExitButton_Click(System.Object, System.EventArgs)">
+      <Target Target="#46=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignIn(out System.String, out System.String)">
         <JoinPoint Description="#3" Ordinal="43" LinesAvoided="5" />
       </Target>
-      <Target Target="#47=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::EnterKeyDownEvent(System.Object, System.Windows.Forms.KeyEventArgs)">
+      <Target Target="#47=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::LogInForm_Activated(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="44" LinesAvoided="5" />
       </Target>
-      <Target Target="#48=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignUpButton_Click(System.Object, System.EventArgs)">
+      <Target Target="#48=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::ExitButton_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="45" LinesAvoided="5" />
       </Target>
-      <Target Target="#49=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::ForgotPasswordButton_Click(System.Object, System.EventArgs)">
+      <Target Target="#49=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::EnterKeyDownEvent(System.Object, System.Windows.Forms.KeyEventArgs)">
         <JoinPoint Description="#3" Ordinal="46" LinesAvoided="5" />
       </Target>
-      <Target Target="#50=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::Logout()">
+      <Target Target="#50=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::SignUpButton_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="47" LinesAvoided="5" />
       </Target>
-      <Target Target="#51=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::Dispose(System.Boolean)">
+      <Target Target="#51=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::ForgotPasswordButton_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="48" LinesAvoided="5" />
       </Target>
-      <Target Target="#52=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::InitializeComponent()">
+      <Target Target="#52=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::Logout()">
         <JoinPoint Description="#3" Ordinal="49" LinesAvoided="5" />
       </Target>
-      <Target Target="#53=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::get_StatusTimer()">
+      <Target Target="#53=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::Dispose(System.Boolean)">
         <JoinPoint Description="#3" Ordinal="50" LinesAvoided="5" />
       </Target>
-      <Target Target="#54=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::set_StatusTimer(System.Threading.Timer)">
+      <Target Target="#54=M:[WindowsFormsApp1]WindowsFormsApp1.LogInForm::InitializeComponent()">
         <JoinPoint Description="#3" Ordinal="51" LinesAvoided="5" />
       </Target>
-      <Target Target="#55=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::get_SelectedClient()">
+      <Target Target="#55=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::get_StatusTimer()">
         <JoinPoint Description="#3" Ordinal="52" LinesAvoided="5" />
       </Target>
-      <Target Target="#56=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::set_SelectedClient(System.String)">
+      <Target Target="#56=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::set_StatusTimer(System.Threading.Timer)">
         <JoinPoint Description="#3" Ordinal="53" LinesAvoided="5" />
       </Target>
-      <Target Target="#57=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CloseAllConnections()">
+      <Target Target="#57=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::get_SelectedClient()">
         <JoinPoint Description="#3" Ordinal="54" LinesAvoided="5" />
       </Target>
-      <Target Target="#58=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CloseAllThreads()">
+      <Target Target="#58=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::set_SelectedClient(System.String)">
         <JoinPoint Description="#3" Ordinal="55" LinesAvoided="5" />
       </Target>
-      <Target Target="#59=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::#ctor(System.String)">
+      <Target Target="#59=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CloseAllConnections()">
         <JoinPoint Description="#3" Ordinal="56" LinesAvoided="5" />
       </Target>
-      <Target Target="#60=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::StatusForm_FormClosing(System.Object, System.Windows.Forms.FormClosingEventArgs)">
+      <Target Target="#60=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CloseAllThreads()">
         <JoinPoint Description="#3" Ordinal="57" LinesAvoided="5" />
       </Target>
-      <Target Target="#61=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::GetStatusFromServer()">
+      <Target Target="#61=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::#ctor(System.String)">
         <JoinPoint Description="#3" Ordinal="58" LinesAvoided="5" />
       </Target>
-      <Target Target="#62=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::AddToListView(System.Int32, System.String, [WindowsFormsApp1]WindowsFormsApp1.Status, System.String, System.Boolean)">
+      <Target Target="#62=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::StatusForm_FormClosing(System.Object, System.Windows.Forms.FormClosingEventArgs)">
         <JoinPoint Description="#3" Ordinal="59" LinesAvoided="5" />
       </Target>
-      <Target Target="#63=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::initializeServiceReferences(System.String)">
+      <Target Target="#63=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::GetStatusFromServer()">
         <JoinPoint Description="#3" Ordinal="60" LinesAvoided="5" />
       </Target>
-      <Target Target="#64=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::PefromTaskEveryXTime(System.Action, System.Int32)">
+      <Target Target="#64=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CheckIfAnyClientConnectedAndShowLablelIfNot(System.String[])">
         <JoinPoint Description="#3" Ordinal="61" LinesAvoided="5" />
       </Target>
-      <Target Target="#65=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CreateListView()">
+      <Target Target="#65=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CheckIfSomeClientStatusChanged(System.Collections.Generic.List{[WindowsFormsApp1]WindowsFormsApp1.PassiveClientStatusData})">
         <JoinPoint Description="#3" Ordinal="62" LinesAvoided="5" />
       </Target>
-      <Target Target="#66=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::ListView_SizeChanged(System.Object, System.EventArgs)">
+      <Target Target="#66=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::ChangeViewAndRestoreSelected(System.Int32, System.Collections.Generic.List{[WindowsFormsApp1]WindowsFormsApp1.PassiveClientStatusData})">
         <JoinPoint Description="#3" Ordinal="63" LinesAvoided="5" />
       </Target>
-      <Target Target="#67=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::statusForm_Activated(System.Object, System.EventArgs)">
+      <Target Target="#67=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::ParseAndChangeSelectedClientTextLable(System.String[])">
         <JoinPoint Description="#3" Ordinal="64" LinesAvoided="5" />
       </Target>
-      <Target Target="#68=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CreatePopUpMenu([WindowsFormsApp1]WindowsFormsApp1.Status)">
+      <Target Target="#68=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::GetLastSelectedIndex()">
         <JoinPoint Description="#3" Ordinal="65" LinesAvoided="5" />
       </Target>
-      <Target Target="#69=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::PopupMenuClosed(System.Object, System.EventArgs)">
+      <Target Target="#69=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::ParseClientStatus(System.String)">
         <JoinPoint Description="#3" Ordinal="66" LinesAvoided="5" />
       </Target>
-      <Target Target="#70=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::listView1_MouseDown(System.Object, System.Windows.Forms.MouseEventArgs)">
+      <Target Target="#70=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::RestoreSelectedItem(System.Int32)">
         <JoinPoint Description="#3" Ordinal="67" LinesAvoided="5" />
       </Target>
-      <Target Target="#71=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::listView1_ItemSelectionChanged_1(System.Object, System.Windows.Forms.ListViewItemSelectionChangedEventArgs)">
+      <Target Target="#71=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::AddToListView(System.Int32, System.String, [WindowsFormsApp1]WindowsFormsApp1.Status, System.String, System.Boolean)">
         <JoinPoint Description="#3" Ordinal="68" LinesAvoided="5" />
       </Target>
-      <Target Target="#72=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::Dispose(System.Boolean)">
+      <Target Target="#72=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::initializeServiceReferences(System.String)">
         <JoinPoint Description="#3" Ordinal="69" LinesAvoided="5" />
       </Target>
-      <Target Target="#73=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::InitializeComponent()">
+      <Target Target="#73=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::PefromTaskEveryXTime(System.Action, System.Int32)">
         <JoinPoint Description="#3" Ordinal="70" LinesAvoided="5" />
       </Target>
-      <Target Target="#74=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::#cctor()">
+      <Target Target="#74=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CreateListView()">
         <JoinPoint Description="#3" Ordinal="71" LinesAvoided="5" />
       </Target>
-      <Target Target="#75=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::get_StatusTimer()">
+      <Target Target="#75=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::ListView_SizeChanged(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="72" LinesAvoided="5" />
       </Target>
-      <Target Target="#76=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::set_StatusTimer(System.Threading.Timer)">
+      <Target Target="#76=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::statusForm_Activated(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="73" LinesAvoided="5" />
       </Target>
-      <Target Target="#77=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::get_FolderListTimer()">
+      <Target Target="#77=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::CreatePopUpMenu([WindowsFormsApp1]WindowsFormsApp1.Status)">
         <JoinPoint Description="#3" Ordinal="74" LinesAvoided="5" />
       </Target>
-      <Target Target="#78=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::set_FolderListTimer(System.Threading.Timer)">
+      <Target Target="#78=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::PopupMenuClosed(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="75" LinesAvoided="5" />
       </Target>
-      <Target Target="#79=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CloseAllConnections()">
+      <Target Target="#79=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::listView1_MouseDown(System.Object, System.Windows.Forms.MouseEventArgs)">
         <JoinPoint Description="#3" Ordinal="76" LinesAvoided="5" />
       </Target>
-      <Target Target="#80=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::#ctor(System.String, [WindowsFormsApp1]WindowsFormsApp1.LogInForm)">
+      <Target Target="#80=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::listView1_ItemSelectionChanged_1(System.Object, System.Windows.Forms.ListViewItemSelectionChangedEventArgs)">
         <JoinPoint Description="#3" Ordinal="77" LinesAvoided="5" />
       </Target>
-      <Target Target="#81=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::PefromTaskEveryXTime(System.Action, System.Int32)">
+      <Target Target="#81=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::Dispose(System.Boolean)">
         <JoinPoint Description="#3" Ordinal="78" LinesAvoided="5" />
       </Target>
-      <Target Target="#82=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ListView_SizeChanged(System.Object, System.EventArgs)">
+      <Target Target="#82=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::InitializeComponent()">
         <JoinPoint Description="#3" Ordinal="79" LinesAvoided="5" />
       </Target>
-      <Target Target="#83=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CreatePopUpMenu([WindowsFormsApp1]WindowsFormsApp1.CmdLineType)">
+      <Target Target="#83=M:[WindowsFormsApp1]WindowsFormsApp1.statusForm::#cctor()">
         <JoinPoint Description="#3" Ordinal="80" LinesAvoided="5" />
       </Target>
-      <Target Target="#84=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::PopupMenuClosed(System.Object, System.EventArgs)">
+      <Target Target="#84=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::get_StatusTimer()">
         <JoinPoint Description="#3" Ordinal="81" LinesAvoided="5" />
       </Target>
-      <Target Target="#85=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CreateListView()">
+      <Target Target="#85=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::set_StatusTimer(System.Threading.Timer)">
         <JoinPoint Description="#3" Ordinal="82" LinesAvoided="5" />
       </Target>
-      <Target Target="#86=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::detailsToolStripMenuItem_Click(System.Object, System.EventArgs)">
+      <Target Target="#86=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::get_FolderListTimer()">
         <JoinPoint Description="#3" Ordinal="83" LinesAvoided="5" />
       </Target>
-      <Target Target="#87=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::smallIconsToolStripMenuItem_Click(System.Object, System.EventArgs)">
+      <Target Target="#87=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::set_FolderListTimer(System.Threading.Timer)">
         <JoinPoint Description="#3" Ordinal="84" LinesAvoided="5" />
       </Target>
-      <Target Target="#88=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::largIconsToolStripMenuItem_Click(System.Object, System.EventArgs)">
+      <Target Target="#88=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CloseAllConnections()">
         <JoinPoint Description="#3" Ordinal="85" LinesAvoided="5" />
       </Target>
-      <Target Target="#89=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::SwitchNameColWithFirstCol()">
+      <Target Target="#89=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::#ctor(System.String, [WindowsFormsApp1]WindowsFormsApp1.LogInForm)">
         <JoinPoint Description="#3" Ordinal="86" LinesAvoided="5" />
       </Target>
-      <Target Target="#90=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::listView1_SelectedIndexChanged(System.Object, System.EventArgs)">
+      <Target Target="#90=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::PefromTaskEveryXTime(System.Action, System.Int32)">
         <JoinPoint Description="#3" Ordinal="87" LinesAvoided="5" />
       </Target>
-      <Target Target="#91=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::listView1_MouseClick(System.Object, System.Windows.Forms.MouseEventArgs)">
+      <Target Target="#91=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ListView_SizeChanged(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="88" LinesAvoided="5" />
       </Target>
-      <Target Target="#92=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::initializeServiceReferences(System.String)">
+      <Target Target="#92=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CreatePopUpMenu([WindowsFormsApp1]WindowsFormsApp1.CmdLineType)">
         <JoinPoint Description="#3" Ordinal="89" LinesAvoided="5" />
       </Target>
-      <Target Target="#93=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::initializeServiceReferences(ref [WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.IActiveShell, System.String)">
+      <Target Target="#93=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::PopupMenuClosed(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="90" LinesAvoided="5" />
       </Target>
-      <Target Target="#94=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ReadFully(System.IO.Stream)">
+      <Target Target="#94=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CreateListView()">
         <JoinPoint Description="#3" Ordinal="91" LinesAvoided="5" />
       </Target>
-      <Target Target="#95=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::upLoadFile(System.String, System.String, System.String)">
+      <Target Target="#95=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::detailsToolStripMenuItem_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="92" LinesAvoided="5" />
       </Target>
-      <Target Target="#96=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::FinishUpload()">
+      <Target Target="#96=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::smallIconsToolStripMenuItem_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="93" LinesAvoided="5" />
       </Target>
-      <Target Target="#97=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ReadyToStartDownload(System.String, System.String, System.String)">
+      <Target Target="#97=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::largIconsToolStripMenuItem_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="94" LinesAvoided="5" />
       </Target>
-      <Target Target="#98=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::downLoadFile(System.String, System.String, System.String)">
+      <Target Target="#98=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::SwitchNameColWithFirstCol()">
         <JoinPoint Description="#3" Ordinal="95" LinesAvoided="5" />
       </Target>
-      <Target Target="#99=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(System.Action, System.Action, System.Action, System.Action)">
+      <Target Target="#99=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::listView1_SelectedIndexChanged(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="96" LinesAvoided="5" />
       </Target>
-      <Target Target="#100=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::SendRequestAndTryAgainIfTimeOutOrEndpointNotFound{T}(System.Func{T}, System.Action, System.Action, System.Action)">
+      <Target Target="#100=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::listView1_MouseClick(System.Object, System.Windows.Forms.MouseEventArgs)">
         <JoinPoint Description="#3" Ordinal="97" LinesAvoided="5" />
       </Target>
-      <Target Target="#101=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CreateNewFile(System.String, System.String)">
+      <Target Target="#101=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::initializeServiceReferences(System.String)">
         <JoinPoint Description="#3" Ordinal="98" LinesAvoided="5" />
       </Target>
-      <Target Target="#102=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ConsolePrintColor(System.String, System.Collections.Generic.Dictionary{[System]System.Text.RegularExpressions.Regex,[mscorlib]System.ConsoleColor})">
+      <Target Target="#102=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::initializeServiceReferences(ref [WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.IActiveShell, System.String)">
         <JoinPoint Description="#3" Ordinal="99" LinesAvoided="5" />
       </Target>
-      <Target Target="#103=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::tryToConnect(System.String)">
+      <Target Target="#103=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ReadFully(System.IO.Stream)">
         <JoinPoint Description="#3" Ordinal="100" LinesAvoided="5" />
       </Target>
-      <Target Target="#104=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetLastRow(out System.String, System.String, ref System.String)">
+      <Target Target="#104=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::upLoadFile(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="101" LinesAvoided="5" />
       </Target>
-      <Target Target="#105=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ClearCurrentConsoleLine()">
+      <Target Target="#105=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::FinishUpload()">
         <JoinPoint Description="#3" Ordinal="102" LinesAvoided="5" />
       </Target>
-      <Target Target="#106=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::statusToolStripMenuItem_Click(System.Object, System.EventArgs)">
+      <Target Target="#106=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ReadyToStartDownload(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="103" LinesAvoided="5" />
       </Target>
-      <Target Target="#107=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetStatusFromServer()">
+      <Target Target="#107=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::downLoadFile(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="104" LinesAvoided="5" />
       </Target>
-      <Target Target="#108=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ParseStatus(System.String, out System.String[], out System.Boolean, out System.String)">
+      <Target Target="#108=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(System.Action, System.Action, System.Action, System.Action)">
         <JoinPoint Description="#3" Ordinal="105" LinesAvoided="5" />
       </Target>
-      <Target Target="#109=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ConvertBytesToKB(System.Int64)">
+      <Target Target="#109=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::SendRequestAndTryAgainIfTimeOutOrEndpointNotFound{T}(System.Func{T}, System.Action, System.Action, System.Action)">
         <JoinPoint Description="#3" Ordinal="106" LinesAvoided="5" />
       </Target>
-      <Target Target="#110=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetFolderListFromServer()">
+      <Target Target="#110=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CreateNewFile(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="107" LinesAvoided="5" />
       </Target>
-      <Target Target="#111=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CalculateFileAndFolderAdditionalData(System.Collections.Generic.List{System.String})">
+      <Target Target="#111=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ConsolePrintColor(System.String, System.Collections.Generic.Dictionary{[System]System.Text.RegularExpressions.Regex,[mscorlib]System.ConsoleColor})">
         <JoinPoint Description="#3" Ordinal="108" LinesAvoided="5" />
       </Target>
-      <Target Target="#112=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CalculateFileListFromFolderList(System.Collections.Generic.List{System.String})">
+      <Target Target="#112=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::tryToConnect(System.String)">
         <JoinPoint Description="#3" Ordinal="109" LinesAvoided="5" />
       </Target>
-      <Target Target="#113=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetFolderListFromServerAndAssignTheFolderPath(System.String)">
+      <Target Target="#113=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetLastRow(out System.String, System.String, ref System.String)">
         <JoinPoint Description="#3" Ordinal="110" LinesAvoided="5" />
       </Target>
-      <Target Target="#114=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CheckIfFileFolderListChanged(System.Collections.Generic.List{[WindowsFormsApp1]WindowsFormsApp1.CMDFileFolder})">
+      <Target Target="#114=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ClearCurrentConsoleLine()">
         <JoinPoint Description="#3" Ordinal="111" LinesAvoided="5" />
       </Target>
-      <Target Target="#115=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::AddToListView(System.Int32, System.String, [WindowsFormsApp1]WindowsFormsApp1.CmdLineType, System.Boolean)">
+      <Target Target="#115=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::statusToolStripMenuItem_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="112" LinesAvoided="5" />
       </Target>
-      <Target Target="#116=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::AddToListView(System.Int32, [WindowsFormsApp1]WindowsFormsApp1.CMDFileFolder, System.Boolean)">
+      <Target Target="#116=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetStatusFromServer()">
         <JoinPoint Description="#3" Ordinal="113" LinesAvoided="5" />
       </Target>
-      <Target Target="#117=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::mainForm_Activated(System.Object, System.EventArgs)">
+      <Target Target="#117=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ParseStatus(System.String, out System.String[], out System.Boolean, out System.String)">
         <JoinPoint Description="#3" Ordinal="114" LinesAvoided="5" />
       </Target>
-      <Target Target="#118=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::listView1_MouseDoubleClick(System.Object, System.Windows.Forms.MouseEventArgs)">
+      <Target Target="#118=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::ConvertBytesToKB(System.Int64)">
         <JoinPoint Description="#3" Ordinal="115" LinesAvoided="5" />
       </Target>
-      <Target Target="#119=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::OptimisticTryAndFail(System.Action, System.Int32, System.Int32, System.String)">
+      <Target Target="#119=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetFolderListFromServer()">
         <JoinPoint Description="#3" Ordinal="116" LinesAvoided="5" />
       </Target>
-      <Target Target="#120=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::currentPathTextBox_KeyDown(System.Object, System.Windows.Forms.KeyEventArgs)">
+      <Target Target="#120=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CalculateFileAndFolderAdditionalData(System.Collections.Generic.List{System.String})">
         <JoinPoint Description="#3" Ordinal="117" LinesAvoided="5" />
       </Target>
-      <Target Target="#121=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::currentPathTextBox_Leave(System.Object, System.EventArgs)">
+      <Target Target="#121=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CalculateFileListFromFolderList(System.Collections.Generic.List{System.String})">
         <JoinPoint Description="#3" Ordinal="118" LinesAvoided="5" />
       </Target>
-      <Target Target="#122=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::currentPathTextBox_Enter(System.Object, System.EventArgs)">
+      <Target Target="#122=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::GetFolderListFromServerAndAssignTheFolderPath(System.String)">
         <JoinPoint Description="#3" Ordinal="119" LinesAvoided="5" />
       </Target>
-      <Target Target="#123=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::exitToolStripMenuItem_Click(System.Object, System.EventArgs)">
+      <Target Target="#123=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CheckIfFileFolderListChanged(System.Collections.Generic.List{[WindowsFormsApp1]WindowsFormsApp1.CMDFileFolder})">
         <JoinPoint Description="#3" Ordinal="120" LinesAvoided="5" />
       </Target>
-      <Target Target="#124=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::aboutToolStripMenuItem_Click(System.Object, System.EventArgs)">
+      <Target Target="#124=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::AddToListView(System.Int32, System.String, [WindowsFormsApp1]WindowsFormsApp1.CmdLineType, System.Boolean)">
         <JoinPoint Description="#3" Ordinal="121" LinesAvoided="5" />
       </Target>
-      <Target Target="#125=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::logOutToolStripMenuItem_Click(System.Object, System.EventArgs)">
+      <Target Target="#125=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::AddToListView(System.Int32, [WindowsFormsApp1]WindowsFormsApp1.CMDFileFolder, System.Boolean)">
         <JoinPoint Description="#3" Ordinal="122" LinesAvoided="5" />
       </Target>
-      <Target Target="#126=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CloseAllThreads()">
+      <Target Target="#126=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::mainForm_Activated(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="123" LinesAvoided="5" />
       </Target>
-      <Target Target="#127=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::mainForm_FormClosing(System.Object, System.Windows.Forms.FormClosingEventArgs)">
+      <Target Target="#127=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::listView1_MouseDoubleClick(System.Object, System.Windows.Forms.MouseEventArgs)">
         <JoinPoint Description="#3" Ordinal="124" LinesAvoided="5" />
       </Target>
-      <Target Target="#128=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::Dispose(System.Boolean)">
+      <Target Target="#128=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::OptimisticTryAndFail(System.Action, System.Int32, System.Int32, System.String)">
         <JoinPoint Description="#3" Ordinal="125" LinesAvoided="5" />
       </Target>
-      <Target Target="#129=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::InitializeComponent()">
+      <Target Target="#129=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::currentPathTextBox_KeyDown(System.Object, System.Windows.Forms.KeyEventArgs)">
         <JoinPoint Description="#3" Ordinal="126" LinesAvoided="5" />
       </Target>
-      <Target Target="#130=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::#cctor()">
+      <Target Target="#130=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::currentPathTextBox_Leave(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="127" LinesAvoided="5" />
       </Target>
-      <Target Target="#131=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::add_BeforeDispose(System.Action)">
+      <Target Target="#131=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::currentPathTextBox_Enter(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="128" LinesAvoided="5" />
       </Target>
-      <Target Target="#132=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::remove_BeforeDispose(System.Action)">
+      <Target Target="#132=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::exitToolStripMenuItem_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="129" LinesAvoided="5" />
       </Target>
-      <Target Target="#133=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::#ctor(System.String, [WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride)">
+      <Target Target="#133=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::aboutToolStripMenuItem_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="130" LinesAvoided="5" />
       </Target>
-      <Target Target="#134=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::Dispose(System.Boolean)">
+      <Target Target="#134=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::logOutToolStripMenuItem_Click(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="131" LinesAvoided="5" />
       </Target>
-      <Target Target="#135=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::OnClick(System.EventArgs)">
+      <Target Target="#135=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::CloseAllThreads()">
         <JoinPoint Description="#3" Ordinal="132" LinesAvoided="5" />
       </Target>
-      <Target Target="#136=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::add_ClickThenCollapse(System.EventHandler)">
+      <Target Target="#136=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::mainForm_FormClosing(System.Object, System.Windows.Forms.FormClosingEventArgs)">
         <JoinPoint Description="#3" Ordinal="133" LinesAvoided="5" />
       </Target>
-      <Target Target="#137=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::remove_ClickThenCollapse(System.EventHandler)">
+      <Target Target="#137=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::Dispose(System.Boolean)">
         <JoinPoint Description="#3" Ordinal="134" LinesAvoided="5" />
       </Target>
-      <Target Target="#138=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::#ctor()">
+      <Target Target="#138=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::InitializeComponent()">
         <JoinPoint Description="#3" Ordinal="135" LinesAvoided="5" />
       </Target>
-      <Target Target="#139=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::OnClickThenDispose(System.EventArgs)">
+      <Target Target="#139=M:[WindowsFormsApp1]WindowsFormsApp1.mainForm::#cctor()">
         <JoinPoint Description="#3" Ordinal="136" LinesAvoided="5" />
       </Target>
-      <Target Target="#140=M:[WindowsFormsApp1]WindowsFormsApp1.Program::Application_ThreadException(System.Object, System.Threading.ThreadExceptionEventArgs)">
+      <Target Target="#140=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::add_BeforeDispose(System.Action)">
         <JoinPoint Description="#3" Ordinal="137" LinesAvoided="5" />
       </Target>
-      <Target Target="#141=M:[WindowsFormsApp1]WindowsFormsApp1.Program::#ctor()">
+      <Target Target="#141=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::remove_BeforeDispose(System.Action)">
         <JoinPoint Description="#3" Ordinal="138" LinesAvoided="5" />
       </Target>
-      <Target Target="#142=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::get_StatusTimer()">
+      <Target Target="#142=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::#ctor(System.String, [WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride)">
         <JoinPoint Description="#3" Ordinal="139" LinesAvoided="5" />
       </Target>
-      <Target Target="#143=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::set_StatusTimer(System.Threading.Timer)">
+      <Target Target="#143=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::Dispose(System.Boolean)">
         <JoinPoint Description="#3" Ordinal="140" LinesAvoided="5" />
       </Target>
-      <Target Target="#144=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::get_SelectedClient()">
+      <Target Target="#144=M:[WindowsFormsApp1]WindowsFormsApp1.MenuItemOvveride::OnClick(System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="141" LinesAvoided="5" />
       </Target>
-      <Target Target="#145=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::set_SelectedClient(System.String)">
+      <Target Target="#145=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::add_ClickThenCollapse(System.EventHandler)">
         <JoinPoint Description="#3" Ordinal="142" LinesAvoided="5" />
       </Target>
-      <Target Target="#146=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CloseAllConnections()">
+      <Target Target="#146=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::remove_ClickThenCollapse(System.EventHandler)">
         <JoinPoint Description="#3" Ordinal="143" LinesAvoided="5" />
       </Target>
-      <Target Target="#147=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::#ctor([WindowsFormsApp1]WindowsFormsApp1.TaskType, System.String, System.String)">
+      <Target Target="#147=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::#ctor()">
         <JoinPoint Description="#3" Ordinal="144" LinesAvoided="5" />
       </Target>
-      <Target Target="#148=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::GetStatusFromServer()">
+      <Target Target="#148=M:[WindowsFormsApp1]WindowsFormsApp1.ContextMenuOvveride::OnClickThenDispose(System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="145" LinesAvoided="5" />
       </Target>
-      <Target Target="#149=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::AddToListViewUploadDownload(System.Int32, System.String, System.String, System.String, System.Boolean)">
+      <Target Target="#149=M:[WindowsFormsApp1]WindowsFormsApp1.Program::Application_ThreadException(System.Object, System.Threading.ThreadExceptionEventArgs)">
         <JoinPoint Description="#3" Ordinal="146" LinesAvoided="5" />
       </Target>
-      <Target Target="#150=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::AddToListViewShell(System.Int32, System.String, System.String, System.Boolean)">
+      <Target Target="#150=M:[WindowsFormsApp1]WindowsFormsApp1.Program::#ctor()">
         <JoinPoint Description="#3" Ordinal="147" LinesAvoided="5" />
       </Target>
-      <Target Target="#151=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::initializeServiceReferences(System.String)">
+      <Target Target="#151=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::get_StatusTimer()">
         <JoinPoint Description="#3" Ordinal="148" LinesAvoided="5" />
       </Target>
-      <Target Target="#152=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::PefromTaskEveryXTime(System.Action, System.Int32)">
+      <Target Target="#152=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::set_StatusTimer(System.Threading.Timer)">
         <JoinPoint Description="#3" Ordinal="149" LinesAvoided="5" />
       </Target>
-      <Target Target="#153=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CreateListView()">
+      <Target Target="#153=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::get_SelectedClient()">
         <JoinPoint Description="#3" Ordinal="150" LinesAvoided="5" />
       </Target>
-      <Target Target="#154=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CreatePopUpMenu([WindowsFormsApp1]WindowsFormsApp1.TaskType)">
+      <Target Target="#154=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::set_SelectedClient(System.String)">
         <JoinPoint Description="#3" Ordinal="151" LinesAvoided="5" />
       </Target>
-      <Target Target="#155=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::PopupMenuClosed(System.Object, System.EventArgs)">
+      <Target Target="#155=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CloseAllConnections()">
         <JoinPoint Description="#3" Ordinal="152" LinesAvoided="5" />
       </Target>
-      <Target Target="#156=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Tasks_FormClosing(System.Object, System.Windows.Forms.FormClosingEventArgs)">
+      <Target Target="#156=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::#ctor([WindowsFormsApp1]WindowsFormsApp1.TaskType, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="153" LinesAvoided="5" />
       </Target>
-      <Target Target="#157=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CloseAllThreads()">
+      <Target Target="#157=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::ListView_SizeChanged(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="154" LinesAvoided="5" />
       </Target>
-      <Target Target="#158=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::listView1_MouseDown_1(System.Object, System.Windows.Forms.MouseEventArgs)">
+      <Target Target="#158=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::GetStatusFromServer()">
         <JoinPoint Description="#3" Ordinal="155" LinesAvoided="5" />
       </Target>
-      <Target Target="#159=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::listView1_ItemSelectionChanged(System.Object, System.Windows.Forms.ListViewItemSelectionChangedEventArgs)">
+      <Target Target="#159=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CheckIfIShellTasksOrDownloadUploadTasksChanged(System.Collections.Generic.List{System.String}, System.Collections.Generic.List{System.String})">
         <JoinPoint Description="#3" Ordinal="156" LinesAvoided="5" />
       </Target>
-      <Target Target="#160=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Tasks_Activated(System.Object, System.EventArgs)">
+      <Target Target="#160=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::ParseClientTasks(System.String, out System.Collections.Generic.List{System.String}, out System.Collections.Generic.List{System.String})">
         <JoinPoint Description="#3" Ordinal="157" LinesAvoided="5" />
       </Target>
-      <Target Target="#161=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Tasks_SizeChanged(System.Object, System.EventArgs)">
+      <Target Target="#161=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::AddTasksToView(ref System.Int32, System.Collections.Generic.List{System.String})">
         <JoinPoint Description="#3" Ordinal="158" LinesAvoided="5" />
       </Target>
-      <Target Target="#162=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Dispose(System.Boolean)">
+      <Target Target="#162=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::RestoreSelectedItem(System.Int32)">
         <JoinPoint Description="#3" Ordinal="159" LinesAvoided="5" />
       </Target>
-      <Target Target="#163=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::InitializeComponent()">
+      <Target Target="#163=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CheckIfAnyClientConnectedAndShowLablelIfNot(System.String[])">
         <JoinPoint Description="#3" Ordinal="160" LinesAvoided="5" />
       </Target>
-      <Target Target="#164=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::#cctor()">
+      <Target Target="#164=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::GetLastSelectedIndex()">
         <JoinPoint Description="#3" Ordinal="161" LinesAvoided="5" />
       </Target>
-      <Target Target="#165=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::#ctor()">
+      <Target Target="#165=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::AddToListViewUploadDownload(System.Int32, System.String, System.String, System.String, System.Boolean)">
         <JoinPoint Description="#3" Ordinal="162" LinesAvoided="5" />
       </Target>
-      <Target Target="#166=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::initializeServiceReferences()">
+      <Target Target="#166=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::AddToListViewShell(System.Int32, System.String, System.String, System.Boolean)">
         <JoinPoint Description="#3" Ordinal="163" LinesAvoided="5" />
       </Target>
-      <Target Target="#167=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test1()">
+      <Target Target="#167=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::initializeServiceReferences(System.String)">
         <JoinPoint Description="#3" Ordinal="164" LinesAvoided="5" />
       </Target>
-      <Target Target="#168=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test2()">
+      <Target Target="#168=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::PefromTaskEveryXTime(System.Action, System.Int32)">
         <JoinPoint Description="#3" Ordinal="165" LinesAvoided="5" />
       </Target>
-      <Target Target="#169=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test3()">
+      <Target Target="#169=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CreateListView()">
         <JoinPoint Description="#3" Ordinal="166" LinesAvoided="5" />
       </Target>
-      <Target Target="#170=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test4()">
+      <Target Target="#170=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CreatePopUpMenu([WindowsFormsApp1]WindowsFormsApp1.TaskType)">
         <JoinPoint Description="#3" Ordinal="167" LinesAvoided="5" />
       </Target>
-      <Target Target="#171=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test5()">
+      <Target Target="#171=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::PopupMenuClosed(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="168" LinesAvoided="5" />
       </Target>
-      <Target Target="#172=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test6()">
+      <Target Target="#172=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Tasks_FormClosing(System.Object, System.Windows.Forms.FormClosingEventArgs)">
         <JoinPoint Description="#3" Ordinal="169" LinesAvoided="5" />
       </Target>
-      <Target Target="#173=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test7()">
+      <Target Target="#173=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::CloseAllThreads()">
         <JoinPoint Description="#3" Ordinal="170" LinesAvoided="5" />
       </Target>
-      <Target Target="#174=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test8()">
+      <Target Target="#174=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::listView1_MouseDown_1(System.Object, System.Windows.Forms.MouseEventArgs)">
         <JoinPoint Description="#3" Ordinal="171" LinesAvoided="5" />
       </Target>
-      <Target Target="#175=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest::#ctor()">
+      <Target Target="#175=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::listView1_ItemSelectionChanged(System.Object, System.Windows.Forms.ListViewItemSelectionChangedEventArgs)">
         <JoinPoint Description="#3" Ordinal="172" LinesAvoided="5" />
       </Target>
-      <Target Target="#176=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest::#ctor(System.String, System.Boolean, System.String, System.String, System.String, System.String)">
+      <Target Target="#176=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Tasks_Activated(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="173" LinesAvoided="5" />
       </Target>
-      <Target Target="#177=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo::#ctor()">
+      <Target Target="#177=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Tasks_SizeChanged(System.Object, System.EventArgs)">
         <JoinPoint Description="#3" Ordinal="174" LinesAvoided="5" />
       </Target>
-      <Target Target="#178=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo::#ctor(System.Boolean, System.String, System.String, System.Boolean, System.Int64, System.String, System.String, System.String, System.Byte[])">
+      <Target Target="#178=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::Dispose(System.Boolean)">
         <JoinPoint Description="#3" Ordinal="175" LinesAvoided="5" />
       </Target>
-      <Target Target="#179=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor()">
+      <Target Target="#179=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::InitializeComponent()">
         <JoinPoint Description="#3" Ordinal="176" LinesAvoided="5" />
       </Target>
-      <Target Target="#180=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.String)">
+      <Target Target="#180=M:[WindowsFormsApp1]WindowsFormsApp1.Tasks::#cctor()">
         <JoinPoint Description="#3" Ordinal="177" LinesAvoided="5" />
       </Target>
-      <Target Target="#181=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.String, System.String)">
+      <Target Target="#181=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::#ctor()">
         <JoinPoint Description="#3" Ordinal="178" LinesAvoided="5" />
       </Target>
-      <Target Target="#182=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
+      <Target Target="#182=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::initializeServiceReferences()">
         <JoinPoint Description="#3" Ordinal="179" LinesAvoided="5" />
       </Target>
-      <Target Target="#183=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
+      <Target Target="#183=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test1()">
         <JoinPoint Description="#3" Ordinal="180" LinesAvoided="5" />
       </Target>
-      <Target Target="#184=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::IsTransferingData()">
+      <Target Target="#184=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test2()">
         <JoinPoint Description="#3" Ordinal="181" LinesAvoided="5" />
       </Target>
-      <Target Target="#185=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::IsTransferingDataAsync()">
+      <Target Target="#185=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test3()">
         <JoinPoint Description="#3" Ordinal="182" LinesAvoided="5" />
       </Target>
-      <Target Target="#186=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::StartTransferData()">
+      <Target Target="#186=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test4()">
         <JoinPoint Description="#3" Ordinal="183" LinesAvoided="5" />
       </Target>
-      <Target Target="#187=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::StartTransferDataAsync()">
+      <Target Target="#187=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test5()">
         <JoinPoint Description="#3" Ordinal="184" LinesAvoided="5" />
       </Target>
-      <Target Target="#188=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveNextCommand(System.String)">
+      <Target Target="#188=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test6()">
         <JoinPoint Description="#3" Ordinal="185" LinesAvoided="5" />
       </Target>
-      <Target Target="#189=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveNextCommandAsync(System.String)">
+      <Target Target="#189=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test7()">
         <JoinPoint Description="#3" Ordinal="186" LinesAvoided="5" />
       </Target>
-      <Target Target="#190=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveClientRun()">
+      <Target Target="#190=M:[WindowsFormsApp1]WindowsFormsApp1.TestUserAuthentication::Test8()">
         <JoinPoint Description="#3" Ordinal="187" LinesAvoided="5" />
       </Target>
-      <Target Target="#191=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveClientRunAsync()">
+      <Target Target="#191=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="188" LinesAvoided="5" />
       </Target>
-      <Target Target="#192=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::WindowsFormsApp1#ServiceReference1#IActiveShell#ActiveDownloadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
+      <Target Target="#192=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest::#ctor(System.String, System.Boolean, System.String, System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="189" LinesAvoided="5" />
       </Target>
-      <Target Target="#193=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveDownloadFile(ref System.String, System.Boolean, System.String, System.String, ref System.String, ref System.String, out System.String, out System.Boolean, out System.Int64, out System.String, out System.Byte[])">
+      <Target Target="#193=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo::#ctor()">
         <JoinPoint Description="#3" Ordinal="190" LinesAvoided="5" />
       </Target>
-      <Target Target="#194=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::WindowsFormsApp1#ServiceReference1#IActiveShell#ActiveDownloadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
+      <Target Target="#194=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo::#ctor(System.Boolean, System.String, System.String, System.Boolean, System.Int64, System.String, System.String, System.String, System.Byte[])">
         <JoinPoint Description="#3" Ordinal="191" LinesAvoided="5" />
       </Target>
-      <Target Target="#195=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveDownloadFileAsync(System.String, System.Boolean, System.String, System.String, System.String, System.String)">
+      <Target Target="#195=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor()">
         <JoinPoint Description="#3" Ordinal="192" LinesAvoided="5" />
       </Target>
-      <Target Target="#196=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::WindowsFormsApp1#ServiceReference1#IActiveShell#ActiveUploadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
+      <Target Target="#196=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.String)">
         <JoinPoint Description="#3" Ordinal="193" LinesAvoided="5" />
       </Target>
-      <Target Target="#197=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveUploadFile(ref System.Boolean, ref System.String, ref System.String, ref System.Boolean, ref System.Int64, ref System.String, ref System.String, ref System.String, ref System.Byte[])">
+      <Target Target="#197=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="194" LinesAvoided="5" />
       </Target>
-      <Target Target="#198=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveUploadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
+      <Target Target="#198=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="195" LinesAvoided="5" />
       </Target>
-      <Target Target="#199=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearQueue()">
+      <Target Target="#199=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="196" LinesAvoided="5" />
       </Target>
-      <Target Target="#200=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearQueueAsync()">
+      <Target Target="#200=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::IsTransferingData()">
         <JoinPoint Description="#3" Ordinal="197" LinesAvoided="5" />
       </Target>
-      <Target Target="#201=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::GetStatus()">
+      <Target Target="#201=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::IsTransferingDataAsync()">
         <JoinPoint Description="#3" Ordinal="198" LinesAvoided="5" />
       </Target>
-      <Target Target="#202=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::GetStatusAsync()">
+      <Target Target="#202=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::StartTransferData()">
         <JoinPoint Description="#3" Ordinal="199" LinesAvoided="5" />
       </Target>
-      <Target Target="#203=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::SelectClient(System.String)">
+      <Target Target="#203=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::StartTransferDataAsync()">
         <JoinPoint Description="#3" Ordinal="200" LinesAvoided="5" />
       </Target>
-      <Target Target="#204=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::SelectClientAsync(System.String)">
+      <Target Target="#204=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveNextCommand(System.String)">
         <JoinPoint Description="#3" Ordinal="201" LinesAvoided="5" />
       </Target>
-      <Target Target="#205=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveCloseClient(System.String)">
+      <Target Target="#205=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveNextCommandAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="202" LinesAvoided="5" />
       </Target>
-      <Target Target="#206=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveCloseClientAsync(System.String)">
+      <Target Target="#206=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveClientRun()">
         <JoinPoint Description="#3" Ordinal="203" LinesAvoided="5" />
       </Target>
-      <Target Target="#207=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearAllData(System.String)">
+      <Target Target="#207=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveClientRunAsync()">
         <JoinPoint Description="#3" Ordinal="204" LinesAvoided="5" />
       </Target>
-      <Target Target="#208=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearAllDataAsync(System.String)">
+      <Target Target="#208=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::WindowsFormsApp1#ServiceReference1#IActiveShell#ActiveDownloadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
         <JoinPoint Description="#3" Ordinal="205" LinesAvoided="5" />
       </Target>
-      <Target Target="#209=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::DeleteClientTask(System.String, System.Boolean, System.Int32)">
+      <Target Target="#209=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveDownloadFile(ref System.String, System.Boolean, System.String, System.String, ref System.String, ref System.String, out System.String, out System.Boolean, out System.Int64, out System.String, out System.Byte[])">
         <JoinPoint Description="#3" Ordinal="206" LinesAvoided="5" />
       </Target>
-      <Target Target="#210=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::DeleteClientTaskAsync(System.String, System.Boolean, System.Int32)">
+      <Target Target="#210=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::WindowsFormsApp1#ServiceReference1#IActiveShell#ActiveDownloadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
         <JoinPoint Description="#3" Ordinal="207" LinesAvoided="5" />
       </Target>
-      <Target Target="#211=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveSetNickName(System.String, System.String)">
+      <Target Target="#211=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveDownloadFileAsync(System.String, System.Boolean, System.String, System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="208" LinesAvoided="5" />
       </Target>
-      <Target Target="#212=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveSetNickNameAsync(System.String, System.String)">
+      <Target Target="#212=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::WindowsFormsApp1#ServiceReference1#IActiveShell#ActiveUploadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
         <JoinPoint Description="#3" Ordinal="209" LinesAvoided="5" />
       </Target>
-      <Target Target="#213=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveDownloadedFileResponse::#ctor()">
+      <Target Target="#213=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveUploadFile(ref System.Boolean, ref System.String, ref System.String, ref System.Boolean, ref System.Int64, ref System.String, ref System.String, ref System.String, ref System.Byte[])">
         <JoinPoint Description="#3" Ordinal="210" LinesAvoided="5" />
       </Target>
-      <Target Target="#214=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor()">
+      <Target Target="#214=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveUploadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
         <JoinPoint Description="#3" Ordinal="211" LinesAvoided="5" />
       </Target>
-      <Target Target="#215=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.String)">
+      <Target Target="#215=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearQueue()">
         <JoinPoint Description="#3" Ordinal="212" LinesAvoided="5" />
       </Target>
-      <Target Target="#216=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.String, System.String)">
+      <Target Target="#216=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearQueueAsync()">
         <JoinPoint Description="#3" Ordinal="213" LinesAvoided="5" />
       </Target>
-      <Target Target="#217=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
+      <Target Target="#217=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::GetStatus()">
         <JoinPoint Description="#3" Ordinal="214" LinesAvoided="5" />
       </Target>
-      <Target Target="#218=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
+      <Target Target="#218=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::GetStatusAsync()">
         <JoinPoint Description="#3" Ordinal="215" LinesAvoided="5" />
       </Target>
-      <Target Target="#219=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::IsTransferingData()">
+      <Target Target="#219=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::SelectClient(System.String)">
         <JoinPoint Description="#3" Ordinal="216" LinesAvoided="5" />
       </Target>
-      <Target Target="#220=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::IsTransferingDataAsync()">
+      <Target Target="#220=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::SelectClientAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="217" LinesAvoided="5" />
       </Target>
-      <Target Target="#221=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::StartTransferData()">
+      <Target Target="#221=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveCloseClient(System.String)">
         <JoinPoint Description="#3" Ordinal="218" LinesAvoided="5" />
       </Target>
-      <Target Target="#222=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::StartTransferDataAsync()">
+      <Target Target="#222=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveCloseClientAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="219" LinesAvoided="5" />
       </Target>
-      <Target Target="#223=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveClientRun(System.String, System.String, System.String)">
+      <Target Target="#223=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearAllData(System.String)">
         <JoinPoint Description="#3" Ordinal="220" LinesAvoided="5" />
       </Target>
-      <Target Target="#224=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveClientRunAsync(System.String, System.String, System.String)">
+      <Target Target="#224=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ClearAllDataAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="221" LinesAvoided="5" />
       </Target>
-      <Target Target="#225=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveNextCommand(System.String)">
+      <Target Target="#225=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::DeleteClientTask(System.String, System.Boolean, System.Int32)">
         <JoinPoint Description="#3" Ordinal="222" LinesAvoided="5" />
       </Target>
-      <Target Target="#226=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveNextCommandAsync(System.String)">
+      <Target Target="#226=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::DeleteClientTaskAsync(System.String, System.Boolean, System.Int32)">
         <JoinPoint Description="#3" Ordinal="223" LinesAvoided="5" />
       </Target>
-      <Target Target="#227=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::CommandResponse(System.String, System.String, System.String)">
+      <Target Target="#227=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveSetNickName(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="224" LinesAvoided="5" />
       </Target>
-      <Target Target="#228=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::CommandResponseAsync(System.String, System.String, System.String)">
+      <Target Target="#228=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.ActiveShellClient::ActiveSetNickNameAsync(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="225" LinesAvoided="5" />
       </Target>
-      <Target Target="#229=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasCommand(System.String)">
+      <Target Target="#229=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveDownloadedFileResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="226" LinesAvoided="5" />
       </Target>
-      <Target Target="#230=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasCommandAsync(System.String)">
+      <Target Target="#230=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor()">
         <JoinPoint Description="#3" Ordinal="227" LinesAvoided="5" />
       </Target>
-      <Target Target="#231=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasUploadCommand(System.String)">
+      <Target Target="#231=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.String)">
         <JoinPoint Description="#3" Ordinal="228" LinesAvoided="5" />
       </Target>
-      <Target Target="#232=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasUploadCommandAsync(System.String)">
+      <Target Target="#232=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="229" LinesAvoided="5" />
       </Target>
-      <Target Target="#233=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasDownloadCommand(System.String)">
+      <Target Target="#233=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="230" LinesAvoided="5" />
       </Target>
-      <Target Target="#234=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasDownloadCommandAsync(System.String)">
+      <Target Target="#234=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="231" LinesAvoided="5" />
       </Target>
-      <Target Target="#235=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveDownloadedFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
+      <Target Target="#235=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::IsTransferingData()">
         <JoinPoint Description="#3" Ordinal="232" LinesAvoided="5" />
       </Target>
-      <Target Target="#236=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveDownloadedFile(System.Boolean, System.String, System.String, System.Boolean, System.Int64, System.String, System.String, System.String, System.Byte[])">
+      <Target Target="#236=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::IsTransferingDataAsync()">
         <JoinPoint Description="#3" Ordinal="233" LinesAvoided="5" />
       </Target>
-      <Target Target="#237=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveDownloadedFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
+      <Target Target="#237=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::StartTransferData()">
         <JoinPoint Description="#3" Ordinal="234" LinesAvoided="5" />
       </Target>
-      <Target Target="#238=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveDownloadedFileAsync(System.Boolean, System.String, System.String, System.Boolean, System.Int64, System.String, System.String, System.String, System.Byte[])">
+      <Target Target="#238=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::StartTransferDataAsync()">
         <JoinPoint Description="#3" Ordinal="235" LinesAvoided="5" />
       </Target>
-      <Target Target="#239=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveGetDownloadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
+      <Target Target="#239=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveClientRun(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="236" LinesAvoided="5" />
       </Target>
-      <Target Target="#240=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetDownloadFile(ref System.String, ref System.Boolean, ref System.String, ref System.String, ref System.String, ref System.String)">
+      <Target Target="#240=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveClientRunAsync(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="237" LinesAvoided="5" />
       </Target>
-      <Target Target="#241=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetDownloadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
+      <Target Target="#241=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveNextCommand(System.String)">
         <JoinPoint Description="#3" Ordinal="238" LinesAvoided="5" />
       </Target>
-      <Target Target="#242=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveGetUploadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
+      <Target Target="#242=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveNextCommandAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="239" LinesAvoided="5" />
       </Target>
-      <Target Target="#243=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetUploadFile(ref System.String, System.Boolean, System.String, System.String, ref System.String, ref System.String, out System.String, out System.Boolean, out System.Int64, out System.String, out System.Byte[])">
+      <Target Target="#243=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::CommandResponse(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="240" LinesAvoided="5" />
       </Target>
-      <Target Target="#244=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveGetUploadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
+      <Target Target="#244=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::CommandResponseAsync(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="241" LinesAvoided="5" />
       </Target>
-      <Target Target="#245=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetUploadFileAsync(System.String, System.Boolean, System.String, System.String, System.String, System.String)">
+      <Target Target="#245=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasCommand(System.String)">
         <JoinPoint Description="#3" Ordinal="242" LinesAvoided="5" />
       </Target>
-      <Target Target="#246=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveUploadedFile(System.String, System.String)">
+      <Target Target="#246=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasCommandAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="243" LinesAvoided="5" />
       </Target>
-      <Target Target="#247=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveUploadedFileAsync(System.String, System.String)">
+      <Target Target="#247=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasUploadCommand(System.String)">
         <JoinPoint Description="#3" Ordinal="244" LinesAvoided="5" />
       </Target>
-      <Target Target="#248=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorUploadDownload(System.String, System.String, System.String)">
+      <Target Target="#248=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasUploadCommandAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="245" LinesAvoided="5" />
       </Target>
-      <Target Target="#249=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorUploadDownloadAsync(System.String, System.String, System.String)">
+      <Target Target="#249=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasDownloadCommand(System.String)">
         <JoinPoint Description="#3" Ordinal="246" LinesAvoided="5" />
       </Target>
-      <Target Target="#250=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::Subscribe(System.String, System.String, System.String)">
+      <Target Target="#250=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::HasDownloadCommandAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="247" LinesAvoided="5" />
       </Target>
-      <Target Target="#251=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::SubscribeAsync(System.String, System.String, System.String)">
+      <Target Target="#251=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveDownloadedFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
         <JoinPoint Description="#3" Ordinal="248" LinesAvoided="5" />
       </Target>
-      <Target Target="#252=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorNextCommand(System.String, System.String, System.String)">
+      <Target Target="#252=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveDownloadedFile(System.Boolean, System.String, System.String, System.Boolean, System.Int64, System.String, System.String, System.String, System.Byte[])">
         <JoinPoint Description="#3" Ordinal="249" LinesAvoided="5" />
       </Target>
-      <Target Target="#253=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorNextCommandAsync(System.String, System.String, System.String)">
+      <Target Target="#253=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveDownloadedFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.RemoteFileInfo)">
         <JoinPoint Description="#3" Ordinal="250" LinesAvoided="5" />
       </Target>
-      <Target Target="#254=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext)">
+      <Target Target="#254=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveDownloadedFileAsync(System.Boolean, System.String, System.String, System.Boolean, System.Int64, System.String, System.String, System.String, System.Byte[])">
         <JoinPoint Description="#3" Ordinal="251" LinesAvoided="5" />
       </Target>
-      <Target Target="#255=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.String)">
+      <Target Target="#255=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveGetDownloadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
         <JoinPoint Description="#3" Ordinal="252" LinesAvoided="5" />
       </Target>
-      <Target Target="#256=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.String, System.String)">
+      <Target Target="#256=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetDownloadFile(ref System.String, ref System.Boolean, ref System.String, ref System.String, ref System.String, ref System.String)">
         <JoinPoint Description="#3" Ordinal="253" LinesAvoided="5" />
       </Target>
-      <Target Target="#257=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.String, System.ServiceModel.EndpointAddress)">
+      <Target Target="#257=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetDownloadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
         <JoinPoint Description="#3" Ordinal="254" LinesAvoided="5" />
       </Target>
-      <Target Target="#258=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
+      <Target Target="#258=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveGetUploadFile([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
         <JoinPoint Description="#3" Ordinal="255" LinesAvoided="5" />
       </Target>
-      <Target Target="#259=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::RegisterCallBackFunction(System.String, System.String)">
+      <Target Target="#259=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetUploadFile(ref System.String, System.Boolean, System.String, System.String, ref System.String, ref System.String, out System.String, out System.Boolean, out System.Int64, out System.String, out System.Byte[])">
         <JoinPoint Description="#3" Ordinal="256" LinesAvoided="5" />
       </Target>
-      <Target Target="#260=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::RegisterCallBackFunctionAsync(System.String, System.String)">
+      <Target Target="#260=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::WindowsFormsApp1#ServiceReference1#IPassiveShell#PassiveGetUploadFileAsync([WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.DownloadRequest)">
         <JoinPoint Description="#3" Ordinal="257" LinesAvoided="5" />
       </Target>
-      <Target Target="#261=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::KeepCallBackAlive(System.String)">
+      <Target Target="#261=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveGetUploadFileAsync(System.String, System.Boolean, System.String, System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="258" LinesAvoided="5" />
       </Target>
-      <Target Target="#262=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::KeepCallBackAliveAsync(System.String)">
+      <Target Target="#262=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveUploadedFile(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="259" LinesAvoided="5" />
       </Target>
-      <Target Target="#263=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor()">
+      <Target Target="#263=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::PassiveUploadedFileAsync(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="260" LinesAvoided="5" />
       </Target>
-      <Target Target="#264=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.String)">
+      <Target Target="#264=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorUploadDownload(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="261" LinesAvoided="5" />
       </Target>
-      <Target Target="#265=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.String, System.String)">
+      <Target Target="#265=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorUploadDownloadAsync(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="262" LinesAvoided="5" />
       </Target>
-      <Target Target="#266=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
+      <Target Target="#266=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::Subscribe(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="263" LinesAvoided="5" />
       </Target>
-      <Target Target="#267=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
+      <Target Target="#267=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::SubscribeAsync(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="264" LinesAvoided="5" />
       </Target>
-      <Target Target="#268=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::LoadUser(System.String)">
+      <Target Target="#268=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorNextCommand(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="265" LinesAvoided="5" />
       </Target>
-      <Target Target="#269=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::LoadUserAsync(System.String)">
+      <Target Target="#269=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.PassiveShellClient::ErrorNextCommandAsync(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="266" LinesAvoided="5" />
       </Target>
-      <Target Target="#270=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest::#ctor()">
+      <Target Target="#270=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext)">
         <JoinPoint Description="#3" Ordinal="267" LinesAvoided="5" />
       </Target>
-      <Target Target="#271=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest::#ctor(System.String, System.String, System.String)">
+      <Target Target="#271=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.String)">
         <JoinPoint Description="#3" Ordinal="268" LinesAvoided="5" />
       </Target>
-      <Target Target="#272=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInResponse::#ctor()">
+      <Target Target="#272=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="269" LinesAvoided="5" />
       </Target>
-      <Target Target="#273=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInResponse::#ctor(System.String, System.String)">
+      <Target Target="#273=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.String, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="270" LinesAvoided="5" />
       </Target>
-      <Target Target="#274=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest::#ctor()">
+      <Target Target="#274=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::#ctor(System.ServiceModel.InstanceContext, System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="271" LinesAvoided="5" />
       </Target>
-      <Target Target="#275=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest::#ctor(System.String, System.String)">
+      <Target Target="#275=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::RegisterCallBackFunction(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="272" LinesAvoided="5" />
       </Target>
-      <Target Target="#276=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutResponse::#ctor()">
+      <Target Target="#276=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::RegisterCallBackFunctionAsync(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="273" LinesAvoided="5" />
       </Target>
-      <Target Target="#277=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutResponse::#ctor(System.Boolean, System.String)">
+      <Target Target="#277=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::KeepCallBackAlive(System.String)">
         <JoinPoint Description="#3" Ordinal="274" LinesAvoided="5" />
       </Target>
-      <Target Target="#278=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest::#ctor()">
+      <Target Target="#278=M:[WindowsFormsApp1]WindowsFormsApp1.ServiceReference1.AletCallBackClient::KeepCallBackAliveAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="275" LinesAvoided="5" />
       </Target>
-      <Target Target="#279=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest::#ctor(System.String, System.String)">
+      <Target Target="#279=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor()">
         <JoinPoint Description="#3" Ordinal="276" LinesAvoided="5" />
       </Target>
-      <Target Target="#280=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpResponse::#ctor()">
+      <Target Target="#280=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.String)">
         <JoinPoint Description="#3" Ordinal="277" LinesAvoided="5" />
       </Target>
-      <Target Target="#281=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpResponse::#ctor(System.Boolean, System.String)">
+      <Target Target="#281=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="278" LinesAvoided="5" />
       </Target>
-      <Target Target="#282=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest::#ctor()">
+      <Target Target="#282=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="279" LinesAvoided="5" />
       </Target>
-      <Target Target="#283=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest::#ctor(System.String, System.String, System.String)">
+      <Target Target="#283=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="280" LinesAvoided="5" />
       </Target>
-      <Target Target="#284=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordResponse::#ctor()">
+      <Target Target="#284=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::LoadUser(System.String)">
         <JoinPoint Description="#3" Ordinal="281" LinesAvoided="5" />
       </Target>
-      <Target Target="#285=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordResponse::#ctor(System.Boolean, System.String)">
+      <Target Target="#285=M:[WindowsFormsApp1]WindowsFormsApp1.LoadUser.LoadUserClient::LoadUserAsync(System.String)">
         <JoinPoint Description="#3" Ordinal="282" LinesAvoided="5" />
       </Target>
-      <Target Target="#286=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest::#ctor()">
+      <Target Target="#286=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="283" LinesAvoided="5" />
       </Target>
-      <Target Target="#287=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest::#ctor(System.String, System.String, System.String, System.String)">
+      <Target Target="#287=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest::#ctor(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="284" LinesAvoided="5" />
       </Target>
-      <Target Target="#288=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse::#ctor()">
+      <Target Target="#288=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="285" LinesAvoided="5" />
       </Target>
-      <Target Target="#289=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse::#ctor(System.Boolean, System.String)">
+      <Target Target="#289=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInResponse::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="286" LinesAvoided="5" />
       </Target>
-      <Target Target="#290=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest::#ctor()">
+      <Target Target="#290=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="287" LinesAvoided="5" />
       </Target>
-      <Target Target="#291=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest::#ctor(System.String)">
+      <Target Target="#291=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="288" LinesAvoided="5" />
       </Target>
-      <Target Target="#292=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionResponse::#ctor()">
+      <Target Target="#292=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="289" LinesAvoided="5" />
       </Target>
-      <Target Target="#293=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionResponse::#ctor(System.String, System.String)">
+      <Target Target="#293=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutResponse::#ctor(System.Boolean, System.String)">
         <JoinPoint Description="#3" Ordinal="290" LinesAvoided="5" />
       </Target>
-      <Target Target="#294=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest::#ctor()">
+      <Target Target="#294=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="291" LinesAvoided="5" />
       </Target>
-      <Target Target="#295=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest::#ctor(System.String, System.String)">
+      <Target Target="#295=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="292" LinesAvoided="5" />
       </Target>
-      <Target Target="#296=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse::#ctor()">
+      <Target Target="#296=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="293" LinesAvoided="5" />
       </Target>
-      <Target Target="#297=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse::#ctor(System.String, System.String)">
+      <Target Target="#297=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpResponse::#ctor(System.Boolean, System.String)">
         <JoinPoint Description="#3" Ordinal="294" LinesAvoided="5" />
       </Target>
-      <Target Target="#298=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor()">
+      <Target Target="#298=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="295" LinesAvoided="5" />
       </Target>
-      <Target Target="#299=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.String)">
+      <Target Target="#299=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest::#ctor(System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="296" LinesAvoided="5" />
       </Target>
-      <Target Target="#300=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.String, System.String)">
+      <Target Target="#300=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="297" LinesAvoided="5" />
       </Target>
-      <Target Target="#301=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
+      <Target Target="#301=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordResponse::#ctor(System.Boolean, System.String)">
         <JoinPoint Description="#3" Ordinal="298" LinesAvoided="5" />
       </Target>
-      <Target Target="#302=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
+      <Target Target="#302=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="299" LinesAvoided="5" />
       </Target>
-      <Target Target="#303=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#AuthenticateAndSignIn([WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest)">
+      <Target Target="#303=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest::#ctor(System.String, System.String, System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="300" LinesAvoided="5" />
       </Target>
-      <Target Target="#304=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::AuthenticateAndSignIn(System.String, System.String, System.String, out System.String)">
+      <Target Target="#304=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="301" LinesAvoided="5" />
       </Target>
-      <Target Target="#305=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::AuthenticateAndSignInAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest)">
+      <Target Target="#305=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerResponse::#ctor(System.Boolean, System.String)">
         <JoinPoint Description="#3" Ordinal="302" LinesAvoided="5" />
       </Target>
-      <Target Target="#306=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#Logout([WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest)">
+      <Target Target="#306=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="303" LinesAvoided="5" />
       </Target>
-      <Target Target="#307=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::Logout(System.String, System.String, out System.String)">
+      <Target Target="#307=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest::#ctor(System.String)">
         <JoinPoint Description="#3" Ordinal="304" LinesAvoided="5" />
       </Target>
-      <Target Target="#308=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::LogoutAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest)">
+      <Target Target="#308=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="305" LinesAvoided="5" />
       </Target>
-      <Target Target="#309=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#SignUp([WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest)">
+      <Target Target="#309=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionResponse::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="306" LinesAvoided="5" />
       </Target>
-      <Target Target="#310=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SignUp(System.String, System.String, out System.String)">
+      <Target Target="#310=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest::#ctor()">
         <JoinPoint Description="#3" Ordinal="307" LinesAvoided="5" />
       </Target>
-      <Target Target="#311=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SignUpAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest)">
+      <Target Target="#311=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="308" LinesAvoided="5" />
       </Target>
-      <Target Target="#312=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#ChangeUserPassword([WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest)">
+      <Target Target="#312=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse::#ctor()">
         <JoinPoint Description="#3" Ordinal="309" LinesAvoided="5" />
       </Target>
-      <Target Target="#313=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::ChangeUserPassword(System.String, System.String, System.String, out System.String)">
+      <Target Target="#313=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="310" LinesAvoided="5" />
       </Target>
-      <Target Target="#314=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::ChangeUserPasswordAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest)">
+      <Target Target="#314=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor()">
         <JoinPoint Description="#3" Ordinal="311" LinesAvoided="5" />
       </Target>
-      <Target Target="#315=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#SetSecurityQuestionAndAnswer([WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest)">
+      <Target Target="#315=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.String)">
         <JoinPoint Description="#3" Ordinal="312" LinesAvoided="5" />
       </Target>
-      <Target Target="#316=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SetSecurityQuestionAndAnswer(System.String, System.String, System.String, System.String, out System.String)">
+      <Target Target="#316=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.String, System.String)">
         <JoinPoint Description="#3" Ordinal="313" LinesAvoided="5" />
       </Target>
-      <Target Target="#317=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SetSecurityQuestionAndAnswerAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest)">
+      <Target Target="#317=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.String, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="314" LinesAvoided="5" />
       </Target>
-      <Target Target="#318=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#GetSecurityQuestion([WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest)">
+      <Target Target="#318=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::#ctor(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)">
         <JoinPoint Description="#3" Ordinal="315" LinesAvoided="5" />
       </Target>
-      <Target Target="#319=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::GetSecurityQuestion(System.String, out System.String)">
+      <Target Target="#319=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#AuthenticateAndSignIn([WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest)">
         <JoinPoint Description="#3" Ordinal="316" LinesAvoided="5" />
       </Target>
-      <Target Target="#320=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::GetSecurityQuestionAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest)">
+      <Target Target="#320=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::AuthenticateAndSignIn(System.String, System.String, System.String, out System.String)">
         <JoinPoint Description="#3" Ordinal="317" LinesAvoided="5" />
       </Target>
-      <Target Target="#321=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#RestorePasswordFromUserNameAndSecurityQuestion([WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest)">
+      <Target Target="#321=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::AuthenticateAndSignInAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticateAndSignInRequest)">
         <JoinPoint Description="#3" Ordinal="318" LinesAvoided="5" />
       </Target>
-      <Target Target="#322=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::RestorePasswordFromUserNameAndSecurityQuestion(System.String, System.String, out System.String)">
+      <Target Target="#322=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#Logout([WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest)">
         <JoinPoint Description="#3" Ordinal="319" LinesAvoided="5" />
       </Target>
-      <Target Target="#323=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::RestorePasswordFromUserNameAndSecurityQuestionAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest)">
+      <Target Target="#323=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::Logout(System.String, System.String, out System.String)">
         <JoinPoint Description="#3" Ordinal="320" LinesAvoided="5" />
       </Target>
-    </Instance>
-  </Class>
-  <Class Class="#324=T:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy">
-    <Instance File="C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\\ActiveClientUI.pssln" Line="5" Column="6">
-      <Target Target="#325=A:WindowsFormsApp1">
-        <JoinPoint Advised="#326=M:[mscorlib]System.Threading.Monitor::Enter(System.Object, ref System.Boolean)" Advising="#327=T:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements" Description="#328=Intercepted by Enter_Object_Bool" Ordinal="321" LinesAvoided="2" />
-        <JoinPoint Advised="#329=M:[mscorlib]System.Threading.Monitor::Exit(System.Object)" Advising="#327" Description="#330=Intercepted by Exit" Ordinal="322" LinesAvoided="2" />
+      <Target Target="#324=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::LogoutAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.LogoutRequest)">
+        <JoinPoint Description="#3" Ordinal="321" LinesAvoided="5" />
+      </Target>
+      <Target Target="#325=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#SignUp([WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest)">
+        <JoinPoint Description="#3" Ordinal="322" LinesAvoided="5" />
+      </Target>
+      <Target Target="#326=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SignUp(System.String, System.String, out System.String)">
+        <JoinPoint Description="#3" Ordinal="323" LinesAvoided="5" />
+      </Target>
+      <Target Target="#327=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SignUpAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.SignUpRequest)">
+        <JoinPoint Description="#3" Ordinal="324" LinesAvoided="5" />
+      </Target>
+      <Target Target="#328=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#ChangeUserPassword([WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest)">
+        <JoinPoint Description="#3" Ordinal="325" LinesAvoided="5" />
+      </Target>
+      <Target Target="#329=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::ChangeUserPassword(System.String, System.String, System.String, out System.String)">
+        <JoinPoint Description="#3" Ordinal="326" LinesAvoided="5" />
+      </Target>
+      <Target Target="#330=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::ChangeUserPasswordAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.ChangeUserPasswordRequest)">
+        <JoinPoint Description="#3" Ordinal="327" LinesAvoided="5" />
+      </Target>
+      <Target Target="#331=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#SetSecurityQuestionAndAnswer([WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest)">
+        <JoinPoint Description="#3" Ordinal="328" LinesAvoided="5" />
+      </Target>
+      <Target Target="#332=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SetSecurityQuestionAndAnswer(System.String, System.String, System.String, System.String, out System.String)">
+        <JoinPoint Description="#3" Ordinal="329" LinesAvoided="5" />
+      </Target>
+      <Target Target="#333=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::SetSecurityQuestionAndAnswerAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.SetSecurityQuestionAndAnswerRequest)">
+        <JoinPoint Description="#3" Ordinal="330" LinesAvoided="5" />
+      </Target>
+      <Target Target="#334=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#GetSecurityQuestion([WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest)">
+        <JoinPoint Description="#3" Ordinal="331" LinesAvoided="5" />
+      </Target>
+      <Target Target="#335=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::GetSecurityQuestion(System.String, out System.String)">
+        <JoinPoint Description="#3" Ordinal="332" LinesAvoided="5" />
+      </Target>
+      <Target Target="#336=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::GetSecurityQuestionAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.GetSecurityQuestionRequest)">
+        <JoinPoint Description="#3" Ordinal="333" LinesAvoided="5" />
+      </Target>
+      <Target Target="#337=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::WindowsFormsApp1#Authentication#IAuthentication#RestorePasswordFromUserNameAndSecurityQuestion([WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest)">
+        <JoinPoint Description="#3" Ordinal="334" LinesAvoided="5" />
+      </Target>
+      <Target Target="#338=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::RestorePasswordFromUserNameAndSecurityQuestion(System.String, System.String, out System.String)">
+        <JoinPoint Description="#3" Ordinal="335" LinesAvoided="5" />
+      </Target>
+      <Target Target="#339=M:[WindowsFormsApp1]WindowsFormsApp1.Authentication.AuthenticationClient::RestorePasswordFromUserNameAndSecurityQuestionAsync([WindowsFormsApp1]WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionRequest)">
+        <JoinPoint Description="#3" Ordinal="336" LinesAvoided="5" />
       </Target>
     </Instance>
   </Class>
-  <Annotation Target="#331=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MutexEnhancements::Release(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332=2" Description="#333=PostSharp estimates that 2 line(s) of code are saved every time this advice is applied. Use the [LinesOfCodeAvoided] attribute on the aspect or specify the LinesOfCodeAvoided property on the advice attribute to override this value." />
-  <Annotation Target="#334=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#335=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#336=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#337=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_Int32_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#338=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_TimeSpan_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#339=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#340=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#341=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#342=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_Int32_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#343=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_TimeSpan_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#344=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::SignalAndWait_WaitHandle_WaitHandle(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#345=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::SignalAndWait_WaitHandle_WaitHandle_Int32_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#346=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::SignalAndWait_WaitHandle_WaitHandle_TimeSpan_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#347=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::HandleModification(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#348=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::Enter_Object(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#349=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::Enter_Object_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#350=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#351=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#352=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#353=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#354=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_Int32_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#355=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_TimeSpan_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#356=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::Exit(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#357=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::ReaderLockEnter(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#358=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::UpgradeableReadEnter(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#359=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::WriterLockEnter(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#360=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::UpgradeToWriterLock(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#361=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::ReaderLockExit(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#362=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::UpgradeableReadLockExit(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#363=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::WriterLockExit(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#364=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::TryEnterReadLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#365=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::TryEnterUpgradeableReadLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#366=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::TryEnterWriteLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#367=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::ReleaseRestoreLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#368=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ThreadEnhancements::Join(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#369=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ThreadEnhancements::Join_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#370=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ThreadEnhancements::Join_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#371=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#372=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#373=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#374=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#375=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#376=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#377=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action_DispatcherPriority_CancellationToken_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#378=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func_DispatcherPriority_CancellationToken_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#379=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#380=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_Delegate(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#381=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::OnInvoke_Delegate_TimeSpan_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#382=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::OnInvoke_Delegate_DispatcherPriority_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#383=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#384=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#385=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#386=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_Delegate_Object_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#387=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate_Object(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#388=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate_Object_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#389=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Action(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#390=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Func(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#391=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Action_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#392=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Func_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#393=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Action_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#394=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Func_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#395=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#396=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_DispatcherPriority_Delegate(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#397=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_Delegate_DispatcherPriority_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#398=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_DispatcherPriority_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#399=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_DispatcherPriority_Delegate_Object_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#400=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherOperationEnhancements::Wait(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#401=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherOperationEnhancements::Wait_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#402=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+SynchronizationContextEnhancements::Post(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#403=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+SynchronizationContextEnhancements::Send(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#404=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+SynchronizationContextEnhancements::Wait(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#405=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherSynchronizationContextEnhancements::Post(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#406=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherSynchronizationContextEnhancements::Send(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
-  <Annotation Target="#407=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherSynchronizationContextEnhancements::Wait(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#332" Description="#333" />
+  <Class Class="#340=T:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy">
+    <Instance File="C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\\ActiveClientUI.pssln" Line="5" Column="6">
+      <Target Target="#341=A:WindowsFormsApp1">
+        <JoinPoint Advised="#342=M:[mscorlib]System.Threading.Monitor::Enter(System.Object, ref System.Boolean)" Advising="#343=T:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements" Description="#344=Intercepted by Enter_Object_Bool" Ordinal="337" LinesAvoided="2" />
+        <JoinPoint Advised="#345=M:[mscorlib]System.Threading.Monitor::Exit(System.Object)" Advising="#343" Description="#346=Intercepted by Exit" Ordinal="338" LinesAvoided="2" />
+      </Target>
+    </Instance>
+  </Class>
+  <Annotation Target="#347=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MutexEnhancements::Release(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348=2" Description="#349=PostSharp estimates that 2 line(s) of code are saved every time this advice is applied. Use the [LinesOfCodeAvoided] attribute on the aspect or specify the LinesOfCodeAvoided property on the advice attribute to override this value." />
+  <Annotation Target="#350=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#351=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#352=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#353=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_Int32_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#354=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitOne_TimeSpan_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#355=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#356=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#357=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#358=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_Int32_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#359=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::WaitAll_WaitHandleArray_TimeSpan_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#360=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::SignalAndWait_WaitHandle_WaitHandle(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#361=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::SignalAndWait_WaitHandle_WaitHandle_Int32_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#362=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::SignalAndWait_WaitHandle_WaitHandle_TimeSpan_Boolean(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#363=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+WaitHandleEnhancements::HandleModification(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#364=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::Enter_Object(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#365=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::Enter_Object_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#366=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#367=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#368=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#369=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#370=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_Int32_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#371=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::TryEnter_Object_TimeSpan_Bool(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#372=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+MonitorEnhancements::Exit(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#373=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::ReaderLockEnter(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#374=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::UpgradeableReadEnter(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#375=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::WriterLockEnter(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#376=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::UpgradeToWriterLock(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#377=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::ReaderLockExit(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#378=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::UpgradeableReadLockExit(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#379=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::WriterLockExit(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#380=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::TryEnterReadLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#381=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::TryEnterUpgradeableReadLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#382=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::TryEnterWriteLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#383=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ReaderWriterEnhancements::ReleaseRestoreLock(PostSharp.Aspects.MethodExecutionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#384=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ThreadEnhancements::Join(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#385=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ThreadEnhancements::Join_Int32(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#386=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+ThreadEnhancements::Join_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#387=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#388=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#389=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#390=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#391=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#392=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#393=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Action_DispatcherPriority_CancellationToken_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#394=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Func_DispatcherPriority_CancellationToken_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#395=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#396=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_Delegate(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#397=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::OnInvoke_Delegate_TimeSpan_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#398=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::OnInvoke_Delegate_DispatcherPriority_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#399=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#400=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#401=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#402=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_Delegate_Object_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#403=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate_Object(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#404=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::Invoke_DispatcherPriority_TimeSpan_Delegate_Object_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#405=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Action(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#406=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Func(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#407=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Action_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#408=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Func_DispatcherPriority(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#409=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Action_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#410=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::InvokeAsync_Func_DispatcherPriority_CancellationToken(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#411=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#412=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_DispatcherPriority_Delegate(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#413=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_Delegate_DispatcherPriority_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#414=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_DispatcherPriority_Delegate_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#415=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherEnhancements::BeginInvoke_DispatcherPriority_Delegate_Object_ObjectArray(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#416=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherOperationEnhancements::Wait(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#417=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherOperationEnhancements::Wait_TimeSpan(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#418=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+SynchronizationContextEnhancements::Post(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#419=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+SynchronizationContextEnhancements::Send(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#420=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+SynchronizationContextEnhancements::Wait(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#421=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherSynchronizationContextEnhancements::Post(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#422=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherSynchronizationContextEnhancements::Send(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
+  <Annotation Target="#423=M:[PostSharp.Patterns.Threading]PostSharp.Patterns.Threading.DeadlockDetectionPolicy+DispatcherSynchronizationContextEnhancements::Wait(PostSharp.Aspects.MethodInterceptionArgs)" Arguments="#348" Description="#349" />
 </Symbols>

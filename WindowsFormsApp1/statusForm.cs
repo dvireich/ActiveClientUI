@@ -21,6 +21,7 @@ namespace WindowsFormsApp1
         private string _wcfServicesPathId;
         private static readonly log4net.ILog log
       = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        List<PassiveClientStatusData> lastClientsStatusList;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public string SelectedClient { get => _selectedClient; set => _selectedClient = value; }
@@ -64,109 +65,196 @@ namespace WindowsFormsApp1
             
             lock (statusFromServerLock)
             {
-                //this.Invoke((MethodInvoker)(() =>  listView1.Items.Clear()));
-                var status = shellService.GetStatus();
-                status = status.Replace("\r", "");
+                var status = shellService.GetStatus().Replace("\r", "");
                 var statusSplittedNewLine = status.Split('\n');
                 statusSplittedNewLine = statusSplittedNewLine.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
-                if (statusSplittedNewLine.Length == 2 && statusSplittedNewLine[1] == "There is no clients connected")
-                {
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        noClientConnected.Visible = true;
-                        listView1.Visible = false;
-                        selectedClientLabel.Visible = false;
-                    }));
-                    return;
-                }
-                int oldFocusedIndex = -1;
-                this.Invoke((MethodInvoker)(() =>
-                {
-                    try
-                    {
-                        oldFocusedIndex = listView1 != null ?
-                                                                                listView1.SelectedItems != null ?
-                                                                                            listView1.SelectedItems.Count > 0 ?
-                                                                                                            listView1.SelectedItems[0].Index :
-                                                                                                            -1 :
-                                                                                                            -1 :
-                                                                                                            -1;
-                        listView1.SuspendLayout();
-                        listView1.BeginUpdate();
-                        selectedClientLabel.Visible = true;
-                        selectedClientLabel.Text = string.Format("Selected client: {0}", statusSplittedNewLine.Last().Split(':').Last());
-                        listView1.Items.Clear();
-                    }
-                    catch(Exception)
-                    {
-                        return;
-                    }
-                    
-                }));
-                SelectedClient = statusSplittedNewLine.Last().Split(':').Last();
-                var clients = status.Split(new string[] { "Client" }, StringSplitOptions.RemoveEmptyEntries);
-                clients = clients.ToArray().Skip(1).Take(clients.Count() - 2).ToArray();
-                var index = 0;
-                foreach(var client in clients)
-                {
-                    var fields = client.Replace('\t', '\n').Split('\n');
-                    fields = fields.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str) && str!= "The selected ").ToArray();
 
-                    var id = fields[0].Split(':').Last();
-                    var nickName = fields[1].Split(':').Last();
-                    var isAlive = bool.Parse(fields[2].Split(':').Last()) ? Status.On : Status.Off;
-                    var shellTasks = new List<string>();
-                    var i = 4;
-                    while(fields[i] != "Upload And Download Tasks:")
-                    {
-                        if (fields[i] == "There is no shell tasks")
-                        {
-                            i++;
-                            break;
-                        }
-                         
-                        shellTasks.Add(fields[i]);
-                        i++;
-                    }
-                    var downloadUploadTasks = new List<string>();
-                    i++;
-                    while (i < fields.Count())
-                    {
-                        if (fields[i] == "There is no Download or Upload tasks")
-                        {
-                            i++;
-                            break;
-                        }
-                           
-                        shellTasks.Add(fields[i]);
-                        i++;
-                    }
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        noClientConnected.Visible = false;
-                        listView1.Visible = true;
-                        AddToListView(index, id.Trim(), isAlive ,nickName);
-                    }));
-                    index++;
+                if (!CheckIfAnyClientConnectedAndShowLablelIfNot(statusSplittedNewLine)) return;
+
+                var oldFocusedIndex = GetLastSelectedIndex();
+
+                ParseAndChangeSelectedClientTextLable(statusSplittedNewLine);
+
+                SelectedClient = statusSplittedNewLine.Last().Split(':').Last();
+
+                var clientStatusList = ParseClientStatus(status);
+
+                bool shouldChangeUi = CheckIfSomeClientStatusChanged(clientStatusList);
+
+                if (shouldChangeUi)
+                {
+                    ChangeViewAndRestoreSelected(oldFocusedIndex, clientStatusList);
                 }
+            }
+        }
+
+        private bool CheckIfAnyClientConnectedAndShowLablelIfNot(string[] status)
+        {
+            status = status.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
+            if (status.Length == 2 && status[1] == "There is no clients connected")
+            {
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    listView1.ItemSelectionChanged -= this.listView1_ItemSelectionChanged_1;
-                    if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
+                    noClientConnected.Visible = true;
+                    listView1.Visible = false;
+                    selectedClientLabel.Visible = false;
+                }));
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckIfSomeClientStatusChanged(List<PassiveClientStatusData> clientStatusList)
+        {
+            var shouldChangeUi = false;
+
+            if (lastClientsStatusList == null || lastClientsStatusList.Count != clientStatusList.Count)
+            {
+                lastClientsStatusList = clientStatusList;
+                shouldChangeUi = true;
+
+            }
+            else
+            {
+                for (int i = 0; i < lastClientsStatusList.Count; i++)
+                {
+                    if (!lastClientsStatusList[i].Equals(clientStatusList[i]))
                     {
-                        listView1.Items[oldFocusedIndex].Selected = true;
+                        lastClientsStatusList = clientStatusList;
+                        shouldChangeUi = true;
+                        break;
                     }
-                    else if (listView1 != null && listView1.Items != null && listView1.Items.Count > 0)
-                    {
-                        listView1.Items[0].Selected = true;
-                    }
-                    listView1.ItemSelectionChanged += this.listView1_ItemSelectionChanged_1;
+                }
+            }
+
+            return shouldChangeUi;
+        }
+
+        private void ChangeViewAndRestoreSelected(int oldFocusedIndex, List<PassiveClientStatusData> clientStatusList)
+        {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                listView1.SuspendLayout();
+                listView1.BeginUpdate();
+                listView1.Items.Clear();
+
+                for (int i = 0; i < clientStatusList.Count; i++)
+                {
+                    var clientStatus = clientStatusList[i];
+                    noClientConnected.Visible = false;
+                    listView1.Visible = true;
+                    AddToListView(i, clientStatus.id, clientStatus.IsAlive, clientStatus.NickName);
+                }
+
+                RestoreSelectedItem(oldFocusedIndex);
+                listView1.EndUpdate();
+                listView1.ResumeLayout();
+                listView1.Refresh();
+            }
+                            ));
+        }
+
+        private bool ParseAndChangeSelectedClientTextLable(string[] statusSplittedNewLine)
+        {
+            bool ret = false;
+            this.Invoke((MethodInvoker)(() =>
+            {
+                try
+                {
+                    listView1.SuspendLayout();
+                    listView1.BeginUpdate();
+                    selectedClientLabel.Visible = true;
+                    selectedClientLabel.Text = string.Format("Selected client: {0}", statusSplittedNewLine.Last().Split(':').Last());
                     listView1.EndUpdate();
                     listView1.ResumeLayout();
                     listView1.Refresh();
+                    ret = true;
                 }
-                ));
+                catch (Exception)
+                {
+                    ret = false;
+                }
+            }));
+
+            return ret;
+        }
+
+        private int GetLastSelectedIndex()
+        {
+            int lLastSelectedIndex = -1;
+            this.Invoke((MethodInvoker)(() =>
+            {
+                lLastSelectedIndex = listView1 != null ?
+                                                         listView1.SelectedItems != null ?
+                                                              listView1.SelectedItems.Count > 0 ?
+                                                                 listView1.SelectedItems[0].Index :
+                                                                     -1 :
+                                                                     -1 :
+                                                                     -1;
+            }));
+
+            return lLastSelectedIndex;
+        }
+
+        private static List<PassiveClientStatusData> ParseClientStatus(string status)
+        {
+            List<PassiveClientStatusData> clientStatusList = new List<PassiveClientStatusData>();
+            var clients = status.Split(new string[] { "Client" }, StringSplitOptions.RemoveEmptyEntries);
+            clients = clients.ToArray().Skip(1).Take(clients.Count() - 2).ToArray();
+
+            foreach (var client in clients)
+            {
+                var fields = client.Replace('\t', '\n').Split('\n');
+                fields = fields.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str) && str != "The selected ").ToArray();
+
+                var id = fields[0].Split(':').Last();
+                var nickName = fields[1].Split(':').Last();
+                var isAlive = bool.Parse(fields[2].Split(':').Last()) ? Status.On : Status.Off;
+                var shellTasks = new List<string>();
+                var i = 4;
+                while (fields[i] != "Upload And Download Tasks:")
+                {
+                    if (fields[i] == "There is no shell tasks")
+                    {
+                        i++;
+                        break;
+                    }
+
+                    shellTasks.Add(fields[i]);
+                    i++;
+                }
+                var downloadUploadTasks = new List<string>();
+                i++;
+                while (i < fields.Count())
+                {
+                    if (fields[i] == "There is no Download or Upload tasks")
+                    {
+                        i++;
+                        break;
+                    }
+
+                    shellTasks.Add(fields[i]);
+                    i++;
+                }
+                clientStatusList.Add(new PassiveClientStatusData(id.Trim(), isAlive, nickName));
             }
+
+            return clientStatusList;
+        }
+
+        private void RestoreSelectedItem(int oldFocusedIndex)
+        {
+            listView1.ItemSelectionChanged -= this.listView1_ItemSelectionChanged_1;
+            if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
+            {
+                listView1.Items[oldFocusedIndex].Selected = true;
+            }
+            else if (listView1 != null && listView1.Items != null && listView1.Items.Count > 0)
+            {
+                listView1.Items[0].Selected = true;
+            }
+            listView1.ItemSelectionChanged += this.listView1_ItemSelectionChanged_1;
         }
 
         private void AddToListView(int index, string id, Status status, string nickName, bool check = false)
@@ -180,6 +268,7 @@ namespace WindowsFormsApp1
             item1.SubItems.Add(nickName);
             item1.ImageIndex = (int)status;
             listView1.Items.Add(item1);
+            ListView_SizeChanged(null, null);
             listView1.EndUpdate();
             listView1.Refresh();
         }
@@ -266,6 +355,7 @@ namespace WindowsFormsApp1
         {
             for (var i = 0; i < listView1.Columns.Count; i++)
             {
+                listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
                 listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
             }
         }

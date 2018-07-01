@@ -1145,33 +1145,22 @@ namespace WindowsFormsApp1
         private bool CheckIfFileFolderListChanged(List<CMDFileFolder> FileFolderList)
         {
             var listChanged = false;
-            if (currentFilesAndFolders == null)
+            if (currentFilesAndFolders == null || currentFilesAndFolders.Count != FileFolderList.Count)
             {
                 currentFilesAndFolders = FileFolderList;
                 listChanged = true;
             }
             else
             {
-                //Assuming that the order is the same as bedore
-                if (currentFilesAndFolders.Count != FileFolderList.Count)
+                for (int i = 0; i < currentFilesAndFolders.Count; i++)
                 {
-                    currentFilesAndFolders = FileFolderList;
-                    listChanged = true;
-
-                }
-                else
-                {
-                    for (int i = 0; i < currentFilesAndFolders.Count; i++)
+                    if (!currentFilesAndFolders[i].Equals(FileFolderList[i]))
                     {
-                        if (!currentFilesAndFolders[i].Equals(FileFolderList[i]))
-                        {
-                            currentFilesAndFolders = FileFolderList;
-                            listChanged = true;
-                            break;
-                        }
+                        currentFilesAndFolders = FileFolderList;
+                        listChanged = true;
+                        break;
                     }
                 }
-
             }
 
             return listChanged;

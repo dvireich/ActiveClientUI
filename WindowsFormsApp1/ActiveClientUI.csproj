@@ -102,6 +102,7 @@
     <Compile Include="ListViewNF.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PassiveClientStatusData.cs" />
     <Compile Include="RestorePasswordFrom.cs">
       <SubType>Form</SubType>
     </Compile>

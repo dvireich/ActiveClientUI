@@ -22,6 +22,8 @@ namespace WindowsFormsApp1
         private string _wcfServicesPathId;
         private static readonly log4net.ILog log
       = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private List<string> lastShellTasks;
+        private List<string> lastDownloadUploadTasks;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public string SelectedClient { get => _selectedClient; set => _selectedClient = value; }
@@ -43,11 +45,19 @@ namespace WindowsFormsApp1
             _currentType = type;
             SelectedClient = client;
             InitializeComponent();
+            listView1.SizeChanged += new EventHandler(ListView_SizeChanged);
             CreateListView();
             initializeServiceReferences(_wcfServicesPathId);
         }
 
-        
+        private void ListView_SizeChanged(object sender, EventArgs e)
+        {
+            for (var i = 0; i < listView1.Columns.Count; i++)
+            {
+                listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
+                listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
+            }
+        }
 
         Object statusFromServerLock = new Object();
         private void GetStatusFromServer()
@@ -58,129 +68,221 @@ namespace WindowsFormsApp1
                 status = status.Replace("\r", "");
                 var statusSplittedNewLine = status.Split('\n');
                 statusSplittedNewLine = statusSplittedNewLine.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
-                if (statusSplittedNewLine.Length == 2 && statusSplittedNewLine[1] == "There is no clients connected")
-                {
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        NoTasks.Visible = true;
-                        listView1.Visible = false;
-                        NoTasks.Visible = false;
-                    }));
-                    return;
-                }
+
+                if (!CheckIfAnyClientConnectedAndShowLablelIfNot(statusSplittedNewLine)) return;
+
                 var clients = status.Split(new string[] { "Client" }, StringSplitOptions.RemoveEmptyEntries);
                 clients = clients.ToArray().Skip(1).Take(clients.Count() - 2).ToArray();
                 var index = 0;
+
                 foreach (var client in clients)
                 {
-                    var clientId = client.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries).ElementAt(1).Split('\t').First().Trim();
-                    if (clientId != SelectedClient) continue;
-                    var fields = client.Replace('\t', '\n').Split('\n');
-                    fields = fields.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str) && str != "The selected ").ToArray();
+                    List<string> shellTasks, downloadUploadTasks;
 
-                    var id = fields[0].Split(':').Last();
-                    var nickName = fields[1].Split(':').Last();
-                    var isAlive = bool.Parse(fields[2].Split(':').Last()) ? Status.On : Status.Off;
-                    var shellTasks = new List<string>();
-                    var i = 4;
-                    while (fields[i] != "Upload And Download Tasks:")
+                    if (!ParseClientTasks(client, out shellTasks, out downloadUploadTasks)) continue;
+
+                    var oldFocusedIndex = GetLastSelectedIndex();
+
+                    var needToUpdateUi = CheckIfIShellTasksOrDownloadUploadTasksChanged(shellTasks, downloadUploadTasks);
+
+                    if(needToUpdateUi)
                     {
-                        if (fields[i] == "There is no shell tasks")
+                        this.Invoke((MethodInvoker)(() =>
                         {
-                            i++;
-                            break;
-                        }
-                        else if(fields[i].StartsWith("Task Number:"))
-                        {
-                            i++;
-                            continue;
-                        }
+                            NoTasks.Visible = false;
+                            listView1.Visible = true;
 
-                        shellTasks.Add(fields[i]);
-                        i++;
+                            listView1.SuspendLayout();
+                            listView1.BeginUpdate();
+                            listView1.Items.Clear();
+
+                            AddTasksToView(ref index, _currentType == TaskType.Shell ? shellTasks : downloadUploadTasks);
+
+                            RestoreSelectedItem(oldFocusedIndex);
+
+                            listView1.EndUpdate();
+                            listView1.ResumeLayout();
+                            listView1.Refresh();
+                        }));
                     }
-                    var downloadUploadTasks = new List<string>();
-                    i++;
-                    while (i < fields.Count())
-                    {
-                        if (fields[i] == "There is no Download or Upload tasks")
-                        {
-                            i++;
-                            break;
-                        }
-                        else if (fields[i].StartsWith("Task Number:"))
-                        {
-                            i++;
-                            continue;
-                        }
-
-                        downloadUploadTasks.Add(fields[i]);
-                        i++;
-                    }
-
-                    this.Invoke((MethodInvoker)(() =>
-                    {
-                        NoTasks.Visible = false;
-                        listView1.Visible = true;
-                        var oldFocusedIndex = listView1 != null ?
-                                                        listView1.SelectedItems != null ?
-                                                                    listView1.SelectedItems.Count > 0 ?
-                                                                                    listView1.SelectedItems[0].Index :
-                                                                                    -1 :
-                                                                                    -1 :
-                                                                                    -1;
-                        listView1.SuspendLayout();
-                        listView1.BeginUpdate();
-                        listView1.Items.Clear();
-                        foreach (var task in _currentType == TaskType.Shell ? shellTasks : downloadUploadTasks)
-                        {
-                            if(_currentType == TaskType.Shell)
-                            {
-                                var splited = task.Split(' ');
-                                var splitedList = splited.ToList();
-                                if (splitedList.First() == "Download" || splitedList.First() == "Upload")
-                                    continue;
-                                if(splitedList.First() != "Run")
-                                    splitedList.RemoveAt(0);
-                                var command = splitedList.First();
-                                splitedList.RemoveAt(0);
-                                var args = string.Join(" ", splitedList);
-                                if(!string.IsNullOrEmpty(command))
-                                    AddToListViewShell(index, command, args);
-                                index++;
-                            }
-                            else if (_currentType == TaskType.UploadDownload)
-                            {
-                                var splited = task.Split(' ');
-                                var splitedList = splited.ToList();
-                                if (splitedList.First() != "Download" && splitedList.First() != "Upload")
-                                    continue;
-                                var command = splitedList.First();
-                                var filenName = splitedList.ElementAt(1);
-                                var path = splitedList.ElementAt(2);
-                                AddToListViewUploadDownload(index, command, filenName, path);
-                                index++;
-                            }
-                        }
-                        if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
-                        {
-                            listView1.Items[oldFocusedIndex].Selected = true;
-                        }
-                        else if (listView1 != null && listView1.Items != null && listView1.Items.Count > 0)
-                        {
-                            listView1.Items[0].Selected = true;
-                        }
-                        listView1.EndUpdate();
-                        listView1.ResumeLayout();
-                        listView1.Refresh();
-                    }));
                 }
             }
         }
 
+        private bool CheckIfIShellTasksOrDownloadUploadTasksChanged(List<string> shellTasks, List<string> downloadUploadTasks)
+        {
+            var listChanged = false;
+
+            if (lastShellTasks == null ||
+               lastDownloadUploadTasks == null ||
+               lastShellTasks.Count != shellTasks.Count ||
+               lastDownloadUploadTasks.Count != downloadUploadTasks.Count)
+            {
+                listChanged = true;
+                lastShellTasks = shellTasks;
+                lastDownloadUploadTasks = downloadUploadTasks;
+            }
+            else
+            {
+                for (int i = 0; i < lastShellTasks.Count; i++)
+                {
+                    if (!lastShellTasks[i].Equals(shellTasks[i]))
+                    {
+                        listChanged = true;
+                        lastShellTasks = shellTasks;
+                        lastDownloadUploadTasks = downloadUploadTasks;
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < lastDownloadUploadTasks.Count; i++)
+                {
+                    if (!lastDownloadUploadTasks[i].Equals(downloadUploadTasks[i]))
+                    {
+                        listChanged = true;
+                        lastShellTasks = shellTasks;
+                        lastDownloadUploadTasks = downloadUploadTasks;
+                        break;
+                    }
+                }
+            }
+
+            return listChanged;
+        }
+
+        private bool ParseClientTasks(string client, out List<string> shellTasks, out List<string> downloadUploadTasks)
+        {
+            shellTasks = new List<string>();
+            downloadUploadTasks = new List<string>();
+
+            var clientId = client.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries).ElementAt(1).Split('\t').First().Trim();
+            if (clientId != SelectedClient) return false;
+            var fields = client.Replace('\t', '\n').Split('\n');
+            fields = fields.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str) && str != "The selected ").ToArray();
+
+            var id = fields[0].Split(':').Last();
+            var nickName = fields[1].Split(':').Last();
+            var isAlive = bool.Parse(fields[2].Split(':').Last()) ? Status.On : Status.Off;
+            
+            var i = 4;
+            while (fields[i] != "Upload And Download Tasks:")
+            {
+                if (fields[i] == "There is no shell tasks")
+                {
+                    i++;
+                    break;
+                }
+                else if (fields[i].StartsWith("Task Number:"))
+                {
+                    i++;
+                    continue;
+                }
+
+                shellTasks.Add(fields[i]);
+                i++;
+            }
+            
+            i++;
+            while (i < fields.Count())
+            {
+                if (fields[i] == "There is no Download or Upload tasks")
+                {
+                    i++;
+                    break;
+                }
+                else if (fields[i].StartsWith("Task Number:"))
+                {
+                    i++;
+                    continue;
+                }
+
+                downloadUploadTasks.Add(fields[i]);
+                i++;
+            }
+            return true;
+        }
+
+        private void AddTasksToView(ref int index, List<string> tasks)
+        {
+            foreach (var task in tasks)
+            {
+                if (_currentType == TaskType.Shell)
+                {
+                    var splited = task.Split(' ');
+                    var splitedList = splited.ToList();
+                    if (splitedList.First() == "Download" || splitedList.First() == "Upload")
+                        continue;
+                    if (splitedList.First() != "Run")
+                        splitedList.RemoveAt(0);
+                    var command = splitedList.First();
+                    splitedList.RemoveAt(0);
+                    var args = string.Join(" ", splitedList);
+                    if (!string.IsNullOrEmpty(command))
+                        AddToListViewShell(index, command, args);
+                    index++;
+                }
+                else if (_currentType == TaskType.UploadDownload)
+                {
+                    var splited = task.Split(' ');
+                    var splitedList = splited.ToList();
+                    if (splitedList.First() != "Download" && splitedList.First() != "Upload")
+                        continue;
+                    var command = splitedList.First();
+                    var filenName = splitedList.ElementAt(1);
+                    var path = splitedList.ElementAt(2);
+                    AddToListViewUploadDownload(index, command, filenName, path);
+                    index++;
+                }
+            }
+        }
+
+        private void RestoreSelectedItem(int oldFocusedIndex)
+        {
+            if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
+            {
+                listView1.Items[oldFocusedIndex].Selected = true;
+            }
+            else if (listView1 != null && listView1.Items != null && listView1.Items.Count > 0)
+            {
+                listView1.Items[0].Selected = true;
+            }
+        }
+
+        private bool CheckIfAnyClientConnectedAndShowLablelIfNot(string[] status)
+        {
+            status = status.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
+            if (status.Length == 2 && status[1] == "There is no clients connected")
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    NoTasks.Visible = true;
+                    listView1.Visible = false;
+                }));
+                return false;
+            }
+
+            return true;
+        }
+
+        private int GetLastSelectedIndex()
+        {
+            int lLastSelectedIndex = -1;
+            this.Invoke((MethodInvoker)(() =>
+            {
+                lLastSelectedIndex = listView1 != null ?
+                                                         listView1.SelectedItems != null ?
+                                                              listView1.SelectedItems.Count > 0 ?
+                                                                 listView1.SelectedItems[0].Index :
+                                                                     -1 :
+                                                                     -1 :
+                                                                     -1;
+            }));
+
+            return lLastSelectedIndex;
+        }
+
         private void AddToListViewUploadDownload(int index, string command, string fileName, string path, bool check = false)
         {
-            //listView1.BeginUpdate();
             // Create three items and three sets of subitems for each item.
             ListViewItem item1 = new ListViewItem(command, index);
             // Place a check mark next to the item.
@@ -188,21 +290,18 @@ namespace WindowsFormsApp1
             item1.SubItems.Add(fileName);
             item1.SubItems.Add(path);
             listView1.Items.Add(item1);
-            //listView1.EndUpdate();
-            //listView1.Refresh();
+            ListView_SizeChanged(null, null);
         }
 
         private void AddToListViewShell(int index, string command, string args, bool check = false)
         {
-            //listView1.BeginUpdate();
             // Create three items and three sets of subitems for each item.
             ListViewItem item1 = new ListViewItem(command, index);
             // Place a check mark next to the item.
             item1.Checked = check;
             item1.SubItems.Add(args);
             listView1.Items.Add(item1);
-            //listView1.EndUpdate();
-            //listView1.Refresh();
+            ListView_SizeChanged(null, null);
         }
 
         private static void initializeServiceReferences(string wcfServicesPathId)
@@ -354,6 +453,7 @@ namespace WindowsFormsApp1
         {
             for (var i = 0; i < listView1.Columns.Count; i++)
             {
+                listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
                 listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
             }
         }
