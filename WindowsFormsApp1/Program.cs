@@ -1,10 +1,7 @@
-﻿using PostSharp.Patterns.Diagnostics;
-using PostSharp.Patterns.Diagnostics.Backends.Log4Net;
-using System;
+﻿using System;
 using System.Threading;
 using System.Windows.Forms;
 
-[assembly: Log]
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace WindowsFormsApp1
@@ -14,11 +11,11 @@ namespace WindowsFormsApp1
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [Log(AttributeExclude = true)]
+        //[Log(AttributeExclude = true)]
         [STAThread]
         static void Main()
         {
-            InitializeLoggingBackend();
+            //InitializeLoggingBackend();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
@@ -32,12 +29,12 @@ namespace WindowsFormsApp1
             Environment.Exit(1);
         }
 
-        [Log(AttributeExclude = true)]
-        public static void InitializeLoggingBackend()
-        {
-            log4net.Config.XmlConfigurator.Configure();
-            var log4NetLoggingBackend = new Log4NetLoggingBackend();
-            LoggingServices.DefaultBackend = log4NetLoggingBackend;
-        }
+        //[Log(AttributeExclude = true)]
+        //public static void InitializeLoggingBackend()
+        //{
+        //    log4net.Config.XmlConfigurator.Configure();
+        //    var log4NetLoggingBackend = new Log4NetLoggingBackend();
+        //    LoggingServices.DefaultBackend = log4NetLoggingBackend;
+        //}
     }
 }

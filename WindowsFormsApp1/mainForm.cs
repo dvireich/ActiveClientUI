@@ -1034,7 +1034,7 @@ namespace WindowsFormsApp1
                                 {
                                     listView1.Items[oldFocusedIndex].Selected = true;
                                 }
-
+                                ListView_SizeChanged(null, null);
                                 listView1.EndUpdate();
                                 listView1.ResumeLayout();
                                 if (listView1.View == View.Details)
@@ -1182,7 +1182,7 @@ namespace WindowsFormsApp1
                 listView1.ResumeLayout();
                 listView1.EndUpdate();
                 listView1.Refresh();
-                ListView_SizeChanged(null, null);
+                //ListView_SizeChanged(null, null);
             }, 1000, 3, "Fail to AddToListView");
         }
 
@@ -1204,7 +1204,7 @@ namespace WindowsFormsApp1
                 listView1.ResumeLayout();
                 listView1.EndUpdate();
                 listView1.Refresh();
-                ListView_SizeChanged(null, null);
+                //ListView_SizeChanged(null, null);
             }, 1000, 3, "Fail to AddToListView");
         }
 
