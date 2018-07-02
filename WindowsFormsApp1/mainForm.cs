@@ -9,6 +9,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.ServiceReference1;
 
@@ -16,7 +17,7 @@ namespace WindowsFormsApp1
 {
     public partial class mainForm : Form
     {
-        private List<string> fileActions = new List<string> { "Rename", "Delete", "Copy", "Cut", "Paste", "Upload", "Download"};
+        private List<string> fileActions = new List<string> { "Rename", "Delete", "Copy", "Cut", "Paste", "Upload", "Download" };
         private List<string> folderActions = new List<string> { "Enter Directory" };
         private HashSet<string> allActions;
         private static IActiveShell shellService;
@@ -33,6 +34,7 @@ namespace WindowsFormsApp1
         private static readonly log4net.ILog log
       = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private List<CMDFileFolder> currentFilesAndFolders;
+        private bool userActionDisabled;
 
         public System.Threading.Timer StatusTimer { get; private set; }
         public System.Threading.Timer FolderListTimer { get; private set; }
@@ -56,7 +58,7 @@ namespace WindowsFormsApp1
                 getFolderListShellService = null;
             }
             catch { }
-            
+
         }
 
         public mainForm(string id, LogInForm loginForm)
@@ -86,7 +88,7 @@ namespace WindowsFormsApp1
                 {
                     task();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     log.Debug($"Error in executing task: {task.GetType().FullName} with the following exception: {ex.Message}");
                 }
@@ -96,18 +98,14 @@ namespace WindowsFormsApp1
 
         private void ListView_SizeChanged(object sender, EventArgs e)
         {
-            OptimisticTryAndFail(() =>
+            if (listView1.View == View.Details)
             {
-                if(listView1.View == View.Details)
+                for (var i = 0; i < listView1.Columns.Count; i++)
                 {
-                    for (var i = 0; i < listView1.Columns.Count; i++)
-                    {
-                        listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
-                        listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
-                    }
+                    listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
+                    listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
                 }
-                
-            }, 1000, 3, "Fail to ListView_SizeChanged");
+            }
 
 
         }
@@ -117,17 +115,20 @@ namespace WindowsFormsApp1
             ContextMenuOvveride PopupMenu = new ContextMenuOvveride();
             ListViewItem selected = null;
             ListView selectedListViewProperty = null;
-            OptimisticTryAndFail(() =>
-            {
-                selected = listView1.SelectedItems[0];
-                selectedListViewProperty = selected.ListView;
-            }, 1000, 3, "Fail to CreatePopUpMenu - selected = listView1.SelectedItems[0]");
-            
+            selected = listView1.SelectedItems[0];
+            selectedListViewProperty = selected.ListView;
+
             if (type == CmdLineType.Folder)
             {
                 PopupMenu.AddMenuItem("Enter",
                                             (obj, args) =>
                                             {
+                                                if (userActionDisabled)
+                                                {
+                                                    DisplayMessageDoOperationWhileDonwloadUpload();
+                                                    return;
+                                                }
+
                                                 var name = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Name");
                                                 if (name == "..")
                                                 {
@@ -145,6 +146,12 @@ namespace WindowsFormsApp1
             PopupMenu.AddMenuItem("Reanme",
                                     (obj, args) =>
                                     {
+                                        if (userActionDisabled)
+                                        {
+                                            DisplayMessageDoOperationWhileDonwloadUpload();
+                                            return;
+                                        }
+
                                         var name = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Name");
                                         string input = Microsoft.VisualBasic.Interaction.InputBox("Enter the new name", "Rename", name, -1, -1);
                                         var succeeded = shellService.ActiveNextCommand(string.Format("rename \"{0}\" \"{1}\"", name, input));
@@ -155,6 +162,12 @@ namespace WindowsFormsApp1
             PopupMenu.AddMenuItem("Delete",
                                     (obj, args) =>
                                     {
+                                        if (userActionDisabled)
+                                        {
+                                            DisplayMessageDoOperationWhileDonwloadUpload();
+                                            return;
+                                        }
+
                                         var name = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Name");
                                         var succeeded = shellService.ActiveNextCommand(string.Format("del \"{0}\"", name));
                                         if (succeeded.StartsWith("Error"))
@@ -163,18 +176,36 @@ namespace WindowsFormsApp1
             PopupMenu.AddMenuItem("Copy",
                                     (obj, args) =>
                                     {
+                                        if (userActionDisabled)
+                                        {
+                                            DisplayMessageDoOperationWhileDonwloadUpload();
+                                            return;
+                                        }
+
                                         cutPath = null;
                                         copyPath = Path.Combine(currentPath, selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Name").ToString());
                                     });
             PopupMenu.AddMenuItem("Cut",
                                     (obj, args) =>
                                     {
+                                        if (userActionDisabled)
+                                        {
+                                            DisplayMessageDoOperationWhileDonwloadUpload();
+                                            return;
+                                        }
+
                                         copyPath = null;
                                         cutPath = Path.Combine(currentPath, selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Name"));
                                     });
             PopupMenu.AddMenuItem("Paste",
                                     (obj, args) =>
                                     {
+                                        if (userActionDisabled)
+                                        {
+                                            DisplayMessageDoOperationWhileDonwloadUpload();
+                                            return;
+                                        }
+
                                         var selectedType = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Type");
                                         var currentPathToPaste = selectedType == CmdLineType.Folder.ToString() ?
                                                                  Path.Combine(currentPath, selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Name")) :
@@ -205,32 +236,57 @@ namespace WindowsFormsApp1
                 PopupMenu.AddMenuItem("Download",
                                     (obj, args) =>
                                     {
+                                        if (userActionDisabled)
+                                        {
+                                            DisplayMessageDoOperationWhileDonwloadUpload();
+                                            return;
+                                        }
+
                                         using (var saveForm = new FolderBrowserDialog())
                                         {
                                             var fileName = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Name");
                                             if (saveForm.ShowDialog() == DialogResult.OK)
                                             {
-                                                try
+                                                RunInAnotherThread(() =>
                                                 {
-                                                    downLoadFile(fileName, currentPath, saveForm.SelectedPath);
-                                                    downloadUploadProgressBar.Value = 100;
-                                                    downloadUploadProgressBar.Refresh();
-                                                    MessageBox.Show("Download completed successfully","Download",MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                    downloadUploadProgressBar.Visible = false;
-                                                    downloadUploadLable.Visible = false;
-                                                }
+                                                    userActionDisabled = true;
+                                                    try
+                                                    {
+                                                        downLoadFile(fileName, currentPath, saveForm.SelectedPath);
+                                                        Invoke((MethodInvoker)(() =>
+                                                        {
+                                                            downloadUploadProgressBar.Value = 100;
+                                                            downloadUploadProgressBar.Refresh();
+                                                            MessageBox.Show("Download completed successfully", "Download", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            downloadUploadProgressBar.Visible = false;
+                                                            downloadUploadLable.Visible = false;
+                                                        }));
+                                                    }
 
-                                                catch (Exception e)
+                                                    catch (Exception e)
+                                                    {
+                                                        MessageBox.Show(e.Message, "Error in download", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                }, () =>
                                                 {
-                                                    MessageBox.Show(e.Message, "Error in download", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                }
-                                               
+                                                    userActionDisabled = false;
+                                                });
+
+
+
+
                                             }
                                         }
                                     });
             PopupMenu.AddMenuItem("Upload",
                                     (obj, args) =>
                                     {
+                                        if (userActionDisabled)
+                                        {
+                                            DisplayMessageDoOperationWhileDonwloadUpload();
+                                            return;
+                                        }
+
                                         using (var saveForm = new OpenFileDialog())
                                         {
                                             if (saveForm.ShowDialog() == DialogResult.OK)
@@ -240,11 +296,15 @@ namespace WindowsFormsApp1
                                                     var fileName = saveForm.FileName.Split('\\').Last();
                                                     var path = Path.GetDirectoryName(saveForm.FileName);
                                                     upLoadFile(fileName, path, currentPath);
-                                                    downloadUploadProgressBar.Value = 100;
-                                                    downloadUploadProgressBar.Refresh();
-                                                    MessageBox.Show("Upload completed successfully", "Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                    downloadUploadProgressBar.Visible = false;
-                                                    downloadUploadLable.Visible = false;
+
+                                                    Invoke((MethodInvoker)(() =>
+                                                    {
+                                                        downloadUploadProgressBar.Value = 100;
+                                                        downloadUploadProgressBar.Refresh();
+                                                        MessageBox.Show("Upload completed successfully", "Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                        downloadUploadProgressBar.Visible = false;
+                                                        downloadUploadLable.Visible = false;
+                                                    }));
                                                 }
 
                                                 catch (Exception e)
@@ -318,71 +378,106 @@ namespace WindowsFormsApp1
 
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listView1.View == View.Details) return;
-            OptimisticTryAndFail(() =>
+            if (userActionDisabled)
             {
-                listView1.View = View.Details;
-                var typeColIndex = listView1.GetColumnNumber("Type");
-                var typeCol = listView1.Columns[typeColIndex];
-                var firstCol = listView1.Columns[0];
-                listView1.Columns.RemoveAt(typeColIndex);
-                listView1.Columns.RemoveAt(0);
-                listView1.Columns.Insert(0, typeCol);
-                listView1.Columns.Insert(typeColIndex, firstCol);
-            }, 1000, 3, "Fail to detailsToolStripMenuItem_Click");
+                DisplayMessageDoOperationWhileDonwloadUpload();
+                return;
+            }
+
+            if (listView1.View == View.Details) return;
+            listView1.View = View.Details;
+            var typeColIndex = listView1.GetColumnNumber("Type");
+            var typeCol = listView1.Columns[typeColIndex];
+            var firstCol = listView1.Columns[0];
+            listView1.Columns.RemoveAt(typeColIndex);
+            listView1.Columns.RemoveAt(0);
+            listView1.Columns.Insert(0, typeCol);
+            listView1.Columns.Insert(typeColIndex, firstCol);
         }
 
         private void smallIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listView1.View == View.SmallIcon) return;
-            OptimisticTryAndFail(() =>
+            if (userActionDisabled)
             {
-                var needToSwitchCol = listView1.View == View.Details;
-                listView1.View = View.SmallIcon;
-                if (needToSwitchCol)
-                    SwitchNameColWithFirstCol();
-            }, 1000, 3, "Fail to smallIconsToolStripMenuItem_Click");  
+                DisplayMessageDoOperationWhileDonwloadUpload();
+                return;
+            }
+
+            if (listView1.View == View.SmallIcon) return;
+            var needToSwitchCol = listView1.View == View.Details;
+            listView1.View = View.SmallIcon;
+            if (needToSwitchCol)
+                SwitchNameColWithFirstCol();
         }
 
         private void largIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listView1.View == View.LargeIcon) return;
-            OptimisticTryAndFail(() =>
+            if (userActionDisabled)
             {
-                var needToSwitchCol = listView1.View == View.Details;
-                listView1.View = View.LargeIcon;
-                if (needToSwitchCol)
-                    SwitchNameColWithFirstCol();
-            }, 1000, 3, "Fail to largIconsToolStripMenuItem_Click"); 
+                DisplayMessageDoOperationWhileDonwloadUpload();
+                return;
+            }
+
+            if (listView1.View == View.LargeIcon) return;
+            var needToSwitchCol = listView1.View == View.Details;
+            listView1.View = View.LargeIcon;
+            if (needToSwitchCol)
+                SwitchNameColWithFirstCol();
         }
 
         private void SwitchNameColWithFirstCol()
         {
-            OptimisticTryAndFail(() =>
-            {
-                var nameColIndex = listView1.GetColumnNumber("Name");
-                var nameCol = listView1.Columns[nameColIndex];
-                var firstCol = listView1.Columns[0];
-                listView1.Columns.RemoveAt(nameColIndex);
-                listView1.Columns.RemoveAt(0);
-                listView1.Columns.Insert(0, nameCol);
-                listView1.Columns.Insert(nameColIndex, firstCol);
-            }, 1000, 3, "Fail to SwitchNameColWithFirstCol");
+
+            var nameColIndex = listView1.GetColumnNumber("Name");
+            var nameCol = listView1.Columns[nameColIndex];
+            var firstCol = listView1.Columns[0];
+            listView1.Columns.RemoveAt(nameColIndex);
+            listView1.Columns.RemoveAt(0);
+            listView1.Columns.Insert(0, nameCol);
+            listView1.Columns.Insert(nameColIndex, firstCol);
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            OptimisticTryAndFail(() =>
+            var listview = sender as ListView;
+            if (listview == null || listview.SelectedItems.Count <= 0) return;
+            var typeColumnNumber = listview.GetColumnNumber("Type");
+            var selected = listview.SelectedItems[0];
+            var type = (CmdLineType)Enum.Parse(typeof(CmdLineType), selected.SubItems[typeColumnNumber].Text);
+            var popUpMenu = CreatePopUpMenu(type);
+            listview.ContextMenu = popUpMenu;
+            var menuIndex = this.menuStrip1.GetMenuStripItemIndex("Action");
+            var actionMenuItem = (ToolStripMenuItem)this.menuStrip1.Items[menuIndex];
+            if (type == CmdLineType.File)
             {
-                var listview = sender as ListView;
-                if (listview == null || listview.SelectedItems.Count <= 0) return;
-                var typeColumnNumber = listview.GetColumnNumber("Type");
+                allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
+                //fileActions.ForEach(actionName => actionMenuItem.MakeVisible(actionName));
+            }
+            else
+            {
+                allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
+                //folderActions.ForEach(actionName => actionMenuItem.MakeVisible(actionName));
+            }
+        }
+
+        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            var listview = sender as ListView;
+            if (e.Button == MouseButtons.Right && listview == null) return;
+            var menuActionIndex = this.menuStrip1.GetMenuStripItemIndex("Action");
+            var actionMenuItem = (ToolStripMenuItem)this.menuStrip1.Items[menuActionIndex];
+            if (listview.ContextMenu != null)
+            {
+                PopupMenuClosed(listview.ContextMenu, null);
+                allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
+            }
+            if (listview.SelectedItems.Count <= 0) return;
+            if (e.Button == MouseButtons.Right)
+            {
                 var selected = listview.SelectedItems[0];
+                var typeColumnNumber = listview.GetColumnNumber("Type");
                 var type = (CmdLineType)Enum.Parse(typeof(CmdLineType), selected.SubItems[typeColumnNumber].Text);
-                var popUpMenu = CreatePopUpMenu(type);
-                listview.ContextMenu = popUpMenu;
-                var menuIndex = this.menuStrip1.GetMenuStripItemIndex("Action");
-                var actionMenuItem = (ToolStripMenuItem)this.menuStrip1.Items[menuIndex];
+                listview.ContextMenu = CreatePopUpMenu(type);
                 if (type == CmdLineType.File)
                 {
                     allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
@@ -393,42 +488,7 @@ namespace WindowsFormsApp1
                     allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
                     //folderActions.ForEach(actionName => actionMenuItem.MakeVisible(actionName));
                 }
-            }, 1000, 3, "Fail to listView1_SelectedIndexChanged");
-        }
-
-        private void listView1_MouseClick(object sender, MouseEventArgs e)
-        {
-            OptimisticTryAndFail(() =>
-            {
-                var listview = sender as ListView;
-                if (e.Button == MouseButtons.Right && listview == null) return;
-                var menuActionIndex = this.menuStrip1.GetMenuStripItemIndex("Action");
-                var actionMenuItem = (ToolStripMenuItem)this.menuStrip1.Items[menuActionIndex];
-                if (listview.ContextMenu != null)
-                {
-                    PopupMenuClosed(listview.ContextMenu, null);
-                    allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
-                }
-                if (listview.SelectedItems.Count <= 0) return;
-                if (e.Button == MouseButtons.Right)
-                {
-                    var selected = listview.SelectedItems[0];
-                    var typeColumnNumber = listview.GetColumnNumber("Type");
-                    var type = (CmdLineType)Enum.Parse(typeof(CmdLineType), selected.SubItems[typeColumnNumber].Text);
-                    listview.ContextMenu = CreatePopUpMenu(type);
-                    if (type == CmdLineType.File)
-                    {
-                        allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
-                        //fileActions.ForEach(actionName => actionMenuItem.MakeVisible(actionName));
-                    }
-                    else
-                    {
-                        allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
-                        //folderActions.ForEach(actionName => actionMenuItem.MakeVisible(actionName));
-                    }
-                }
-            }, 1000, 3, "Fail to listView1_MouseClick");
-            
+            }
         }
         private static void initializeServiceReferences(string wcfServicesPathId)
         {
@@ -476,12 +536,17 @@ namespace WindowsFormsApp1
             uploadRequestInfo.Length = fileInfo.Length;
             uploadRequestInfo.PathToSaveOnServer = pathToSaveOnServer;
             uploadRequestInfo.FreshStart = true;
-            downloadUploadProgressBar.Visible = true;
-            downloadUploadProgressBar.Value = 0;
-            downloadUploadLable.Visible = true;
-            downloadUploadLable.Text = string.Format("Start uploading from this computer to the file to the server memory");
-            downloadUploadProgressBar.Refresh();
-            downloadUploadLable.Refresh();
+
+            Invoke((MethodInvoker)(() =>
+            {
+                downloadUploadProgressBar.Visible = true;
+                downloadUploadProgressBar.Value = 0;
+                downloadUploadLable.Visible = true;
+                downloadUploadLable.Text = string.Format("Upload Process: Uploading from this PC to the server memory...");
+                downloadUploadProgressBar.Refresh();
+                downloadUploadLable.Refresh();
+            }));
+
             using (var file = File.OpenRead(path))
             {
                 int bytesRead;
@@ -499,20 +564,30 @@ namespace WindowsFormsApp1
                             shellService.StartTransferData();
                             shellService.ActiveUploadFile(uploadRequestInfo);
                         });
-                        downloadUploadProgressBar.Value =  (int)((file.Position / (double)file.Length) * 100);
-                        downloadUploadProgressBar.Refresh();
-                        uploadRequestInfo.FreshStart = false;
+
+                        Invoke((MethodInvoker)(() =>
+                        {
+                            downloadUploadProgressBar.Value = (int)((file.Position / (double)file.Length) * 100);
+                            downloadUploadProgressBar.Refresh();
+                            uploadRequestInfo.FreshStart = false;
+                        }));
+
                     }
                 }
                 uploadRequestInfo.FileByteStream = new byte[0];
                 uploadRequestInfo.FileEnded = true;
                 file.Close();
-                downloadUploadProgressBar.Value = 100;
-                downloadUploadProgressBar.Refresh();
-                downloadUploadLable.Text = string.Format("Start Buffering File from server Memory to remote client Memory");
-                downloadUploadProgressBar.Value = 0;
-                downloadUploadLable.Refresh();
-                downloadUploadProgressBar.Refresh();
+
+                Invoke((MethodInvoker)(() =>
+                {
+                    downloadUploadProgressBar.Value = 100;
+                    downloadUploadProgressBar.Refresh();
+                    downloadUploadLable.Text = string.Format("Upload Process: Transfering File from server Memory to remote client PC...");
+                    downloadUploadProgressBar.Value = 0;
+                    downloadUploadLable.Refresh();
+                    downloadUploadProgressBar.Refresh();
+                }));
+
                 var response = SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(() => shellService.ActiveUploadFile(uploadRequestInfo));
 
                 if (response.FileName.StartsWith("Error"))
@@ -522,8 +597,13 @@ namespace WindowsFormsApp1
                 if (response.FileName.StartsWith("Buffering") && response.FileByteStream.Length == 0)
                 {
                     var precentage = response.FileName.Split(new string[] { "Memory" }, StringSplitOptions.RemoveEmptyEntries).Last().Trim().Split(' ').First();
-                    downloadUploadProgressBar.Value = int.Parse(precentage);
-                    downloadUploadProgressBar.Refresh();
+
+                    Invoke((MethodInvoker)(() =>
+                    {
+                        downloadUploadProgressBar.Value = int.Parse(precentage);
+                        downloadUploadProgressBar.Refresh();
+                    }));
+
                 }
                 if (response.FileName == "Upload Ended")
                     return;
@@ -588,11 +668,15 @@ namespace WindowsFormsApp1
         }
         private RemoteFileInfo ReadyToStartDownload(string fileName, string pathInServer, string pathToSaveInClinet)
         {
-            downloadUploadProgressBar.Visible = true;
-            downloadUploadLable.Visible = true;
-            downloadUploadLable.Text = string.Format("Start uploading the file to the server memory");
-            downloadUploadProgressBar.Refresh();
-            downloadUploadLable.Refresh();
+            Invoke((MethodInvoker)(() =>
+            {
+                downloadUploadProgressBar.Visible = true;
+                downloadUploadLable.Visible = true;
+                downloadUploadLable.Text = string.Format("Download process: Uploading the file from remote PC to the server memory...");
+                downloadUploadProgressBar.Refresh();
+                downloadUploadLable.Refresh();
+            }));
+
             var watch = new Stopwatch();
             double lastStop = 0;
             DownloadRequest requestData = new DownloadRequest();
@@ -603,8 +687,13 @@ namespace WindowsFormsApp1
             if (response.FileName.StartsWith("Buffering") && response.FileByteStream.Length == 0)
             {
                 var precentage = response.FileName.Split(new string[] { "Memory" }, StringSplitOptions.RemoveEmptyEntries).Last().Trim().Split(' ').First();
-                downloadUploadProgressBar.Value = int.Parse(precentage);
-                downloadUploadProgressBar.Refresh();
+
+                Invoke((MethodInvoker)(() =>
+                {
+                    downloadUploadProgressBar.Value = int.Parse(precentage);
+                    downloadUploadProgressBar.Refresh();
+                }));
+
             }
             else if (response.FileName.StartsWith("Error"))
             {
@@ -626,8 +715,13 @@ namespace WindowsFormsApp1
                     if (response.FileName.StartsWith("Buffering") && response.FileByteStream.Length == 0)
                     {
                         var precentage = response.FileName.Split(new string[] { "Memory" }, StringSplitOptions.RemoveEmptyEntries).Last().Trim().Split(' ').First();
-                        downloadUploadProgressBar.Value = int.Parse(precentage);
-                        downloadUploadProgressBar.Refresh();
+
+                        Invoke((MethodInvoker)(() =>
+                        {
+                            downloadUploadProgressBar.Value = int.Parse(precentage);
+                            downloadUploadProgressBar.Refresh();
+                        }));
+
                     }
                     else if (response.FileName.StartsWith("Error"))
                     {
@@ -658,11 +752,16 @@ namespace WindowsFormsApp1
                 }
 
                 var fileInfo = ReadyToStartDownload(fileName, pathInServer, pathToSaveInClinet);
-                downloadUploadProgressBar.Value = 100;
-                downloadUploadLable.Text = string.Format("Start transfering File from Server Memory...");
-                downloadUploadLable.Refresh();
-                downloadUploadProgressBar.Value = 0;
-                downloadUploadProgressBar.Refresh();
+
+                Invoke((MethodInvoker)(() =>
+                {
+                    downloadUploadProgressBar.Value = 100;
+                    downloadUploadLable.Text = string.Format("Download process:  Transfering File from Server Memory to your PC...");
+                    downloadUploadLable.Refresh();
+                    downloadUploadProgressBar.Value = 0;
+                    downloadUploadProgressBar.Refresh();
+                }));
+
                 while (true)
                 {
                     if (fileInfo.FileName.StartsWith("Error"))
@@ -892,53 +991,50 @@ namespace WindowsFormsApp1
                 status.BringToFront();
                 status.ShowDialog();
             }
-              
+
         }
 
         Object statusFromServerLock = new Object();
         private void GetStatusFromServer()
         {
-            OptimisticTryAndFail(() =>
+            lock (statusFromServerLock)
             {
-                lock (statusFromServerLock)
+                string[] statusSplittedNewLine;
+                bool isSelectedClientAlive;
+                string selectedClient;
+
+                var status = getStatusShellService.GetStatus();
+                status = ParseStatus(status, out statusSplittedNewLine, out isSelectedClientAlive, out selectedClient);
+
+                if (statusSplittedNewLine.Length == 2 && statusSplittedNewLine[1] == "There is no clients connected" ||
+                selectedClient != null && !isSelectedClientAlive)
                 {
-                    string[] statusSplittedNewLine;
-                    bool isSelectedClientAlive;
-                    string selectedClient;
-
-                    var status = getStatusShellService.GetStatus();
-                    status = ParseStatus(status, out statusSplittedNewLine, out isSelectedClientAlive, out selectedClient);
-
-                    if (statusSplittedNewLine.Length == 2 && statusSplittedNewLine[1] == "There is no clients connected" ||
-                    selectedClient != null && !isSelectedClientAlive)
+                    _currentClientConnected = false;
+                    this.Invoke((MethodInvoker)(() =>
                     {
-                        _currentClientConnected = false;
-                        this.Invoke((MethodInvoker)(() =>
-                        {
-                            listView1.BeginUpdate();
-                            listView1.SuspendLayout();
-                            NoSelectedClient.Visible = true;
-                            currentPathTextBox.Text = string.Empty;
-                            listView1.Visible = false;
-                            listView1.ResumeLayout();
-                            listView1.EndUpdate();
-                        }));
-                    }
-                    else
-                    {
-                        _currentClientConnected = true;
-                        this.Invoke((MethodInvoker)(() =>
-                        {
-                            listView1.BeginUpdate();
-                            listView1.SuspendLayout();
-                            NoSelectedClient.Visible = false;
-                            listView1.Visible = true;
-                            listView1.ResumeLayout();
-                            listView1.EndUpdate();
-                        }));
-                    }
+                        listView1.BeginUpdate();
+                        listView1.SuspendLayout();
+                        NoSelectedClient.Visible = true;
+                        currentPathTextBox.Text = string.Empty;
+                        listView1.Visible = false;
+                        listView1.ResumeLayout();
+                        listView1.EndUpdate();
+                    }));
                 }
-            }, 1000, 3, "Fail to GetStatusFromServer");
+                else
+                {
+                    _currentClientConnected = true;
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        listView1.BeginUpdate();
+                        listView1.SuspendLayout();
+                        NoSelectedClient.Visible = false;
+                        listView1.Visible = true;
+                        listView1.ResumeLayout();
+                        listView1.EndUpdate();
+                    }));
+                }
+            }
         }
 
         private static string ParseStatus(string status, out string[] statusSplittedNewLine, out bool isSelectedClientAlive, out string selectedClient)
@@ -966,7 +1062,7 @@ namespace WindowsFormsApp1
 
         static long ConvertBytesToKB(long bytes)
         {
-            var ans = (int) (bytes / 1024);
+            var ans = (int)(bytes / 1024);
             return ans == 0 ? 1 : ans;
 
         }
@@ -976,93 +1072,91 @@ namespace WindowsFormsApp1
         private void GetFolderListFromServer()
         {
             if (!_currentClientConnected) return;
-            OptimisticTryAndFail(() =>
+
+            lock (folderListFromServerLock)
             {
-                lock (folderListFromServerLock)
+                try
                 {
-                    try
+                    if (_needToActivteCMD)
                     {
-                        if (_needToActivteCMD)
-                        {
-                            getFolderListShellService.ActiveClientRun();
-                            _needToActivteCMD = false;
-                        }
+                        getFolderListShellService.ActiveClientRun();
+                        _needToActivteCMD = false;
+                    }
 
-                        var folderListStr = getFolderListShellService.ActiveNextCommand("dir /b /ad").Replace("\r", "");
-                        if (folderListStr == "Client CallBack is Not Found" ||
-                            folderListStr.StartsWith("Error") ||
-                            folderListStr == "The communication object, System.ServiceModel.Channels.ServiceChannel, cannot be used for communication because it has been Aborted.")
-                        {
-                            _needToActivteCMD = true;
-                            Thread.Sleep(10000);
-                            raiseException = 3;
-                            return;
-                        }
-
-                        var folderList = GetFolderListFromServerAndAssignTheFolderPath(folderListStr);
-
-                        var fileList = CalculateFileListFromFolderList(folderList);
-
-                        var FileFolderList = CalculateFileAndFolderAdditionalData(folderList);
-
-                        var shouldChangeUi = CheckIfFileFolderListChanged(FileFolderList);
-
-                        if (shouldChangeUi)
-                        {
-                            this.Invoke((MethodInvoker)(() =>
-                            {
-                                var oldTopItemIndex = 0;
-                                if (listView1.View == View.Details)
-                                    oldTopItemIndex = listView1.TopItem == null ? 0 : listView1.TopItem.Index;
-                                int oldFocusedIndex = listView1 != null ?
-                                                            listView1.SelectedItems != null ?
-                                                                        listView1.SelectedItems.Count > 0 ?
-                                                                                        listView1.SelectedItems[0].Index :
-                                                                                        -1 :
-                                                                                        -1 :
-                                                                                        -1;
-                                listView1.SuspendLayout();
-                                listView1.BeginUpdate();
-                                listView1.Items.Clear();
-                                AddToListView(0, "..", CmdLineType.Folder);
-                                var index = 1;
-                                foreach (var item in FileFolderList)
-                                {
-                                    AddToListView(index++, item);
-                                }
-                                if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
-                                {
-                                    listView1.Items[oldFocusedIndex].Selected = true;
-                                }
-                                ListView_SizeChanged(null, null);
-                                listView1.EndUpdate();
-                                listView1.ResumeLayout();
-                                if (listView1.View == View.Details)
-                                {
-                                    try
-                                    {
-                                        listView1.TopItem = listView1.Items[oldTopItemIndex];
-                                    }
-                                    catch
-                                    { }
-
-                                }
-                            }));
-                        }
-
+                    var folderListStr = getFolderListShellService.ActiveNextCommand("dir /b /ad").Replace("\r", "");
+                    if (folderListStr == "Client CallBack is Not Found" ||
+                        folderListStr.StartsWith("Error") ||
+                        folderListStr == "The communication object, System.ServiceModel.Channels.ServiceChannel, cannot be used for communication because it has been Aborted.")
+                    {
+                        _needToActivteCMD = true;
+                        Thread.Sleep(10000);
                         raiseException = 3;
+                        return;
                     }
-                    catch (Exception)
+
+                    var folderList = GetFolderListFromServerAndAssignTheFolderPath(folderListStr);
+
+                    var fileList = CalculateFileListFromFolderList(folderList);
+
+                    var FileFolderList = CalculateFileAndFolderAdditionalData(folderList);
+
+                    var shouldChangeUi = CheckIfFileFolderListChanged(FileFolderList);
+
+                    if (shouldChangeUi)
                     {
-                        if(raiseException == 0)
+                        this.Invoke((MethodInvoker)(() =>
                         {
-                            raiseException = 3;
-                            MessageBox.Show("No connection to the Server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        raiseException--;
+                            var oldTopItemIndex = 0;
+                            if (listView1.View == View.Details)
+                                oldTopItemIndex = listView1.TopItem == null ? 0 : listView1.TopItem.Index;
+                            int oldFocusedIndex = listView1 != null ?
+                                                        listView1.SelectedItems != null ?
+                                                                    listView1.SelectedItems.Count > 0 ?
+                                                                                    listView1.SelectedItems[0].Index :
+                                                                                    -1 :
+                                                                                    -1 :
+                                                                                    -1;
+                            listView1.SuspendLayout();
+                            listView1.BeginUpdate();
+                            listView1.Items.Clear();
+                            AddToListView(0, "..", CmdLineType.Folder);
+                            var index = 1;
+                            foreach (var item in FileFolderList)
+                            {
+                                AddToListView(index++, item);
+                            }
+                            if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
+                            {
+                                listView1.Items[oldFocusedIndex].Selected = true;
+                            }
+                            ListView_SizeChanged(null, null);
+                            listView1.EndUpdate();
+                            listView1.ResumeLayout();
+                            if (listView1.View == View.Details)
+                            {
+                                try
+                                {
+                                    listView1.TopItem = listView1.Items[oldTopItemIndex];
+                                }
+                                catch
+                                { }
+
+                            }
+                        }));
                     }
+
+                    raiseException = 3;
                 }
-            }, 1000, 3, "Fail to GetFolderListFromServer");
+                catch (Exception)
+                {
+                    if (raiseException == 0)
+                    {
+                        raiseException = 3;
+                        MessageBox.Show("No connection to the Server", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    raiseException--;
+                }
+            }
         }
 
         private static List<CMDFileFolder> CalculateFileAndFolderAdditionalData(List<string> folderList)
@@ -1168,44 +1262,38 @@ namespace WindowsFormsApp1
 
         private void AddToListView(int index, string name, CmdLineType type, bool check = false)
         {
-            OptimisticTryAndFail(() =>
-            {
-                listView1.BeginUpdate();
-                listView1.SuspendLayout();
-                // Create three items and three sets of subitems for each item.
-                ListViewItem item1 = new ListViewItem(listView1.View == View.Details ? type.ToString() : name, index);
-                // Place a check mark next to the item.
-                item1.Checked = check;
-                item1.SubItems.Add(listView1.View == View.Details ? name : type.ToString());
-                item1.ImageIndex = (int)type;
-                listView1.Items.Add(item1);
-                listView1.ResumeLayout();
-                listView1.EndUpdate();
-                listView1.Refresh();
-                //ListView_SizeChanged(null, null);
-            }, 1000, 3, "Fail to AddToListView");
+            listView1.BeginUpdate();
+            listView1.SuspendLayout();
+            // Create three items and three sets of subitems for each item.
+            ListViewItem item1 = new ListViewItem(listView1.View == View.Details ? type.ToString() : name, index);
+            // Place a check mark next to the item.
+            item1.Checked = check;
+            item1.SubItems.Add(listView1.View == View.Details ? name : type.ToString());
+            item1.ImageIndex = (int)type;
+            listView1.Items.Add(item1);
+            listView1.ResumeLayout();
+            listView1.EndUpdate();
+            listView1.Refresh();
+            //ListView_SizeChanged(null, null);
         }
 
         private void AddToListView(int index, CMDFileFolder ff, bool check = false)
         {
-            OptimisticTryAndFail(() =>
-            {
-                listView1.BeginUpdate();
-                listView1.SuspendLayout();
-                // Create three items and three sets of subitems for each item.
-                ListViewItem item1 = new ListViewItem(listView1.View == View.Details ? ff.GetType().ToString() : ff.GetName(), index);
-                // Place a check mark next to the item.
-                item1.Checked = check;
-                item1.SubItems.Add(listView1.View == View.Details ? ff.GetName() : ff.GetType().ToString());
-                item1.SubItems.Add(ff.GetType() == CmdLineType.Folder ? string.Empty : ff.getSize().ToString());
-                item1.SubItems.Add(ff.GetLastModificationDate());
-                item1.ImageIndex = (int)ff.GetType();
-                listView1.Items.Add(item1);
-                listView1.ResumeLayout();
-                listView1.EndUpdate();
-                listView1.Refresh();
-                //ListView_SizeChanged(null, null);
-            }, 1000, 3, "Fail to AddToListView");
+            listView1.BeginUpdate();
+            listView1.SuspendLayout();
+            // Create three items and three sets of subitems for each item.
+            ListViewItem item1 = new ListViewItem(listView1.View == View.Details ? ff.GetType().ToString() : ff.GetName(), index);
+            // Place a check mark next to the item.
+            item1.Checked = check;
+            item1.SubItems.Add(listView1.View == View.Details ? ff.GetName() : ff.GetType().ToString());
+            item1.SubItems.Add(ff.GetType() == CmdLineType.Folder ? string.Empty : ff.getSize().ToString());
+            item1.SubItems.Add(ff.GetLastModificationDate());
+            item1.ImageIndex = (int)ff.GetType();
+            listView1.Items.Add(item1);
+            listView1.ResumeLayout();
+            listView1.EndUpdate();
+            listView1.Refresh();
+            //ListView_SizeChanged(null, null);
         }
 
         private void mainForm_Activated(object sender, EventArgs e)
@@ -1219,24 +1307,27 @@ namespace WindowsFormsApp1
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            OptimisticTryAndFail(() =>
+            if (userActionDisabled)
             {
-                if (listView1.SelectedItems.Count == 0) return;
-                var selected = listView1.SelectedItems[0];
-                if (selected.GetFromListViewItemCollectionByColumnName("Name") == "..")
-                {
-                    shellService.ActiveNextCommand("cd..");
-                }
-                else
-                {
-                    shellService.ActiveNextCommand(string.Format("cd \"{0}\"", selected.GetFromListViewItemCollectionByColumnName("Name")));
-                }
-            }, 1000, 3, "Fail to listView1_MouseDoubleClick");
+                DisplayMessageDoOperationWhileDonwloadUpload();
+                return;
+            }
+
+            if (listView1.SelectedItems.Count == 0) return;
+            var selected = listView1.SelectedItems[0];
+            if (selected.GetFromListViewItemCollectionByColumnName("Name") == "..")
+            {
+                shellService.ActiveNextCommand("cd..");
+            }
+            else
+            {
+                shellService.ActiveNextCommand(string.Format("cd \"{0}\"", selected.GetFromListViewItemCollectionByColumnName("Name")));
+            }
         }
 
         private void OptimisticTryAndFail(Action act, int timeBetweenTry, int numOfTry, string exception)
         {
-            while(numOfTry >= 0)
+            while (numOfTry >= 0)
             {
                 try
                 {
@@ -1248,11 +1339,17 @@ namespace WindowsFormsApp1
                     numOfTry--;
                 }
             }
-             throw new Exception(exception);
+            throw new Exception(exception);
         }
 
         private void currentPathTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            if (userActionDisabled)
+            {
+                DisplayMessageDoOperationWhileDonwloadUpload();
+                return;
+            }
+
             if (e.KeyCode != Keys.Enter) return;
             var textBox = sender as TextBox;
             var newPath = textBox.Text;
@@ -1262,10 +1359,10 @@ namespace WindowsFormsApp1
                 newPath = newPath.Remove(newPathCharArr.Length - 1);
             var isNewPathDrive = !isInTheDrive && newPath.Length == 2 && newPath.ElementAt(1) == ':';
             var resp = shellService.ActiveNextCommand(isNewPathDrive ? newPath : string.Format("cd \"{0}\"", newPath));
-            var splitedPath = resp.Replace("\r","").Split('\n');
+            var splitedPath = resp.Replace("\r", "").Split('\n');
             splitedPath = splitedPath.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
             var returnPath = isNewPathDrive ? newPath : splitedPath.Last();
-            if (returnPath.ToLower() != newPath.ToLower() && returnPath.ToLower() != newPath.ToLower().Substring(0, newPath.Length-1))
+            if (returnPath.ToLower() != newPath.ToLower() && returnPath.ToLower() != newPath.ToLower().Substring(0, newPath.Length - 1))
                 MessageBox.Show("Invalid path", "Error in changing path", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -1283,6 +1380,12 @@ namespace WindowsFormsApp1
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (userActionDisabled)
+            {
+                DisplayMessageDoOperationWhileDonwloadUpload();
+                return;
+            }
+
             Environment.Exit(0);
         }
 
@@ -1296,6 +1399,12 @@ namespace WindowsFormsApp1
 
         private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (userActionDisabled)
+            {
+                DisplayMessageDoOperationWhileDonwloadUpload();
+                return;
+            }
+
             _loginFrom.Logout();
             this.Close();
         }
@@ -1310,6 +1419,22 @@ namespace WindowsFormsApp1
         {
             CloseAllThreads();
             CloseAllConnections();
+        }
+
+        private void DisplayMessageDoOperationWhileDonwloadUpload()
+        {
+            if (userActionDisabled)
+            {
+                MessageBox.Show("Can not do any operation while downloading or uploading.", "Invalid Operation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RunInAnotherThread(Action task, Action callback)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                task();
+            }).ContinueWith(t => callback?.Invoke());
         }
     }
 }
