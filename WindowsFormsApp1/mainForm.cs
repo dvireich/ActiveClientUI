@@ -75,6 +75,7 @@ namespace WindowsFormsApp1
             initializeServiceReferences(_wcfServicesPathId);
             CreateListView();
             listView1.SizeChanged += new EventHandler(ListView_SizeChanged);
+
         }
 
         private System.Threading.Timer PefromTaskEveryXTime(Action task, int seconds)
@@ -256,7 +257,7 @@ namespace WindowsFormsApp1
                                                         Invoke((MethodInvoker)(() =>
                                                         {
                                                             downloadUploadProgressBar.Value = 100;
-                                                            downloadUploadProgressBar.Refresh();
+
                                                             MessageBox.Show("Download completed successfully", "Download", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                             downloadUploadProgressBar.Visible = false;
                                                             downloadUploadLable.Visible = false;
@@ -300,7 +301,7 @@ namespace WindowsFormsApp1
                                                     Invoke((MethodInvoker)(() =>
                                                     {
                                                         downloadUploadProgressBar.Value = 100;
-                                                        downloadUploadProgressBar.Refresh();
+
                                                         MessageBox.Show("Upload completed successfully", "Upload", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         downloadUploadProgressBar.Visible = false;
                                                         downloadUploadLable.Visible = false;
@@ -543,7 +544,7 @@ namespace WindowsFormsApp1
                 downloadUploadProgressBar.Value = 0;
                 downloadUploadLable.Visible = true;
                 downloadUploadLable.Text = string.Format("Upload Process: Uploading from this PC to the server memory...");
-                downloadUploadProgressBar.Refresh();
+
                 downloadUploadLable.Refresh();
             }));
 
@@ -568,9 +569,9 @@ namespace WindowsFormsApp1
                         Invoke((MethodInvoker)(() =>
                         {
                             downloadUploadProgressBar.Value = (int)((file.Position / (double)file.Length) * 100);
-                            downloadUploadProgressBar.Refresh();
-                            uploadRequestInfo.FreshStart = false;
                         }));
+
+                        uploadRequestInfo.FreshStart = false;
 
                     }
                 }
@@ -581,11 +582,8 @@ namespace WindowsFormsApp1
                 Invoke((MethodInvoker)(() =>
                 {
                     downloadUploadProgressBar.Value = 100;
-                    downloadUploadProgressBar.Refresh();
                     downloadUploadLable.Text = string.Format("Upload Process: Transfering File from server Memory to remote client PC...");
                     downloadUploadProgressBar.Value = 0;
-                    downloadUploadLable.Refresh();
-                    downloadUploadProgressBar.Refresh();
                 }));
 
                 var response = SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(() => shellService.ActiveUploadFile(uploadRequestInfo));
@@ -601,7 +599,6 @@ namespace WindowsFormsApp1
                     Invoke((MethodInvoker)(() =>
                     {
                         downloadUploadProgressBar.Value = int.Parse(precentage);
-                        downloadUploadProgressBar.Refresh();
                     }));
 
                 }
@@ -631,7 +628,6 @@ namespace WindowsFormsApp1
             {
                 var precentage = response.FileName.Split(new string[] { "Memory" }, StringSplitOptions.RemoveEmptyEntries).Last().Trim().Split(' ').First();
                 downloadUploadProgressBar.Value = int.Parse(precentage);
-                downloadUploadProgressBar.Refresh();
             }
             else if (response.FileName.StartsWith("Error"))
             {
@@ -653,7 +649,6 @@ namespace WindowsFormsApp1
                     {
                         var precentage = response.FileName.Split(new string[] { "Memory" }, StringSplitOptions.RemoveEmptyEntries).Last().Trim().Split(' ').First();
                         downloadUploadProgressBar.Value = int.Parse(precentage);
-                        downloadUploadProgressBar.Refresh();
                     }
                     else if (response.FileName.StartsWith("Error"))
                     {
@@ -673,7 +668,7 @@ namespace WindowsFormsApp1
                 downloadUploadProgressBar.Visible = true;
                 downloadUploadLable.Visible = true;
                 downloadUploadLable.Text = string.Format("Download process: Uploading the file from remote PC to the server memory...");
-                downloadUploadProgressBar.Refresh();
+
                 downloadUploadLable.Refresh();
             }));
 
@@ -691,7 +686,6 @@ namespace WindowsFormsApp1
                 Invoke((MethodInvoker)(() =>
                 {
                     downloadUploadProgressBar.Value = int.Parse(precentage);
-                    downloadUploadProgressBar.Refresh();
                 }));
 
             }
@@ -719,7 +713,7 @@ namespace WindowsFormsApp1
                         Invoke((MethodInvoker)(() =>
                         {
                             downloadUploadProgressBar.Value = int.Parse(precentage);
-                            downloadUploadProgressBar.Refresh();
+
                         }));
 
                     }
@@ -757,9 +751,7 @@ namespace WindowsFormsApp1
                 {
                     downloadUploadProgressBar.Value = 100;
                     downloadUploadLable.Text = string.Format("Download process:  Transfering File from Server Memory to your PC...");
-                    downloadUploadLable.Refresh();
                     downloadUploadProgressBar.Value = 0;
-                    downloadUploadProgressBar.Refresh();
                 }));
 
                 while (true)
@@ -786,13 +778,17 @@ namespace WindowsFormsApp1
                     SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(() => fileInfo = shellService.ActiveDownloadFile(requestData));
                     if (!fileInfo.FileEnded)
                     {
-                        downloadUploadProgressBar.Value = (int)((fileStrem.Position / double.Parse(fileInfo.FileSize)) * 100);
-                        downloadUploadProgressBar.Refresh();
+                        Invoke((MethodInvoker)(() =>
+                        {
+                            downloadUploadProgressBar.Value = (int)((fileStrem.Position / double.Parse(fileInfo.FileSize)) * 100);
+                        }));
                     }
                     else
                     {
-                        downloadUploadProgressBar.Value = 100;
-                        downloadUploadProgressBar.Refresh();
+                        Invoke((MethodInvoker)(() =>
+                        {
+                            downloadUploadProgressBar.Value = 100;
+                        }));
                     }
                 }
             }
@@ -1300,6 +1296,9 @@ namespace WindowsFormsApp1
         {
             if (_activated) return;
             _activated = true;
+
+            CreateHandles();
+
             GetStatusFromServer();
             StatusTimer = PefromTaskEveryXTime(GetStatusFromServer, 1);
             FolderListTimer = PefromTaskEveryXTime(GetFolderListFromServer, 1);
@@ -1435,6 +1434,18 @@ namespace WindowsFormsApp1
             {
                 task();
             }).ContinueWith(t => callback?.Invoke());
+        }
+
+        private void CreateHandles()
+        {
+            if (!IsHandleCreated)
+            {
+                CreateControl();
+            }
+            if (!downloadUploadProgressBar.IsHandleCreated)
+            {
+                downloadUploadProgressBar.CreateControl();
+            }
         }
     }
 }

@@ -52,7 +52,7 @@ namespace WindowsFormsApp1
             this.downloadUploadLable = new System.Windows.Forms.Label();
             this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listView1 = new WindowsFormsApp1.ListViewNF();
-            this.downloadUploadProgressBar = new System.Windows.Forms.ProgressBar();
+            this.downloadUploadProgressBar = new PrecentageProgressBar();
             this.NoSelectedClient = new System.Windows.Forms.Label();
             this.folderImage = new System.Windows.Forms.PictureBox();
             this.fileImage = new System.Windows.Forms.PictureBox();
@@ -87,7 +87,7 @@ namespace WindowsFormsApp1
             // 
             this.exitToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.exit;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -95,7 +95,7 @@ namespace WindowsFormsApp1
             // 
             this.logOutToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.Logout_37127;
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(137, 26);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.logOutToolStripMenuItem.Text = "Log Out";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.logOutToolStripMenuItem_Click);
             // 
@@ -260,9 +260,9 @@ namespace WindowsFormsApp1
             // 
             this.NoSelectedClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NoSelectedClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.NoSelectedClient.Location = new System.Drawing.Point(0, 28);
+            this.NoSelectedClient.Location = new System.Drawing.Point(0, 50);
             this.NoSelectedClient.Name = "NoSelectedClient";
-            this.NoSelectedClient.Size = new System.Drawing.Size(474, 408);
+            this.NoSelectedClient.Size = new System.Drawing.Size(474, 333);
             this.NoSelectedClient.TabIndex = 7;
             this.NoSelectedClient.Text = "No Selected Client\r\nGo to Action->Status and select Client\r\n";
             this.NoSelectedClient.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -270,7 +270,7 @@ namespace WindowsFormsApp1
             // folderImage
             // 
             this.folderImage.Image = global::WindowsFormsApp1.Properties.Resources.folder;
-            this.folderImage.Location = new System.Drawing.Point(29, 342);
+            this.folderImage.Location = new System.Drawing.Point(39, 287);
             this.folderImage.Name = "folderImage";
             this.folderImage.Size = new System.Drawing.Size(68, 64);
             this.folderImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -281,7 +281,7 @@ namespace WindowsFormsApp1
             // fileImage
             // 
             this.fileImage.Image = global::WindowsFormsApp1.Properties.Resources.File;
-            this.fileImage.Location = new System.Drawing.Point(103, 342);
+            this.fileImage.Location = new System.Drawing.Point(132, 287);
             this.fileImage.Name = "fileImage";
             this.fileImage.Size = new System.Drawing.Size(68, 64);
             this.fileImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -294,14 +294,14 @@ namespace WindowsFormsApp1
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 436);
+            this.Controls.Add(this.NoSelectedClient);
             this.Controls.Add(this.currentPathTextBox);
             this.Controls.Add(this.downloadUploadLable);
             this.Controls.Add(this.downloadUploadProgressBar);
-            this.Controls.Add(this.NoSelectedClient);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.folderImage);
             this.Controls.Add(this.fileImage);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.listView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "mainForm";
@@ -342,7 +342,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label downloadUploadLable;
         private System.Windows.Forms.ColumnHeader Type;
         private ListViewNF listView1;
-        private System.Windows.Forms.ProgressBar downloadUploadProgressBar;
+        private PrecentageProgressBar downloadUploadProgressBar;
         private System.Windows.Forms.Label NoSelectedClient;
         private System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
     }

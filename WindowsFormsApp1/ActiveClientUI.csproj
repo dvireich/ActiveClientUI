@@ -84,6 +84,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PassiveClientStatusData.cs" />
+    <Compile Include="PrecentageProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RestorePasswordFrom.cs">
       <SubType>Form</SubType>
     </Compile>

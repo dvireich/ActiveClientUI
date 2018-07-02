@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -66,8 +67,6 @@ namespace WindowsFormsApp1
 
         public static void MakeVisible(this ToolStripMenuItem item, string name, bool visible = true)
         {
-            OptimisticTryAndFail(() =>
-            {
                 foreach (ToolStripMenuItem tsi in item.DropDown.Items)
                 {
                     if (tsi.Text == name)
@@ -76,41 +75,32 @@ namespace WindowsFormsApp1
                         return;
                     }
                 }
-            }, 1000, 3, "Fail to MakeVisible"); 
         }
 
         public static void RemoveFromListViewItemCollectionByColumnName(this ListView collection, string column, string value)
         {
-            OptimisticTryAndFail(() =>
-            {
                 var columnNum = collection.GetColumnNumber(column);
                 foreach (ListViewItem item in collection.Items)
                 {
                     if (item.SubItems[columnNum].Text == value)
                         collection.Items.Remove(item);
                 }
-            }, 1000, 3, "Fail to RemoveFromListViewItemCollectionByColumnName");
         }
 
         public static string GetFromListViewItemCollectionByColumnName(this ListViewItem item, string column)
         {
             string ret = string.Empty;
-            OptimisticTryAndFail(() =>
-            {
+
                 var columnNum = item.ListView.GetColumnNumber(column);
                 ret = item.SubItems[columnNum].Text;
-            }, 1000, 3, "Fail to GetFromListViewItemCollectionByColumnName");
             return ret;
         }
 
         public static string GetFromListViewAndListViewItemByColumnName(this ListView lv, ListViewItem item,  string column)
         {
             string ret = string.Empty;
-            OptimisticTryAndFail(() =>
-            {
                 var columnNum = lv.GetColumnNumber(column);
                 ret = item.SubItems[columnNum].Text;
-            }, 1000, 3, "Fail to GetFromListViewItemCollectionByColumnName");
             return ret;
         }
 
@@ -130,7 +120,6 @@ namespace WindowsFormsApp1
             }
             throw new Exception(exception);
         }
-
     }
 
     
