@@ -75,6 +75,8 @@ namespace WindowsFormsApp1
             initializeServiceReferences(_wcfServicesPathId);
             CreateListView();
             listView1.SizeChanged += new EventHandler(ListView_SizeChanged);
+            currentPathTextBox.GotFocus += currentPathTextBox_Enter;
+            currentPathTextBox.LostFocus += currentPathTextBox_Leave;
 
         }
 
@@ -1222,7 +1224,7 @@ namespace WindowsFormsApp1
             var folderList = folderListStr.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
             currentPath = folderList.ElementAt(folderList.Count - 1);
             currentPathTextBox.KeyDown -= currentPathTextBox_KeyDown;
-            if (!currentPathTextBoxSelected)
+            if (!ShouldChangePathTextBox)
                 this.Invoke((MethodInvoker)(() => currentPathTextBox.Text = currentPath));
             this.Invoke((MethodInvoker)(() =>
                     this.Width = Math.Max(TextRenderer.MeasureText(currentPathTextBox.Text, currentPathTextBox.Font).Width + 100, this.Width)));
@@ -1365,16 +1367,16 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Invalid path", "Error in changing path", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private bool currentPathTextBoxSelected;
+        private bool ShouldChangePathTextBox;
         private void currentPathTextBox_Leave(object sender, EventArgs e)
         {
-            currentPathTextBoxSelected = false;
+            ShouldChangePathTextBox = false;
         }
 
         private void currentPathTextBox_Enter(object sender, EventArgs e)
         {
             if (NoSelectedClient.Visible) return;
-            currentPathTextBoxSelected = true;
+            ShouldChangePathTextBox = true;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
