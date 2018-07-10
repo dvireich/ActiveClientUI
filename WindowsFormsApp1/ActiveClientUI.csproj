@@ -57,11 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox1.cs">
+    <Compile Include="Forms\AboutBox1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox1.Designer.cs">
+    <Compile Include="Forms\AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommunicationForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Connected Services\Authentication\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -78,64 +84,74 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Extentions.cs" />
-    <Compile Include="File.cs" />
-    <Compile Include="ListViewNF.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PassiveClientStatusData.cs" />
-    <Compile Include="PrecentageProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RestorePasswordFrom.cs">
+    <Compile Include="Forms\DownloadUploadForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RestorePasswordFrom.Designer.cs">
+    <Compile Include="Extentions.cs" />
+    <Compile Include="Data\File.cs" />
+    <Compile Include="Data\ImageData.cs" />
+    <Compile Include="Forms\ListViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data\ListViewItemData.cs" />
+    <Compile Include="Controls\ListViewNF.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\MenuItemData.cs" />
+    <Compile Include="Data\PassiveClientStatusData.cs" />
+    <Compile Include="Controls\PrecentageProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\RestorePasswordFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RestorePasswordFrom.Designer.cs">
       <DependentUpon>RestorePasswordFrom.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogInForm.cs">
+    <Compile Include="Forms\LogInForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogInForm.Designer.cs">
+    <Compile Include="Forms\LogInForm.Designer.cs">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="statusForm.cs">
+    <Compile Include="Forms\statusForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="statusForm.Designer.cs">
+    <Compile Include="Forms\statusForm.Designer.cs">
       <DependentUpon>statusForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="mainForm.cs">
+    <Compile Include="Forms\mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="mainForm.Designer.cs">
+    <Compile Include="Forms\mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuItemOvveride.cs">
+    <Compile Include="Controls\MenuItemOvveride.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tasks.cs">
+    <Compile Include="Forms\Tasks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tasks.Designer.cs">
+    <Compile Include="Forms\Tasks.Designer.cs">
       <DependentUpon>Tasks.cs</DependentUpon>
     </Compile>
-    <Compile Include="TestUserAuthentication.cs" />
-    <EmbeddedResource Include="AboutBox1.resx">
+    <Compile Include="Tests\TestUserAuthentication.cs" />
+    <Compile Include="Data\DownloadUpLoadData.cs" />
+    <EmbeddedResource Include="Forms\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RestorePasswordFrom.resx">
+    <EmbeddedResource Include="Forms\RestorePasswordFrom.resx">
       <DependentUpon>RestorePasswordFrom.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogInForm.resx">
+    <EmbeddedResource Include="Forms\LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="statusForm.resx">
+    <EmbeddedResource Include="Forms\statusForm.resx">
       <DependentUpon>statusForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="mainForm.resx">
+    <EmbeddedResource Include="Forms\mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -148,7 +164,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Tasks.resx">
+    <EmbeddedResource Include="Forms\Tasks.resx">
       <DependentUpon>Tasks.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Connected Services\Authentication\Authentication.wsdl" />
@@ -307,5 +323,6 @@
   <ItemGroup>
     <None Include="Resources\Logout_37127.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
