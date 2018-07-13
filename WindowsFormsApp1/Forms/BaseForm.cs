@@ -19,18 +19,39 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void ListView_SizeChanged(object sender, EventArgs e)
-        {
-            if (!(sender is ListView listView)) return;
+        private readonly List<System.Threading.Timer> _timerThreads = new List<System.Threading.Timer>();
 
-            if (listView.View == View.Details)
+        public void RunInAnotherThread(Action task, Action callback = null)
+        {
+            Task.Factory.StartNew(() =>
             {
-                for (var i = 0; i < listView.Columns.Count; i++)
+                task();
+            }).ContinueWith(t => callback?.Invoke());
+        }
+
+        public void PefromTaskEveryXTime(Action task, int seconds)
+        {
+            var startTimeSpan = TimeSpan.Zero;
+            var periodTimeSpan = TimeSpan.FromSeconds(seconds);
+
+            var timer = new System.Threading.Timer((e) =>
+            {
+                try
                 {
-                    listView.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
-                    listView.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
+                    task();
                 }
-            }
+                catch (Exception ex)
+                {
+                    log.Debug($"Error in executing task: {task.GetType().FullName} with the following exception: {ex.Message}");
+                }
+            }, null, startTimeSpan, periodTimeSpan);
+
+            _timerThreads.Add(timer);
+        }
+
+        public void CloseAllThreads()
+        {
+            _timerThreads.ForEach(timer => timer.Dispose());
         }
 
         public BaseForm()

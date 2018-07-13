@@ -12,7 +12,6 @@ namespace WindowsFormsApp1
         IAuthentication authenticationService;
         ILoadUser loadUser;
         private bool _activated;
-        private bool _logout;
         private string userType = "ActiveClient";
 
         public LogInForm()
@@ -65,22 +64,13 @@ namespace WindowsFormsApp1
                     RememberMe(true);
                 }
 
-                using (var mainForm = new mainForm(id,this))
+                using (var mainForm = new MainForm(id, UserNameTextBox.Text))
                 {
                     this.Visible = false;
                     Cursor.Current = Cursors.Default;
                     mainForm.ShowDialog();
                 }
 
-                UserLogout();
-
-                if (!_logout)
-                {
-                    this.Close();
-                    return;
-                }
-
-                _logout = false;
                 this.Visible = true;
 
             }
@@ -89,19 +79,6 @@ namespace WindowsFormsApp1
                 MessageBox.Show(error, "Sign In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Cursor.Current = Cursors.Default;
                 return;
-            }
-        }
-
-        private void UserLogout()
-        {
-            var resp = authenticationService.Logout(new LogoutRequest()
-            {
-                userName = UserNameTextBox.Text,
-                userType = userType
-            });
-            if (!resp.LogoutResult)
-            {
-                MessageBox.Show(resp.error, "Logut", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -247,11 +224,5 @@ namespace WindowsFormsApp1
                 this.Visible = true;
             }
         }
-
-        public void Logout()
-        {
-            _logout = true;
-        }
-
     }
 }
