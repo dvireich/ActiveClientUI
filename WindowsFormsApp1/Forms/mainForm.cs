@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.ServiceReference1;
 
 namespace WindowsFormsApp1
@@ -24,7 +25,7 @@ namespace WindowsFormsApp1
         private List<string> folderActions = new List<string> { "Enter Directory" };
         private List<string>  _columnNames = new List<string>() { "Type", "Name","Size", "Last file modification" };
 
-    private bool _activated;
+        private bool _activated;
         private string _username;
         private bool _shouldChangeCurrentPathText;
         private bool _enableViewModification;
@@ -214,19 +215,29 @@ namespace WindowsFormsApp1
             }
         }
 
+        public View CurrentView
+        {
+            get
+            {
+                return listView1.View;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    listView1.View = value;
+                }));
+            }
+        }
+
         void IMainView.SetController(MainFormControler controller)
         {
-            throw new NotImplementedException();
+            _controler = controller;
         }
 
         //Methods
 
-        void IMainView.DisplayMessage(MessageType type, string header, string message)
-        {
-            DisplayMessage(type, header, message);
-        }
-
-        void IMainView.ShowData(List<FileFolder> data)
+        public void ShowData(List<IShowable> data)
         {
             listView1.Show(data);
             listView1.FitToData();
@@ -236,7 +247,7 @@ namespace WindowsFormsApp1
 
         //End IMainView Implementation
 
-        private void DisplayMessage(MessageType type, string header, string message)
+        public void DisplayMessage(MessageType type, string header, string message)
         {
             switch (type)
             {
@@ -274,15 +285,13 @@ namespace WindowsFormsApp1
 
         public MainForm(string id, string username)
         {
-            _wcfServicesPathId = id;
-            _username = username;
-
-            _controler = new MainFormControler(_wcfServicesPathId, this);
             InitializeComponent();
             InitializDataStructures();
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            
+            _wcfServicesPathId = id;
+            _username = username;
             CreateListView();
+            _controler = new MainFormControler(_wcfServicesPathId, this);
         }
 
         private ContextMenuOvveride CreatePopUpMenu(FileFolderType type)
@@ -368,23 +377,30 @@ namespace WindowsFormsApp1
 
         private void StatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (statusForm status = new statusForm(_wcfServicesPathId))
+            using (StatusForm status = new StatusForm(_wcfServicesPathId))
             {
-                status.BringToFront();
                 status.ShowDialog();
             }
         }
       
-        private void GetStatusFromServer()
+        private void UpdateUsersStatus()
         {
-            _controler.UpdateUsersStatus();
+            try
+            {
+                _controler.UpdateUsersStatus();
+            }
+            catch { }
         }
 
         private void UpdateViewWithFileFolderList()
         {
-            _oldTopItemIndex = listView1.View == View.Details ? listView1.GetdTopItemIndex() : 0;
-            _oldSelectedIndex = listView1.GetFocusedIndex();
-            _controler.UpdateFileFolderList();
+            try
+            {
+                _oldTopItemIndex = listView1.View == View.Details ? listView1.GetdTopItemIndex() : 0;
+                _oldSelectedIndex = listView1.GetSelectedIndex();
+                _controler.UpdateFileFolderList();
+            }
+            catch { } 
         }
 
         //Events
@@ -397,8 +413,8 @@ namespace WindowsFormsApp1
             currentPathTextBox.GotFocus += CurrentPathTextBox_Enter;
             currentPathTextBox.LostFocus += CurrentPathTextBox_Leave;
 
-            GetStatusFromServer();
-            PefromTaskEveryXTime(GetStatusFromServer, 1);
+            UpdateUsersStatus();
+            PefromTaskEveryXTime(UpdateUsersStatus, 1);
             PefromTaskEveryXTime(UpdateViewWithFileFolderList, 1);
         }
 

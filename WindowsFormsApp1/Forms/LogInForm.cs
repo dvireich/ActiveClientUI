@@ -3,152 +3,130 @@ using System.IO;
 using System.ServiceModel;
 using System.Windows.Forms;
 using WindowsFormsApp1.Authentication;
+using WindowsFormsApp1.Controlers;
+using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.LoadUser;
 
 namespace WindowsFormsApp1
 {
-    public partial class LogInForm : Form
-    {
-        IAuthentication authenticationService;
-        ILoadUser loadUser;
-        private bool _activated;
-        private string userType = "ActiveClient";
+    public partial class LogInForm : BaseForm, ILogInView
+    {   
+        LogInFormControler _controler;
+
+        public string SecurityQuestionText
+        {
+            get
+            {
+                return SecurityQuestionTextBox.Text;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    SecurityQuestionTextBox.Text = value;
+                }));
+            }
+        }
+
+        public string SecurityAnswerText
+        {
+            get
+            {
+                return SecurityAnswerTextBox.Text;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    SecurityAnswerTextBox.Text = value;
+                }));
+            }
+        }
+
+        public string UserNameTextBoxText
+        {
+            get
+            {
+                return UserNameTextBox.Text;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    UserNameTextBox.Text = value;
+                }));
+            }
+        }
+
+        public string PasswordTextBoxText
+        {
+            get
+            {
+                return PasswordTextBox.Text;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    PasswordTextBox.Text = value;
+                }));
+            }
+        }
+
+        public bool RememberMeCheckBoxChecked
+        {
+            get
+            {
+                return RememberMeCheckBox.Checked;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    RememberMeCheckBox.Checked = value;
+                }));
+            }
+        }
+
+        public bool FormVisible
+        {
+            get
+            {
+                return Visible;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    Visible = value;
+                }));
+            }
+        }
 
         public LogInForm()
         {
             InitializeComponent();
-            RememberMe(false);
+            _controler = new LogInFormControler(null, this);
+            _controler.RememberMeOnLoad();
         }
 
-        private void CloseAllConnections()
+        public void OpenMainForm(string id)
         {
-            if (authenticationService != null)
-                ((ICommunicationObject)authenticationService).Close();
-
-            if (loadUser != null)
-                ((ICommunicationObject)loadUser).Close();
-        }
-
-        private static void initializeServiceReferences<T>(ref T shellService, string path)
-        {
-            //Confuguring the Shell service
-            var shellBinding = new BasicHttpBinding();
-            shellBinding.Security.Mode = BasicHttpSecurityMode.None;
-            shellBinding.CloseTimeout = TimeSpan.MaxValue;
-            shellBinding.ReceiveTimeout = TimeSpan.MaxValue;
-            shellBinding.SendTimeout = new TimeSpan(0, 0, 10, 0, 0);
-            shellBinding.OpenTimeout = TimeSpan.MaxValue;
-            shellBinding.MaxReceivedMessageSize = int.MaxValue;
-            shellBinding.MaxBufferPoolSize = int.MaxValue;
-            shellBinding.MaxBufferSize = int.MaxValue;
-            //Put Public ip of the server copmuter
-            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/{0}", path);
-            var shellUri = new Uri(shellAdress);
-            var shellEndpointAddress = new EndpointAddress(shellUri);
-            var shellChannel = new ChannelFactory<T>(shellBinding, shellEndpointAddress);
-            shellService = shellChannel.CreateChannel();
+            using (var mainForm = new MainForm(id, UserNameTextBox.Text))
+            {
+                this.Visible = false;
+                Cursor.Current = Cursors.Default;
+                mainForm.ShowDialog();
+            }
         }
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
-            string error;
             Cursor.Current = Cursors.WaitCursor;
-            //Sign In
-            if (SignIn(out error, out string id) && loadUser.LoadUser(id))
-            {
-                MessageBox.Show("Successfully Signed In!", "Sign In", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                //save username and password for next login
-                if (RememberMeCheckBox.Checked)
-                {
-                    RememberMe(true);
-                }
+            _controler.SignIn();
 
-                using (var mainForm = new MainForm(id, UserNameTextBox.Text))
-                {
-                    this.Visible = false;
-                    Cursor.Current = Cursors.Default;
-                    mainForm.ShowDialog();
-                }
-
-                this.Visible = true;
-
-            }
-            else
-            {
-                MessageBox.Show(error, "Sign In", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Cursor.Current = Cursors.Default;
-                return;
-            }
-        }
-
-        private void RememberMe(bool save)
-        {
-            var directoryName = "Files";
-            var fileName = "LoginState";
-            var path = Path.Combine(directoryName, fileName);
-            if (!Directory.Exists(directoryName))
-            {
-                Directory.CreateDirectory(directoryName);
-            }
-
-            if (save)
-            {
-                if (File.Exists(path))
-                {
-                    File.Delete(path);
-                }
-
-                using (var file = File.CreateText(path))
-                {
-                    file.Write(string.Format("{0} {1}", UserNameTextBox.Text, PasswordTextBox.Text));
-                }
-            }
-            else
-            {
-                if (!File.Exists(path)) return;
-
-                var allText = File.ReadAllText(path);
-                var vals = allText.Split(' ');
-
-                UserNameTextBox.Text = vals[0];
-                PasswordTextBox.Text = vals[1];
-            }
-        }
-
-        private bool SignUp(out string error)
-        {
-            var resp = authenticationService.SignUp(new SignUpRequest()
-            {
-                userName = UserNameTextBox.Text,
-                password = PasswordTextBox.Text
-            });
-
-            error = resp.error;
-            return resp.SignUpResult;
-        }
-
-        private bool SignIn(out string error, out string id)
-        {
-            var resp = authenticationService.AuthenticateAndSignIn(new AuthenticateAndSignInRequest()
-            {
-                userName = UserNameTextBox.Text,
-                password = PasswordTextBox.Text,
-                userType = userType
-            });
-
-            error = resp.error;
-            id = resp.AuthenticateAndSignInResult;
-
-            return !string.IsNullOrEmpty(id);
-        }
-
-        private void LogInForm_Activated(object sender, EventArgs e)
-        {
-            if (_activated) return;
-            _activated = true;
-            initializeServiceReferences(ref authenticationService, "Authentication");
-            initializeServiceReferences(ref loadUser, "LoadUser");
+            Cursor.Current = Cursors.Default;
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -166,63 +144,35 @@ namespace WindowsFormsApp1
 
         private void SignUpButton_Click(object sender, EventArgs e)
         {
-            //Sign Up
-            string error;
-            if (!SignUp(out error))
-            {
-                MessageBox.Show(error, "Sign Up", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else
-            {
-                MessageBox.Show("Successfully Signed Up!", "Sign Up", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                //Ask user if he want to login
-                var resp = MessageBox.Show("Would you like to sign in?", "Sign In", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (resp == DialogResult.No) return;
-                SignInButton_Click(null, null);
-            }
-
+            _controler.SignUp();
         }
 
         private void ForgotPasswordButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                this.Visible = false;
-                var userName = UserNameTextBox.Text;
+            _controler.ForgotPassword();
+        }
 
-                var resp = authenticationService.GetSecurityQuestion(new GetSecurityQuestionRequest()
-                {
-                    userName = userName
-                });
+        public void OpenRestorePasswordForm(string userName, string securityQuestion)
+        {
+            using (var restorePasswordForm = new RestorePasswordForm(userName, securityQuestion))
+            {
+                restorePasswordForm.ShowDialog();
+            }
+        }
 
-                if (!string.IsNullOrEmpty(resp.error) ||
-                    !string.IsNullOrEmpty(resp.error))
-                {
-                    MessageBox.Show(string.Format("Cant get security question for user: {0} with the following error: {1}", userName, resp.error)
-                        , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else if (string.IsNullOrEmpty(resp.GetSecurityQuestionResult))
-                {
-                    MessageBox.Show(string.Format("There is no security question for user: {0}:", userName)
-                        , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                using (var restorePasswordForm = new RestorePasswordForm(userName, resp.GetSecurityQuestionResult))
-                {
-                    restorePasswordForm.ShowDialog();
-                }
-            }
-            catch (Exception ex)
+        public DialogResult DisplayMessage(MessageType type, string header, string message)
+        {
+            switch (type)
             {
-                MessageBox.Show(ex.Message, "Restore Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case MessageType.Error:
+                    return MessageBox.Show(message, header, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case MessageType.Info:
+                    return MessageBox.Show(message, header, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                case MessageType.Question:
+                    return MessageBox.Show(message, header, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
-            finally
-            {
-                this.Visible = true;
-            }
+
+            return DialogResult.Cancel;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.Authentication;
+using WindowsFormsApp1.LoadUser;
 using WindowsFormsApp1.ServiceReference1;
 
 namespace WindowsFormsApp1
@@ -13,11 +14,16 @@ namespace WindowsFormsApp1
     {
         public IActiveShell _proxyService;
         public IAuthentication _authenticationProxy;
+        public ILoadUser _loadUserProxy;
 
         internal CommunicationControler(string endpointId)
         {
-            _proxyService = InitializeServiceReferences<IActiveShell>($"ActiveShell/{endpointId}");
+            if (endpointId != null)
+            {
+                _proxyService = InitializeServiceReferences<IActiveShell>($"ActiveShell/{endpointId}");
+            }
             _authenticationProxy = InitializeServiceReferences<IAuthentication>("Authentication");
+            _loadUserProxy = InitializeServiceReferences<ILoadUser>("LoadUser");
         }
 
         public static T InitializeServiceReferences<T>(string wcfEndpointId)

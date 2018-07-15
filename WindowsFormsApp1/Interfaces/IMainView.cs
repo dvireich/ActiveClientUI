@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Interfaces;
 
 namespace WindowsFormsApp1
 {
-    public interface IMainView
+    public interface IMainView : IView
     {
         //Properties
         string CurrentPathTextBoxText { get; set; }
@@ -33,12 +34,10 @@ namespace WindowsFormsApp1
 
         bool EnableViewModification { get; set; }
 
+        View CurrentView { get; set; }
+
         //Methods
 
         void SetController(MainFormControler controller);
-
-        void DisplayMessage(MessageType type, string header, string message);
-
-        void ShowData(List<FileFolder> data);
     }
 }

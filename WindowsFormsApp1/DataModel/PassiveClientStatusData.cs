@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsFormsApp1.DataModel;
+using WindowsFormsApp1.DataModel.Enums;
 
 namespace WindowsFormsApp1
 {
-    public class PassiveClientStatusData
+    public class PassiveClientStatusData : Showable
     {
         public string id;
-        public Status IsAlive;
+        public StatusType IsAlive;
         public string NickName;
 
-        public PassiveClientStatusData(string id, Status IsAlive, string NickName)
+        public PassiveClientStatusData(string id, StatusType isAlive, string nickName) : base(isAlive.ToString(), new List<string>() { id, nickName }, (int)isAlive)
         {
             this.id = id;
-            this.IsAlive = IsAlive;
-            this.NickName = NickName;
+            this.IsAlive = isAlive;
+            this.NickName = nickName;
         }
 
         public override bool Equals(object obj)
         {
-            var other = obj as PassiveClientStatusData;
-            return other != null &&
+            return obj is PassiveClientStatusData other &&
                    other.id == this.id &&
                    other.IsAlive == this.IsAlive &&
                    other.NickName == this.NickName;
         }
     }
-
-    
 }

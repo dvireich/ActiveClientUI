@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Authentication;
+using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.ServiceReference1;
 
 namespace WindowsFormsApp1
@@ -44,6 +45,7 @@ namespace WindowsFormsApp1
         public MainFormControler(string endpointId, IMainView view) : base(endpointId)
         {
             _view = view;
+            _view.EnableViewModification = true;
         }
 
         private List<FileFolder> CalculateFileOrFolderData(List<string> folderList)
@@ -159,12 +161,23 @@ namespace WindowsFormsApp1
 
         public void UpdateFileFolderList()
         {
+            List<IShowable> data;
             if (!_selectedRemoteClientConnected) return;
 
             var ffl = GetFileFolderList();
             if (!ffl.IsDiffrentFrom(CurrentFileFolderList)) return;
             CurrentFileFolderList = ffl;
-            _view.ShowData(ffl);
+
+            if(_view.CurrentView == View.Details)
+            {
+                data = ffl.Select(ff => new DetailsViewFileFolder(ff.GetType(), ff.GetName(), ff.getSize(), ff.GetLastModificationDate())).ToList<IShowable>();
+            }
+            else
+            {
+                data = ffl.ToList<IShowable>();
+            }
+
+            _view.ShowData(data);
         }
 
         public void OpenCmdOnRemoteClientPc()

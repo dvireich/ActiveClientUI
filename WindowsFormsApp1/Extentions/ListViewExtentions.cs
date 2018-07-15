@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using WindowsFormsApp1.Interfaces;
 
 namespace WindowsFormsApp1
 {
@@ -123,6 +124,10 @@ namespace WindowsFormsApp1
                 // Create columns for the items and subitems.
                 if (colNames != null && colNames.Count > 0)
                 {
+                    if (listView.Columns.Count == 0)
+                    {
+                        listView.Columns.Add(new ColumnHeader());
+                    }
                     listView.Columns[0].Text = colNames[0];
 
                     // Width of -2 indicates auto-size.
@@ -186,7 +191,7 @@ namespace WindowsFormsApp1
             });
         }
 
-        public static int GetFocusedIndex(this ListView listview)
+        public static int GetSelectedIndex(this ListView listview)
         {
             return listview.RunInInvoke<int>(() =>
             {
@@ -238,6 +243,33 @@ namespace WindowsFormsApp1
             });
         }
 
+        public static void Show(this ListView listview, List<IShowable> items)
+        {
+            listview.RunInInvoke(() =>
+            {
+                listview.SuspendLayout();
+                listview.BeginUpdate();
+                listview.Items.Clear();
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    var item = items[i];
+                    var listViewItemData = new ListViewItemData()
+                    {
+                        Index = i,
+                        imageIndex = item.ImageIndex,
+                        MainItem = item.MainItem,
+                        SubItems = item.SubItems
+                    };
+
+                    listview.AddToListView(listViewItemData);
+                }
+
+                listview.EndUpdate();
+                listview.ResumeLayout();
+            });
+        }
+
         public static void FitToData(this ListView listview)
         {
             listview.RunInInvoke(() =>
@@ -259,7 +291,9 @@ namespace WindowsFormsApp1
                 {
                     listview.Items[index].Selected = true;
                 }
-                catch { }
+                catch
+                {
+                }
             });
         }
 
@@ -272,7 +306,9 @@ namespace WindowsFormsApp1
                 {
                     listview.TopItem = listview.Items[index];
                 }
-                catch { }
+                catch
+                {
+                }
             });
         }
 

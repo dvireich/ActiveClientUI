@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class statusForm
+    partial class StatusForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(statusForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatusForm));
             this.listView1 = new System.Windows.Forms.ListView();
             this.ConnectedIcon = new System.Windows.Forms.PictureBox();
             this.DisconnectedIcon = new System.Windows.Forms.PictureBox();

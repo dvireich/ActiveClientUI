@@ -67,7 +67,6 @@
             this.Text = "Tasks";
             this.Activated += new System.EventHandler(this.Tasks_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Tasks_FormClosing);
-            this.SizeChanged += new System.EventHandler(this.Tasks_SizeChanged);
             this.ResumeLayout(false);
 
         }

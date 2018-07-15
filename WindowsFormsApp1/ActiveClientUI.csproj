@@ -58,7 +58,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlers\CommunicationControler.cs" />
+    <Compile Include="Controlers\LogInFormControler.cs" />
+    <Compile Include="Controlers\RestorePasswordFormControler.cs" />
+    <Compile Include="Controlers\StatusFormControler.cs" />
+    <Compile Include="Controlers\TaskFormControler.cs" />
+    <Compile Include="DataModel\DownloadUploadTaskData.cs" />
+    <Compile Include="DataModel\Enums\TaskType.cs" />
+    <Compile Include="DataModel\FileFolder.cs" />
     <Compile Include="DataModel\Enums\FileFolderType.cs" />
+    <Compile Include="DataModel\Enums\StatusType.cs" />
+    <Compile Include="DataModel\ShellTaskData.cs" />
+    <Compile Include="DataModel\Showable.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,7 +95,7 @@
     </Compile>
     <Compile Include="Extentions\ListExtentions.cs" />
     <Compile Include="Extentions\ListViewExtentions.cs" />
-    <Compile Include="DataModel\File.cs" />
+    <Compile Include="DataModel\DetailsViewFileFolder.cs" />
     <Compile Include="DataModel\ImageData.cs" />
     <Compile Include="DataModel\ListViewItemData.cs" />
     <Compile Include="Forms\Controls\ListViewNF.cs">
@@ -123,9 +133,15 @@
     <Compile Include="Forms\Controls\MenuItemOvveride.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Interfaces\ILogInView.cs" />
     <Compile Include="Interfaces\IMainView.cs" />
     <Compile Include="Controlers\MainFormControler.cs" />
     <Compile Include="DataModel\Enums\MessageType.cs" />
+    <Compile Include="Interfaces\IRestorePasswordView.cs" />
+    <Compile Include="Interfaces\IShowable.cs" />
+    <Compile Include="Interfaces\IStatusView.cs" />
+    <Compile Include="Interfaces\ITaskView.cs" />
+    <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\Tasks.cs">

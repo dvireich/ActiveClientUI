@@ -23,9 +23,9 @@ namespace WindowsFormsApp1
             menu.AddMenuItem(menuItemData.Header, onClick, menuItemData.ToolTip);
         }
 
-        public static bool IsDiffrentFrom(this List<FileFolder> current, List<FileFolder> other)
+        public static bool IsDiffrentFrom<T>(this List<T> current, List<T> other)
         {
-            if (other == null || current.Count != other.Count) return true;
+            if (current == null || other == null || current.Count != other.Count) return true;
 
             for (int i = 0; i < current.Count; i++)
             {

@@ -15,7 +15,6 @@ namespace WindowsFormsApp1
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            CloseAllConnections();
 
             if (disposing && (components != null))
             {
@@ -119,13 +118,13 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.label3);
             this.Controls.Add(this.SecurityQuestionTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Location = new System.Drawing.Point(0, 0);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RestorePasswordForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Restore Password";
-            this.Activated += new System.EventHandler(this.RestorePasswordForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

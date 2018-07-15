@@ -15,8 +15,6 @@ namespace WindowsFormsApp1
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            CloseAllConnections();
-
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -198,12 +196,12 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UserNameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Location = new System.Drawing.Point(0, 0);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LogInForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log In";
-            this.Activated += new System.EventHandler(this.LogInForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

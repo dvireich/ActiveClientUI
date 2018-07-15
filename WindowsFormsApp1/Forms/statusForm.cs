@@ -1,473 +1,261 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
 using System.Windows.Forms;
+using WindowsFormsApp1.Controlers;
+using WindowsFormsApp1.DataModel.Enums;
+using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.ServiceReference1;
 
 namespace WindowsFormsApp1
 {
-    public enum Status
-    {
-        Off,
-        On
-    }
-    public partial class statusForm : Form
+    
+    public partial class StatusForm : BaseForm, IStatusView
     {
         private bool _activated;
-        private string _selectedClient;
-        static IActiveShell shellService;
         private string _wcfServicesPathId;
-        private static readonly log4net.ILog log
-      = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        List<PassiveClientStatusData> lastClientsStatusList;
+        private int _oldTopItemIndex;
+        private int _oldSelectedIndex;
+        private List<string> _columnNames = new List<string>() { "Status", "Id", "Nick name"};
+        Dictionary<string, Action<ListView, ListViewItem>> _userClickToAction;
+        private StatusFormControler _controler;
 
-        public System.Threading.Timer StatusTimer { get; private set; }
-        public string SelectedClient { get => _selectedClient; set => _selectedClient = value; }
-
-        private void CloseAllConnections()
+        string IStatusView.SelectedClient
         {
-            try
+            get
             {
-                if (shellService != null)
-                    ((ICommunicationObject)shellService).Close();
-                shellService = null;
+                return selectedClientLabel.Text;
             }
-            catch { }
-           
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    selectedClientLabel.Text = value;
+                }));
+            }
         }
 
-        private void CloseAllThreads()
+        bool IStatusView.NoSelectedClientLabelVisible
         {
-            StatusTimer.Dispose();
-            StatusTimer = null;
+            get
+            {
+                return noClientConnected.Visible;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    noClientConnected.Visible = value;
+                }));
+            }
         }
 
-        public statusForm(string id)
+        bool IStatusView.ListViewVisible
+        {
+            get
+            {
+                return listView1.Visible;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    listView1.Visible = value;
+                }));
+            }
+        }
+
+        bool IStatusView.SelectedClientVisible
+        {
+            get
+            {
+                return selectedClientLabel.Visible;
+            }
+            set
+            {
+                Invoke((MethodInvoker)(() =>
+                {
+                    selectedClientLabel.Visible = value;
+                }));
+            }
+        }
+
+        public void ShowData(List<IShowable> data)
+        {
+            listView1.Show(data);
+            listView1.FitToData();
+            listView1.RestoreSelectedIndex(_oldSelectedIndex);
+            listView1.RestoreTopIndex(_oldTopItemIndex);
+        }
+
+        void IStatusView.SetController(StatusFormControler controller)
+        {
+            _controler = controller;
+        }
+
+        private void InitializeUserClickToAction()
+        {
+            _userClickToAction = new Dictionary<string, Action<ListView, ListViewItem>>()
+            {
+                { "Remove" , RemoveEventHendler},
+                { "Show unfinished Shell tasks" , ShowUnfinishedTShellasksEventHendler},
+                { "Show unfinished Download or Upload tasks" , ShowUnfinishedDownloadUploadTaskEventHendler},
+                { "Set Nick Name" , SetNickNameEventHendler},
+                { "Select" , SelectEventHendler},
+            };
+        }
+
+        public void DisplayMessage(MessageType type, string header, string message)
+        {
+            switch (type)
+            {
+                case MessageType.Error:
+                    MessageBox.Show(message, header, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case MessageType.Info:
+                    MessageBox.Show(message, header, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case MessageType.Question:
+                    MessageBox.Show(message, header, MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    break;
+            }
+        }
+
+        public StatusForm(string id)
         {
             _wcfServicesPathId = id;
             InitializeComponent();
-            CreateListView();
-            initializeServiceReferences(_wcfServicesPathId);
-            listView1.SizeChanged += new EventHandler(ListView_SizeChanged); 
+            InitializeUserClickToAction();
+            _controler = new StatusFormControler(id, this);
         }
 
         private void StatusForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             CloseAllThreads();
-            CloseAllConnections();
         }
 
-        Object statusFromServerLock = new Object();
-        private void GetStatusFromServer()
+        private void UpdateClientStatuses()
         {
-            
-            lock (statusFromServerLock)
+            try
             {
-                var status = shellService.GetStatus().Replace("\r", "");
-                var statusSplittedNewLine = status.Split('\n');
-                statusSplittedNewLine = statusSplittedNewLine.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
-
-                if (!CheckIfAnyClientConnectedAndShowLablelIfNot(statusSplittedNewLine)) return;
-
-                var oldFocusedIndex = GetLastSelectedIndex();
-
-                ParseAndChangeSelectedClientTextLable(statusSplittedNewLine);
-
-                SelectedClient = statusSplittedNewLine.Last().Split(':').Last();
-
-                var clientStatusList = ParseClientStatus(status);
-
-                bool shouldChangeUi = CheckIfSomeClientStatusChanged(clientStatusList);
-
-                if (shouldChangeUi)
-                {
-                    ChangeViewAndRestoreSelected(oldFocusedIndex, clientStatusList);
-                }
+                _oldTopItemIndex = listView1.GetdTopItemIndex();
+                _oldSelectedIndex = listView1.GetSelectedIndex();
+                _controler.UpdateClientStatuses();
             }
-        }
-
-        private bool CheckIfAnyClientConnectedAndShowLablelIfNot(string[] status)
-        {
-            status = status.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
-            if (status.Length == 2 && status[1] == "There is no clients connected")
-            {
-                this.Invoke((MethodInvoker)(() =>
-                {
-                    noClientConnected.Visible = true;
-                    listView1.Visible = false;
-                    selectedClientLabel.Visible = false;
-                }));
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool CheckIfSomeClientStatusChanged(List<PassiveClientStatusData> clientStatusList)
-        {
-            var shouldChangeUi = false;
-
-            if (lastClientsStatusList == null || lastClientsStatusList.Count != clientStatusList.Count)
-            {
-                lastClientsStatusList = clientStatusList;
-                shouldChangeUi = true;
-
-            }
-            else
-            {
-                for (int i = 0; i < lastClientsStatusList.Count; i++)
-                {
-                    if (!lastClientsStatusList[i].Equals(clientStatusList[i]))
-                    {
-                        lastClientsStatusList = clientStatusList;
-                        shouldChangeUi = true;
-                        break;
-                    }
-                }
-            }
-
-            return shouldChangeUi;
-        }
-
-        private void ChangeViewAndRestoreSelected(int oldFocusedIndex, List<PassiveClientStatusData> clientStatusList)
-        {
-            this.Invoke((MethodInvoker)(() =>
-            {
-                listView1.SuspendLayout();
-                listView1.BeginUpdate();
-                listView1.Items.Clear();
-
-                for (int i = 0; i < clientStatusList.Count; i++)
-                {
-                    var clientStatus = clientStatusList[i];
-                    noClientConnected.Visible = false;
-                    listView1.Visible = true;
-                    AddToListView(i, clientStatus.id, clientStatus.IsAlive, clientStatus.NickName);
-                }
-
-                RestoreSelectedItem(oldFocusedIndex);
-                listView1.EndUpdate();
-                listView1.ResumeLayout();
-                listView1.Refresh();
-            }
-                            ));
-        }
-
-        private bool ParseAndChangeSelectedClientTextLable(string[] statusSplittedNewLine)
-        {
-            bool ret = false;
-            this.Invoke((MethodInvoker)(() =>
-            {
-                try
-                {
-                    listView1.SuspendLayout();
-                    listView1.BeginUpdate();
-                    selectedClientLabel.Visible = true;
-                    selectedClientLabel.Text = string.Format("Selected client: {0}", statusSplittedNewLine.Last().Split(':').Last());
-                    listView1.EndUpdate();
-                    listView1.ResumeLayout();
-                    listView1.Refresh();
-                    ret = true;
-                }
-                catch (Exception)
-                {
-                    ret = false;
-                }
-            }));
-
-            return ret;
-        }
-
-        private int GetLastSelectedIndex()
-        {
-            int lLastSelectedIndex = -1;
-            this.Invoke((MethodInvoker)(() =>
-            {
-                lLastSelectedIndex = listView1 != null ?
-                                                         listView1.SelectedItems != null ?
-                                                              listView1.SelectedItems.Count > 0 ?
-                                                                 listView1.SelectedItems[0].Index :
-                                                                     -1 :
-                                                                     -1 :
-                                                                     -1;
-            }));
-
-            return lLastSelectedIndex;
-        }
-
-        private static List<PassiveClientStatusData> ParseClientStatus(string status)
-        {
-            List<PassiveClientStatusData> clientStatusList = new List<PassiveClientStatusData>();
-            var clients = status.Split(new string[] { "Client" }, StringSplitOptions.RemoveEmptyEntries);
-            clients = clients.ToArray().Skip(1).Take(clients.Count() - 2).ToArray();
-
-            foreach (var client in clients)
-            {
-                var fields = client.Replace('\t', '\n').Split('\n');
-                fields = fields.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str) && str != "The selected ").ToArray();
-
-                var id = fields[0].Split(':').Last();
-                var nickName = fields[1].Split(':').Last();
-                var isAlive = bool.Parse(fields[2].Split(':').Last()) ? Status.On : Status.Off;
-                var shellTasks = new List<string>();
-                var i = 4;
-                while (fields[i] != "Upload And Download Tasks:")
-                {
-                    if (fields[i] == "There is no shell tasks")
-                    {
-                        i++;
-                        break;
-                    }
-
-                    shellTasks.Add(fields[i]);
-                    i++;
-                }
-                var downloadUploadTasks = new List<string>();
-                i++;
-                while (i < fields.Count())
-                {
-                    if (fields[i] == "There is no Download or Upload tasks")
-                    {
-                        i++;
-                        break;
-                    }
-
-                    shellTasks.Add(fields[i]);
-                    i++;
-                }
-                clientStatusList.Add(new PassiveClientStatusData(id.Trim(), isAlive, nickName));
-            }
-
-            return clientStatusList;
-        }
-
-        private void RestoreSelectedItem(int oldFocusedIndex)
-        {
-            listView1.ItemSelectionChanged -= this.listView1_ItemSelectionChanged_1;
-            if (oldFocusedIndex > -1 && listView1 != null && listView1.Items != null && oldFocusedIndex < listView1.Items.Count)
-            {
-                listView1.Items[oldFocusedIndex].Selected = true;
-            }
-            else if (listView1 != null && listView1.Items != null && listView1.Items.Count > 0)
-            {
-                listView1.Items[0].Selected = true;
-            }
-            listView1.ItemSelectionChanged += this.listView1_ItemSelectionChanged_1;
-        }
-
-        private void AddToListView(int index, string id, Status status, string nickName, bool check = false)
-        {
-            listView1.BeginUpdate();
-            // Create three items and three sets of subitems for each item.
-            ListViewItem item1 = new ListViewItem(status.ToString(), index);
-            // Place a check mark next to the item.
-            item1.Checked = check;
-            item1.SubItems.Add(id);
-            item1.SubItems.Add(nickName);
-            item1.ImageIndex = (int)status;
-            listView1.Items.Add(item1);
-            ListView_SizeChanged(null, null);
-            listView1.EndUpdate();
-            listView1.Refresh();
-        }
-
-        private static void initializeServiceReferences(string wcfServicesPathId)
-        {
-            //Confuguring the Shell service
-            var shellBinding = new BasicHttpBinding();
-            shellBinding.Security.Mode = BasicHttpSecurityMode.None;
-            shellBinding.CloseTimeout = TimeSpan.MaxValue;
-            shellBinding.ReceiveTimeout = TimeSpan.MaxValue;
-            shellBinding.SendTimeout = new TimeSpan(0, 0, 10, 0, 0);
-            shellBinding.OpenTimeout = TimeSpan.MaxValue;
-            shellBinding.MaxReceivedMessageSize = int.MaxValue;
-            shellBinding.MaxBufferPoolSize = int.MaxValue;
-            shellBinding.MaxBufferSize = int.MaxValue;
-            //Put Public ip of the server copmuter
-            var shellAdress = string.Format("http://localhost:80/ShellTrasferServer/ActiveShell/{0}", wcfServicesPathId);
-            var shellUri = new Uri(shellAdress);
-            var shellEndpointAddress = new EndpointAddress(shellUri);
-            var shellChannel = new ChannelFactory<IActiveShell>(shellBinding, shellEndpointAddress);
-            shellService = shellChannel.CreateChannel();
-        }
-
-        private void PefromTaskEveryXTime(Action task, int seconds)
-        {
-            var startTimeSpan = TimeSpan.Zero;
-            var periodTimeSpan = TimeSpan.FromSeconds(seconds);
-
-            StatusTimer = new System.Threading.Timer((e) =>
-            {
-                try
-                {
-                    task();
-                }
-                catch(Exception ex)
-                {
-                    log.Debug($"Error in executing task: {task.GetType().FullName} with the following exception: {ex.Message}");
-                }
-               
-            }, null, startTimeSpan, periodTimeSpan);
+            catch { }
         }
 
         private void CreateListView()
         {
-            listView1.View = View.Details;
-            // Allow the user to edit item text.
-            listView1.LabelEdit = true;
-            // Allow the user to rearrange columns.
-            listView1.AllowColumnReorder = false;
-            // Display check boxes.
-            listView1.CheckBoxes = false;
-            // Select the item and subitems when selection is made.
-            listView1.FullRowSelect = true;
-            // Display grid lines.
-            listView1.GridLines = true;
-            // Sort the items in the list in ascending order.
-            listView1.Sorting = SortOrder.Ascending;
 
-
-            // Create columns for the items and subitems.
-            // Width of -2 indicates auto-size.
-            listView1.Columns.Add("Status", -2, HorizontalAlignment.Left);
-            listView1.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            listView1.Columns.Add("Nick Name", -2, HorizontalAlignment.Center);
-            
-
-            // Create two ImageList objects.
-            ImageList imageListSmall = new ImageList();
-            ImageList imageListLarge = new ImageList();
-
-            imageListSmall.Images.Add(DisconnectedIcon.Image);
-            imageListSmall.Images.Add(ConnectedIcon.Image);
-            
-            imageListLarge.Images.Add(DisconnectedIcon.Image);
-            imageListLarge.Images.Add(ConnectedIcon.Image);
-
-            //Assign the ImageList objects to the ListView.
-            listView1.LargeImageList = imageListLarge;
-            listView1.SmallImageList = imageListSmall;
-        }
-
-        private void ListView_SizeChanged(object sender, EventArgs e)
-        {
-            for (var i = 0; i < listView1.Columns.Count; i++)
+            var largeImageData = new ImageData()
             {
-                listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
-                listView1.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
-            }
+                ImageList = new List<Image>()
+                {
+                    DisconnectedIcon.Image,
+                    ConnectedIcon.Image
+                },
+                imageSize = new Size(64, 64)
+            };
+
+            var smallImageData = new ImageData()
+            {
+                ImageList = new List<Image>()
+                {
+                     DisconnectedIcon.Image,
+                    ConnectedIcon.Image
+                },
+                imageSize = new Size(16, 16)
+            };
+
+            listView1.CreateListView(smallImageData, largeImageData, _columnNames);
+
         }
 
         private void statusForm_Activated(object sender, EventArgs e)
         {
             if (_activated) return;
             _activated = true;
-            GetStatusFromServer();
-            PefromTaskEveryXTime(GetStatusFromServer, 1);
+            CreateListView();
+            listView1.SizeChanged += (obj, args) => listView1.FitToData();
+
+            UpdateClientStatuses();
+            PefromTaskEveryXTime(UpdateClientStatuses, 1);
         }
 
-        private ContextMenuOvveride CreatePopUpMenu(Status type)
+        private void RemoveEventHendler(ListView selectedListViewProperty, ListViewItem selected)
+        {
+            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
+            _controler.Remove(id);
+        }
+
+        private void ShowUnfinishedTShellasksEventHendler(ListView selectedListViewProperty, ListViewItem selected)
+        {
+            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
+            using (Tasks taskFrom = new Tasks(TaskType.Shell, id, _wcfServicesPathId))
+            {
+                taskFrom.ShowDialog();
+            }
+        }
+
+        private void ShowUnfinishedDownloadUploadTaskEventHendler(ListView selectedListViewProperty, ListViewItem selected)
+        {
+            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
+            using (Tasks taskFrom = new Tasks(TaskType.UploadDownload, id, _wcfServicesPathId))
+            {
+                taskFrom.ShowDialog();
+            }
+        }
+
+        private void SetNickNameEventHendler(ListView selectedListViewProperty, ListViewItem selected)
+        {
+            string nickName = Microsoft.VisualBasic.Interaction.InputBox("Enter the new nick name", "Set Nick Name", "Default", -1, -1);
+            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
+            _controler.SetNickName(id, nickName);
+        }
+
+        private void SelectEventHendler(ListView selectedListViewProperty, ListViewItem selected)
+        {
+            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
+            _controler.SelectRemoteClient(id);
+        }
+
+        private ContextMenuOvveride CreatePopUpMenu(StatusType type)
         {
             ContextMenuOvveride PopupMenu = new ContextMenuOvveride();
             ListViewItem selected = listView1.SelectedItems[0];
             ListView selectedListViewProperty = selected.ListView;
-            var src = type.ToString().ToLower();
-            if (type == Status.Off)
-            {
-                PopupMenu.AddMenuItem("Remove",
-                                    (obj, args) =>
-                                    {
-                                        var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                        var succeeded = shellService.ActiveCloseClient(id);
-                                        if (!succeeded)
-                                            MessageBox.Show("Error closing client", "Remove client", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    },
-                                    string.Format("Copy this Directory to another place", src));
-                PopupMenu.AddMenuItem("Show unfinished Shell tasks",
-                                       (obj, args) =>
-                                       {
-                                           var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                           using (Tasks taskFrom = new Tasks(TaskType.Shell, id, _wcfServicesPathId))
-                                           {
-                                               taskFrom.ShowDialog();
-                                           } 
-                                       },
-                                       string.Format("Delete this Directory", src));
-                PopupMenu.AddMenuItem("Show unfinished Download\\Upload tasks",
-                                        (obj, args) =>
-                                        {
-                                            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            using (Tasks taskFrom = new Tasks(TaskType.UploadDownload, id, _wcfServicesPathId))
-                                            {
-                                                taskFrom.ShowDialog();
-                                            } 
-                                        },
-                                        string.Format("Delete this Directory", src));
 
-            }
-            else
+            List<MenuItemData> menuItemDataList = new List<MenuItemData>();
+            foreach (var kv in _userClickToAction)
             {
-                PopupMenu.AddMenuItem("Remove",
-                                    (obj, args) =>
-                                    {
-                                        var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                        var succeeded = shellService.ActiveCloseClient(id);
-                                        if (!succeeded)
-                                            MessageBox.Show("Error closing client", "Remove client", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    },
-                                    string.Format("Copy this Directory to another place", src));
+                var userClickActionName = kv.Key;
+                var action = kv.Value;
 
-                PopupMenu.AddMenuItem("Set Nick Name",
-                                        (obj, args) =>
-                                        {
-                                            string input = Microsoft.VisualBasic.Interaction.InputBox("Enter the new nick name", "Set Nick Name", "Default", -1, -1);
-                                            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            var succeeded = shellService.ActiveSetNickName(id, input);
-                                            if (!succeeded)
-                                                MessageBox.Show("Error set nickName", "set nickName", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        },
-                                        string.Format("Change the name of this {0}", src));
-                PopupMenu.AddMenuItem("Select",
-                                        (obj, args) =>
-                                        {
-                                            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            var succeeded = shellService.SelectClient(id);
-                                            if (!succeeded)
-                                                MessageBox.Show("Error selecting client", "Select client", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        },
-                                        string.Format("Delete this Directory", src));
-                PopupMenu.AddMenuItem("Show unfinished Shell tasks",
-                                        (obj, args) =>
-                                        {
-                                            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            using (Tasks taskFrom = new Tasks(TaskType.Shell, id, _wcfServicesPathId))
-                                            {
-                                                taskFrom.ShowDialog();
-                                            }
-                                        },
-                                        string.Format("Delete this Directory", src));
-                PopupMenu.AddMenuItem("Show unfinished Download\\Upload tasks",
-                                        (obj, args) =>
-                                        {
-                                            var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-                                            using (Tasks taskFrom = new Tasks(TaskType.UploadDownload, id, _wcfServicesPathId))
-                                            {
-                                                taskFrom.ShowDialog();
-                                            }
-                                        },
-                                        string.Format("Delete this Directory", src));
+                //at this time block the download of folder
+                if (type == StatusType.Off && userClickActionName == "Set Nick Name" ||
+                    type == StatusType.Off && userClickActionName == "Select") continue;
+
+                var menuItemData = new MenuItemData()
+                {
+                    Header = userClickActionName,
+                    OnClick = action,
+                    SelectedListViewItem = selected,
+                    SelectedListViewProperty = selectedListViewProperty,
+                };
+
+                menuItemDataList.Add(menuItemData);
             }
 
-            PopupMenu.ClickThenCollapse += PopupMenuClosed;
-            return PopupMenu;
+            return menuItemDataList.CreatePopUpMenu(PopupMenuClosed);
         }
 
         private void PopupMenuClosed(object sender, EventArgs e)
         {
-            var popUpMenu = sender as ContextMenuOvveride;
-            if (popUpMenu == null) return;
+            if (!(sender is ContextMenuOvveride popUpMenu)) return;
             popUpMenu.ClickThenCollapse -= PopupMenuClosed;
             while (popUpMenu.MenuItems.Count > 0)
             {
@@ -489,7 +277,7 @@ namespace WindowsFormsApp1
             {
                 var selected = listview.SelectedItems[0];
                 var typeColumnNumber = listview.GetColumnNumber("Status");
-                var type = (Status)Enum.Parse(typeof(Status), selected.SubItems[typeColumnNumber].Text);
+                var type = (StatusType)Enum.Parse(typeof(StatusType), selected.SubItems[typeColumnNumber].Text);
                 listview.ContextMenu = CreatePopUpMenu(type);
             }
         }
@@ -501,7 +289,7 @@ namespace WindowsFormsApp1
             if (listview == null || listview.SelectedItems.Count <= 0) return;
             var typeColumnNumber = listview.GetColumnNumber("Status");
             var selected = listview.SelectedItems[0];
-            var type = (Status)Enum.Parse(typeof(Status), selected.SubItems[typeColumnNumber].Text);
+            var type = (StatusType)Enum.Parse(typeof(StatusType), selected.SubItems[typeColumnNumber].Text);
             var popUpMenu = CreatePopUpMenu(type);
             listview.ContextMenu = popUpMenu;
         }
