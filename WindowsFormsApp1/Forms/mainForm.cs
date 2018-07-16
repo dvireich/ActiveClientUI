@@ -365,7 +365,6 @@ namespace WindowsFormsApp1
 
         private void SwitchNameColWithFirstCol()
         {
-
             var nameColIndex = listView1.GetColumnNumber("Name");
             var nameCol = listView1.Columns[nameColIndex];
             var firstCol = listView1.Columns[0];
@@ -473,6 +472,7 @@ namespace WindowsFormsApp1
         private void DetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!_enableViewModification) return;
+            if (listView1.View == View.Details) return;
 
             listView1.View = View.Details;
             var typeColIndex = listView1.GetColumnNumber("Type");

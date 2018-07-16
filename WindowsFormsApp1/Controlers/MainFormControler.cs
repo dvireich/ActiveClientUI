@@ -17,6 +17,8 @@ namespace WindowsFormsApp1
     {
         IMainView _view;
 
+        private View _currentView;
+
         private string _cutPath;
         private string _copyPath;
         private string _currentPath;
@@ -46,6 +48,8 @@ namespace WindowsFormsApp1
         {
             _view = view;
             _view.EnableViewModification = true;
+            _view.ShouldChangeCurrentPathText = true;
+            _currentView = _view.CurrentView;
         }
 
         private List<FileFolder> CalculateFileOrFolderData(List<string> folderList)
@@ -165,10 +169,13 @@ namespace WindowsFormsApp1
             if (!_selectedRemoteClientConnected) return;
 
             var ffl = GetFileFolderList();
-            if (!ffl.IsDiffrentFrom(CurrentFileFolderList)) return;
-            CurrentFileFolderList = ffl;
+            if (ffl == null) return;
+            if (!ffl.IsDiffrentFrom(CurrentFileFolderList) && _currentView == _view.CurrentView) return;
 
-            if(_view.CurrentView == View.Details)
+            CurrentFileFolderList = ffl;
+            _currentView = _view.CurrentView;
+
+            if (_view.CurrentView == View.Details)
             {
                 data = ffl.Select(ff => new DetailsViewFileFolder(ff.GetType(), ff.GetName(), ff.getSize(), ff.GetLastModificationDate())).ToList<IShowable>();
             }
