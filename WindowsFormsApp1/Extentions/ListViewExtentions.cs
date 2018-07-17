@@ -275,11 +275,15 @@ namespace WindowsFormsApp1
             listview.RunInInvoke(() =>
             {
                 if (listview.View != View.Details) return;
+                listview.BeginUpdate();
+                listview.SuspendLayout();
                 for (var i = 0; i < listview.Columns.Count; i++)
                 {
                     listview.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.ColumnContent);
                     listview.AutoResizeColumn(i, ColumnHeaderAutoResizeStyle.HeaderSize);
                 }
+                listview.ResumeLayout();
+                listview.EndUpdate();
             }); 
         }
 
