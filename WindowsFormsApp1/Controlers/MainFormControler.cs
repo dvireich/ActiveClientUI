@@ -487,6 +487,7 @@ namespace WindowsFormsApp1
                 _view.DisplayMessage(MessageType.Info, "Download", "Download completed successfully");
                 _view.ProgressBarVisible = false;
                 _view.ProgressLabelVisible = false;
+                _view.ProgressBarValue = 0;
             }
         }
 
@@ -682,6 +683,7 @@ namespace WindowsFormsApp1
                         _view.DisplayMessage(MessageType.Info, "Upload", "Upload completed successfully");
                         _view.ProgressBarVisible = false;
                         _view.ProgressLabelVisible = false;
+                        _view.ProgressBarValue = 0;
                         return;
                     }
                 }

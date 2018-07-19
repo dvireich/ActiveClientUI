@@ -340,6 +340,4 @@ namespace WindowsFormsApp1
             return listview.SelectedItems[0];
         }
     }
-
-    
 }
