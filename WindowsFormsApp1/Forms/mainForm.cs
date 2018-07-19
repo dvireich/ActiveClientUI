@@ -30,9 +30,6 @@ namespace WindowsFormsApp1
         private bool _shouldChangeCurrentPathText;
         private bool _enableViewModification;
 
-        private Object statusFromServerLock = new Object();
-        private Object folderListFromServerLock = new Object();
-
         private Dictionary<string, Action<ListView, ListViewItem>> _userClickToAction;
         private int _oldTopItemIndex;
         private int _oldSelectedIndex;
