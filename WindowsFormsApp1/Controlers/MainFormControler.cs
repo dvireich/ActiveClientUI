@@ -185,6 +185,8 @@ namespace WindowsFormsApp1
             }
 
             _view.ShowData(data);
+            _view.NoSelectedClientLabelVisible = false;
+            _view.ListViewVisible = true;
         }
 
         public void OpenCmdOnRemoteClientPc()
@@ -211,8 +213,6 @@ namespace WindowsFormsApp1
             else
             {
                 _selectedRemoteClientConnected = true;
-                _view.NoSelectedClientLabelVisible = false;
-                _view.ListViewVisible = true;
             }
         }
 
@@ -346,6 +346,8 @@ namespace WindowsFormsApp1
 
         private void TryToCopyPaste(string path)
         {
+            if (string.IsNullOrEmpty(_copyPath)) return;
+
             var result = _proxyService.ActiveNextCommand(string.Format("copy \"{0}\" \"{1}\" /-Y", _copyPath, path));
             if (result.StartsWith("Error"))
             {
