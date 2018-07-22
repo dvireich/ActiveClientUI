@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Helpers;
 using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.ServiceReference1;
 
@@ -288,7 +289,11 @@ namespace WindowsFormsApp1
             _wcfServicesPathId = id;
             _username = username;
             CreateListView();
-            _controler = new MainFormControler(_wcfServicesPathId, this);
+            _controler = new MainFormControler(_wcfServicesPathId, 
+                                               this,
+                                               new StopWatch(),
+                                               new FileManager(),
+                                               new DirectoryManager());
         }
 
         private ContextMenuOvveride CreatePopUpMenu(FileFolderType type)

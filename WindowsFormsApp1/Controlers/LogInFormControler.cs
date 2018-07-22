@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Authentication;
+using WindowsFormsApp1.Helpers.Interface;
 using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.LoadUser;
 
@@ -14,11 +15,19 @@ namespace WindowsFormsApp1.Controlers
     class LogInFormControler : CommunicationControler
     {
         ILogInView _view;
+        IFileManager _fileManager;
+        IDirectoryManager _directoryManager;
+
         private string _userType = "ActiveClient";
 
-        public LogInFormControler(string endpointId, ILogInView view) : base(null)
+        public LogInFormControler(string endpointId, 
+                                  ILogInView view,
+                                  IFileManager fileManager,
+                                  IDirectoryManager directoryManager) : base(null)
         {
             _view = view;
+            _fileManager = fileManager;
+            _directoryManager = directoryManager;
         }
 
         public void RememberMeOnLoad()
@@ -26,14 +35,14 @@ namespace WindowsFormsApp1.Controlers
             var directoryName = "Files";
             var fileName = "LoginState";
             var path = Path.Combine(directoryName, fileName);
-            if (!Directory.Exists(directoryName))
+            if (!_directoryManager.Exists(directoryName))
             {
-                Directory.CreateDirectory(directoryName);
+                _directoryManager.CreateDirectory(directoryName);
             }
 
-            if (!File.Exists(path)) return;
+            if (!_fileManager.Exists(path)) return;
 
-            var allText = File.ReadAllText(path);
+            var allText = _fileManager.ReadAllText(path);
             var vals = allText.Split(' ');
 
             _view.UserNameTextBoxText = vals[0];
@@ -45,17 +54,17 @@ namespace WindowsFormsApp1.Controlers
             var directoryName = "Files";
             var fileName = "LoginState";
             var path = Path.Combine(directoryName, fileName);
-            if (!Directory.Exists(directoryName))
+            if (!_directoryManager.Exists(directoryName))
             {
-                Directory.CreateDirectory(directoryName);
+                _directoryManager.CreateDirectory(directoryName);
             }
 
-            if (File.Exists(path))
+            if (_fileManager.Exists(path))
             {
-                File.Delete(path);
+                _fileManager.Delete(path);
             }
 
-            using (var file = File.CreateText(path))
+            using (var file = _fileManager.CreateText(path))
             {
                 file.Write(string.Format("{0} {1}", userName, password));
             }

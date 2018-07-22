@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using WindowsFormsApp1.Authentication;
 using WindowsFormsApp1.Controlers;
+using WindowsFormsApp1.Helpers;
 using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.LoadUser;
 
@@ -106,7 +107,10 @@ namespace WindowsFormsApp1
         public LogInForm()
         {
             InitializeComponent();
-            _controler = new LogInFormControler(null, this);
+            _controler = new LogInFormControler(null, 
+                                                this,
+                                                new FileManager(),
+                                                new DirectoryManager());
             _controler.RememberMeOnLoad();
         }
 

@@ -127,8 +127,7 @@ namespace WindowsFormsApp1
 
         private void PopupMenuClosed(object sender, EventArgs e)
         {
-            var popUpMenu = sender as ContextMenuOvveride;
-            if (popUpMenu == null) return;
+            if (!(sender is ContextMenuOvveride popUpMenu)) return;
             popUpMenu.ClickThenCollapse -= PopupMenuClosed;
             while (popUpMenu.MenuItems.Count > 0)
             {

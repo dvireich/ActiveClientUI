@@ -13,7 +13,7 @@ namespace WindowsFormsApp1.Controlers
         IStatusView _view;
 
         private List<PassiveClientStatusData> _lastClientsStatusList;
-        private List<PassiveClientStatusData> lastClientsStatusList
+        private List<PassiveClientStatusData> LastClientsStatusList
         {
             get
             {
@@ -47,9 +47,9 @@ namespace WindowsFormsApp1.Controlers
 
             var clientStatusList = ParseClientStatus(status);
 
-            if (!lastClientsStatusList.IsDiffrentFrom(clientStatusList)) return;
+            if (!LastClientsStatusList.IsDiffrentFrom(clientStatusList)) return;
 
-            lastClientsStatusList = clientStatusList;
+            LastClientsStatusList = clientStatusList;
             _view.ShowData(clientStatusList.ToList<IShowable>());
             _view.NoSelectedClientLabelVisible = false;
             _view.ListViewVisible = true;

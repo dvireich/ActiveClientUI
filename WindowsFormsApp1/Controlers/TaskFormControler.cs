@@ -40,9 +40,7 @@ namespace WindowsFormsApp1.Controlers
 
             foreach (var client in clients)
             {
-                List<string> shellTasks, downloadUploadTasks;
-
-                if (!ParseClientTasks(client, out shellTasks, out downloadUploadTasks)) continue;
+                if (!ParseClientTasks(client, out List<string> shellTasks, out List<string> downloadUploadTasks)) continue;
 
                 if (!CheckIfIShellTasksOrDownloadUploadTasksChanged(shellTasks, downloadUploadTasks)) return;
 

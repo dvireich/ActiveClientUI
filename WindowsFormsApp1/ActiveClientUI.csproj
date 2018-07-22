@@ -58,6 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlers\CommunicationControler.cs" />
+    <Compile Include="Helpers\DirectoryManager.cs" />
+    <Compile Include="Helpers\FileManager.cs" />
+    <Compile Include="Helpers\Interface\IDirectoryManager.cs" />
+    <Compile Include="Helpers\Interface\IFileManager.cs" />
+    <Compile Include="Helpers\Interface\IStopWatch.cs" />
     <Compile Include="Controlers\LogInFormControler.cs" />
     <Compile Include="Controlers\RestorePasswordFormControler.cs" />
     <Compile Include="Controlers\StatusFormControler.cs" />
@@ -133,6 +138,7 @@
     <Compile Include="Forms\Controls\MenuItemOvveride.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Helpers\StopWatch.cs" />
     <Compile Include="Interfaces\ILogInView.cs" />
     <Compile Include="Interfaces\IMainView.cs" />
     <Compile Include="Controlers\MainFormControler.cs" />

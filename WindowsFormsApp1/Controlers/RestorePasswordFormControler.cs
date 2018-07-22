@@ -12,7 +12,7 @@ namespace WindowsFormsApp1.Controlers
     {
         IRestorePasswordView _view;
         private string _userName;
-        private string _securityQuestion;
+        private readonly string _securityQuestion;
 
         public RestorePasswordFormControler(string endpointId, IRestorePasswordView view, string userName, string securityQuestion) : base(null)
         {

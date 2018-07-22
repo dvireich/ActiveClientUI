@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Authentication;
+using WindowsFormsApp1.Controlers.Interface;
+using WindowsFormsApp1.Helpers.Interface;
 using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.ServiceReference1;
 
@@ -18,6 +20,9 @@ namespace WindowsFormsApp1
         IMainView _view;
 
         private View _currentView;
+        private IStopWatch _stopWatch;
+        private IFileManager _fileManager;
+        private IDirectoryManager _directoryManager;
 
         private string _cutPath;
         private string _copyPath;
@@ -44,12 +49,19 @@ namespace WindowsFormsApp1
             }
         }
 
-        public MainFormControler(string endpointId, IMainView view) : base(endpointId)
+        public MainFormControler(string endpointId, 
+                                 IMainView view,
+                                 IStopWatch stopWatch,
+                                 IFileManager fileManager,
+                                 IDirectoryManager directoryManager) : base(endpointId)
         {
             _view = view;
             _view.EnableViewModification = true;
             _view.ShouldChangeCurrentPathText = true;
             _currentView = _view.CurrentView;
+            _stopWatch = stopWatch;
+            _fileManager = fileManager;
+            _directoryManager = directoryManager;
         }
 
         private List<FileFolder> CalculateFileOrFolderData(List<string> folderList)
@@ -423,13 +435,15 @@ namespace WindowsFormsApp1
             _blockAllOperations = true;
             _view.EnableViewModification = false;
 
-            DownloadRequest requestData = new DownloadRequest();
-            requestData.FileName = downLoadFileData.FileName;
-            requestData.PathInServer = downLoadFileData.PathInServer;
-            requestData.NewStart = false;
-            requestData.id = string.Empty;
-            requestData.taskId = string.Empty;
-            requestData.PathToSaveInClient = string.Empty;
+            DownloadRequest requestData = new DownloadRequest
+            {
+                FileName = downLoadFileData.FileName,
+                PathInServer = downLoadFileData.PathInServer,
+                NewStart = false,
+                id = string.Empty,
+                taskId = string.Empty,
+                PathToSaveInClient = string.Empty
+            };
             using (var fileStrem = CreateNewFile(downLoadFileData.FileName, downLoadFileData.PathToSaveInClinet))
             {
                 if (fileStrem == null)
@@ -500,21 +514,22 @@ namespace WindowsFormsApp1
             _view.ProgressLabelText = "Download process: Uploading the file from remote PC to the server memory...";
             _view.ProgressLabelVisible = true;
 
-            var watch = new Stopwatch();
             double lastStop = 0;
-            DownloadRequest requestData = new DownloadRequest();
-            requestData.FileName = downloadData.FileName;
-            requestData.PathInServer = downloadData.PathInServer;
-            requestData.NewStart = true;
-           
-            
-            watch.Start();
+            DownloadRequest requestData = new DownloadRequest
+            {
+                FileName = downloadData.FileName,
+                PathInServer = downloadData.PathInServer,
+                NewStart = true
+            };
+
+
+            _stopWatch.Start();
             var periodToCheckInTheServer = 1;
             while (true)
             {
-                if (watch.Elapsed.TotalSeconds - lastStop >= periodToCheckInTheServer)
+                if (_stopWatch.Elapsed.TotalSeconds - lastStop >= periodToCheckInTheServer)
                 {
-                    lastStop = watch.Elapsed.TotalSeconds;
+                    lastStop = _stopWatch.Elapsed.TotalSeconds;
                     var response = SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(() => _proxyService.ActiveDownloadFile(requestData));
                     if (response.FileName.StartsWith("Buffering") && response.FileByteStream.Length == 0)
                     {
@@ -540,7 +555,7 @@ namespace WindowsFormsApp1
             return null;
         }
 
-        private static FileStream CreateNewFile(string fileName, string pathTosave)
+        private FileStream CreateNewFile(string fileName, string pathTosave)
         {
             var dirPath = pathTosave;
             var path = Path.Combine(dirPath, fileName);
@@ -549,20 +564,21 @@ namespace WindowsFormsApp1
             {
 
                 // Delete the file if it exists.
-                if (File.Exists(path))
+                if (_fileManager.Exists(path))
                 {
                     // Note that no lock is put on the
                     // file and the possibility exists
                     // that another process could do
                     // something with it between
                     // the calls to Exists and Delete.
-                    File.Delete(path);
+                    _fileManager.Delete(path);
                 }
 
                 // Create the file.
-                if (!Directory.Exists(dirPath))
-                    Directory.CreateDirectory(dirPath);
-                FileStream fs = File.Create(path);
+                if (!_directoryManager.Exists(dirPath))
+                    _directoryManager.CreateDirectory(dirPath);
+
+                var fs = _fileManager.Create(path);
                 return fs;
             }
             catch (Exception)
@@ -577,19 +593,20 @@ namespace WindowsFormsApp1
             _view.EnableViewModification = false;
 
             var path = Path.Combine(upLoadFileData.Directory, upLoadFileData.FileName);
-            FileInfo fileInfo = new FileInfo(path);
-            RemoteFileInfo uploadRequestInfo = new RemoteFileInfo();
-            uploadRequestInfo.FileName = upLoadFileData.FileName;
-            uploadRequestInfo.Length = fileInfo.Length;
-            uploadRequestInfo.PathToSaveOnServer = upLoadFileData.PathToSaveOnServer;
-            uploadRequestInfo.FreshStart = true;
+            RemoteFileInfo uploadRequestInfo = new RemoteFileInfo
+            {
+                FileName = upLoadFileData.FileName,
+                Length = _fileManager.GetFileLength(path),
+                PathToSaveOnServer = upLoadFileData.PathToSaveOnServer,
+                FreshStart = true
+            };
 
             _view.ProgressBarVisible = true;
             _view.ProgressBarValue = 0;
             _view.ProgressLabelText = "Upload Process: Uploading from this PC to the server memory...";
             _view.ProgressLabelVisible = true;
 
-            using (var file = File.OpenRead(path))
+            using (var file = _fileManager.OpenRead(path))
             {
                 int bytesRead;
                 var chunk = 999999;
@@ -647,7 +664,6 @@ namespace WindowsFormsApp1
 
         private void WaitUntilDataFullyBuffredInRemoteClientMemory()
         {
-            var watch = new Stopwatch();
             double lastStop = 0;
             RemoteFileInfo requestData = new RemoteFileInfo()
             {
@@ -661,13 +677,13 @@ namespace WindowsFormsApp1
                 taskId = string.Empty,
             };
 
-            watch.Start();
+            _stopWatch.Start();
             var periodToCheckInTheServer = 1;
             while (true)
             {
-                if (watch.Elapsed.TotalSeconds - lastStop >= periodToCheckInTheServer)
+                if (_stopWatch.Elapsed.TotalSeconds - lastStop >= periodToCheckInTheServer)
                 {
-                    lastStop = watch.Elapsed.TotalSeconds;
+                    lastStop = _stopWatch.Elapsed.TotalSeconds;
                      var response = SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(() => _proxyService.ActiveUploadFile(requestData));
                     if (response.FileName.StartsWith("Buffering") && response.FileByteStream.Length == 0)
                     {
@@ -692,7 +708,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static void SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(Action op, Action inTimeOutException = null, Action inCommunicationException = null, Action inGeneralException = null)
+        public void SendRequestAndTryAgainIfTimeOutOrEndpointNotFound(Action op, Action inTimeOutException = null, Action inCommunicationException = null, Action inGeneralException = null)
         {
             while (true)
             {
@@ -723,7 +739,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static T SendRequestAndTryAgainIfTimeOutOrEndpointNotFound<T>(Func<T> op, Action inTimeOutException = null, Action inCommunicationException = null, Action inGeneralException = null)
+        public T SendRequestAndTryAgainIfTimeOutOrEndpointNotFound<T>(Func<T> op, Action inTimeOutException = null, Action inCommunicationException = null, Action inGeneralException = null)
         {
             while (true)
             {
