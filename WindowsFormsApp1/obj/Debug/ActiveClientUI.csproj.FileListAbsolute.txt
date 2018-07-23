@@ -15,3 +15,4 @@ C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsF
 C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\ActiveClientUI.csproj.CopyComplete
 C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\dvire\Documents\Visual Studio 2017\shell server\ActiveClientUI\WindowsFormsApp1\obj\Debug\ActiveClientUI.csprojAssemblyReference.cache

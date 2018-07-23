@@ -167,7 +167,7 @@ namespace WindowsFormsApp1
             });
         }
 
-        public static void AddToListView(this ListView listView, ListViewItemData listViewItemData)
+        private static void AddToListView(this ListView listView, ListViewItemData listViewItemData)
         {
             listView.RunInInvoke(() =>
             {
@@ -211,36 +211,6 @@ namespace WindowsFormsApp1
             {
                 return listview.TopItem == null ? 0 : listview.TopItem.Index;
             }); 
-        }
-
-        public static void Show(this ListView listview, List<FileFolder> ffl)
-        {
-            listview.RunInInvoke(() =>
-            {
-                listview.SuspendLayout();
-                listview.BeginUpdate();
-                listview.Items.Clear();
-
-                for (int i = 0; i < ffl.Count; i++)
-                {
-                    var ff = ffl[i];
-                    var listViewItemData = new ListViewItemData()
-                    {
-                        Index = i,
-                        imageIndex = (int)ff.GetType(),
-                        MainItem = listview.View != View.Details ? ff.GetName() : ff.GetType().ToString(),
-                        SubItems = new List<string>(){
-                                                listview.View == View.Details ? ff.GetName() : ff.GetType().ToString(),
-                                                ff.GetType() == FileFolderType.Folder ? string.Empty : ff.getSize().ToString(),
-                                                ff.GetLastModificationDate()}
-                    };
-
-                    listview.AddToListView(listViewItemData);
-                }
-
-                listview.EndUpdate();
-                listview.ResumeLayout();
-            });
         }
 
         public static void Show(this ListView listview, List<IShowable> items)
