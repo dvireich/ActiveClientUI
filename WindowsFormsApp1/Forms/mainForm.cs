@@ -642,25 +642,28 @@ namespace WindowsFormsApp1
             using (var saveForm = new OpenFileDialog())
             {
                 if (saveForm.ShowDialog() != DialogResult.OK) return;
-                try
+                RunInAnotherThread(() =>
                 {
-                    var fileName = saveForm.FileName.Split('\\').Last();
-                    var path = Path.GetDirectoryName(saveForm.FileName);
-
-                    var uploadData = new DownloadUpLoadData()
+                    try
                     {
-                        FileName = fileName,
-                        Directory = path,
-                        PathToSaveOnServer = currentPathTextBox.Text
-                    };
+                        var fileName = saveForm.FileName.Split('\\').Last();
+                        var path = Path.GetDirectoryName(saveForm.FileName);
 
-                    _controler.UpLoadFile(uploadData);
-                }
+                        var uploadData = new DownloadUpLoadData()
+                        {
+                            FileName = fileName,
+                            Directory = path,
+                            PathToSaveOnServer = currentPathTextBox.Text
+                        };
 
-                catch (Exception e)
-                {
-                    DisplayMessage(MessageType.Error, "Upload", $"Error in upload: {e.Message}");
-                }
+                        _controler.UpLoadFile(uploadData);
+                    }
+
+                    catch (Exception e)
+                    {
+                        DisplayMessage(MessageType.Error, "Upload", $"Error in upload: {e.Message}");
+                    }
+                });
             }
         }
     }

@@ -64,10 +64,68 @@ namespace WindowsFormsApp1
             _directoryManager = directoryManager;
         }
 
+
+        private void SkipEmptyChars(string line, ref int index)
+        {
+            while (index < line.Length && line[index] == ' ')
+            {
+                index++;
+            }
+        }
+
+        private string Extract(string line, ref int index)
+        {
+            var extracted = string.Empty;
+            while (line[index] != ' ')
+            {
+                extracted += line[index++];
+            }
+            SkipEmptyChars(line, ref index);
+            return extracted;
+        }
+
+        private bool ExtractIsFolder(string line, ref int index)
+        {
+            if (index + 4 < line.Length &&
+                   line[index] == '<' &&
+                   line[index + 1] == 'D' &&
+                   line[index + 2] == 'I' &&
+                   line[index + 3] == 'R' &&
+                   line[index + 4] == '>')
+            {
+                index = index + 5;
+                SkipEmptyChars(line, ref index);
+                return true;
+            }
+            SkipEmptyChars(line, ref index);
+            return false;
+        }
+
+        private string ExtractFileName(string line, ref int index)
+        {
+            var fileName = string.Empty;
+            while (index < line.Length)
+            {
+                fileName += line[index++];
+            }
+
+            return fileName;
+        }
+
+        private void ParseDirLine(string line,out string modificationDate, out string modificationTime, out bool isFolder, out long fileSize, out string fileName)
+        {
+            int i = 0;
+            SkipEmptyChars(line, ref i);
+            modificationDate = Extract(line, ref i);
+            modificationTime = Extract(line, ref i);
+            isFolder = ExtractIsFolder(line, ref i);
+            fileSize = isFolder ? -1 : long.Parse(Extract(line, ref i));
+            fileName = ExtractFileName(line, ref i);
+        }
+
         private List<FileFolder> CalculateFileOrFolderData(List<string> folderList)
         {
             var FileFolderList = new List<FileFolder>();
-
             var dirData = _proxyService.ActiveNextCommand("dir").Replace("\r", "");
             var dirDataArr = dirData.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
             for (var i = 0; i < 6; i++)
@@ -81,34 +139,17 @@ namespace WindowsFormsApp1
 
             foreach (var line in dirDataArr)
             {
-
-                var lineSplit = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                if (lineSplit[2].ToUpper() == "PM" || lineSplit[2].ToUpper() == "AM")
+                ParseDirLine(line, out var modificationDate, out var modificationTime, out var isFolder, out var fileSize,  out var fileName);
+                var modificationData = string.Format("{0} {1}", modificationDate, modificationTime);
+                if (isFolder)
                 {
-                    lineSplit[1] = lineSplit[1] + " " + lineSplit[2];
-                    for (var i = 2; i < lineSplit.Count - 1; i++)
-                    {
-                        lineSplit[i] = lineSplit[i + 1];
-                    }
-                    lineSplit = lineSplit.Take(lineSplit.Count - 1).ToList();
-                }
-                for (var i = 4; i < lineSplit.Count; i++)
-                {
-                    lineSplit[3] += " " + lineSplit[i];
-                }
-                var isDirectory = folderList.Contains(lineSplit[3]);
-                if (isDirectory)
-                {
-                    var folder = new FileFolder(FileFolderImageType.Folder, lineSplit[3], string.Empty, string.Format("{0} {1}", lineSplit[0], lineSplit[1]));
+                    var folder = new FileFolder(FileFolderImageType.Folder, fileName, string.Empty, modificationData);
                     FileFolderList.Add(folder);
                 }
                 else
                 {
-
-                    var persedNumber = long.Parse(lineSplit[2].Replace(",", ""));
-                    var fileSize = string.Format("{0} KB", ConvertBytesToKB(persedNumber));
-                    var modificationDate = string.Format("{0} {1}", lineSplit[0], lineSplit[1]);
-                    var file = new FileFolder(FileFolderImageType.File, lineSplit[3], fileSize, modificationDate);
+                    var fileSizeStr = string.Format("{0} KB", ConvertBytesToKB(fileSize));
+                    var file = new FileFolder(FileFolderImageType.File, fileName, fileSizeStr, modificationData);
                     FileFolderList.Add(file);
                 }
             }
@@ -548,8 +589,8 @@ namespace WindowsFormsApp1
                     {
                         return response;
                     }
+                    requestData.NewStart = false;
                 }
-                requestData.NewStart = false;
             }
             return null;
         }
@@ -659,6 +700,7 @@ namespace WindowsFormsApp1
             WaitUntilDataFullyBuffredInRemoteClientMemory();
             _blockAllOperations = false;
             _view.EnableViewModification = true;
+            UpdateFileFolderList();
         }
 
         private void WaitUntilDataFullyBuffredInRemoteClientMemory()
