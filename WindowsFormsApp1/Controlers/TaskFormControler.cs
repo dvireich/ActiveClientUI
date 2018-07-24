@@ -9,18 +9,16 @@ using WindowsFormsApp1.Interfaces;
 
 namespace WindowsFormsApp1.Controlers
 {
-    class TaskFormControler : CommunicationControler
+    public abstract class TaskFormControler : CommunicationControler
     {
-        ITaskView _view;
+        protected ITaskView _view;
 
         private List<string> lastShellTasks;
         private List<string> lastDownloadUploadTasks;
-        private string _selectedClient;
-        private TaskType _currentType;
+        protected string _selectedClient;
 
-        public TaskFormControler(TaskType currentType, string selectedClient, string endpointId, ITaskView view) : base(endpointId)
+        protected TaskFormControler(string selectedClient, string endpointId, ITaskView view) : base(endpointId)
         {
-            _currentType = currentType;
             _selectedClient = selectedClient;
             _view = view;
         }
@@ -46,12 +44,13 @@ namespace WindowsFormsApp1.Controlers
 
                 _view.NoTasksVisible = false;
                 _view.ListViewVisible = true;
-                var listToShow = _currentType == TaskType.Shell ? ConvertToListOfShellTask(shellTasks).ToList<IShowable>() :
-                                                                  ConvertToListOfDownloadUploadTask(downloadUploadTasks).ToList<IShowable>();
+                var listToShow = ConvertToIShowableList(shellTasks, downloadUploadTasks);
                 _view.ShowData(listToShow);
             }
         }
 
+        protected abstract List<IShowable> ConvertToIShowableList(List<string> shellTasks, List<string> downloadUploadTasks);
+        
         private bool CheckIfAnyClientConnectedAndShowLablelIfNot(string[] status)
         {
             status = status.Where(str => !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str)).ToArray();
@@ -94,7 +93,7 @@ namespace WindowsFormsApp1.Controlers
 
             var id = fields[0].Split(':').Last();
             var nickName = fields[1].Split(':').Last();
-            var isAlive = bool.Parse(fields[2].Split(':').Last()) ? StatusType.On : StatusType.Off;
+            var isAlive = bool.Parse(fields[2].Split(':').Last()) ? StatusImageType.On : StatusImageType.Off;
 
             var i = 4;
             while (fields[i] != "Upload And Download Tasks:")
@@ -134,7 +133,7 @@ namespace WindowsFormsApp1.Controlers
             return true;
         }
 
-        private List<ShellTaskData> ConvertToListOfShellTask(List<string> tasks)
+        protected List<ShellTaskData> ConvertToListOfShellTask(List<string> tasks)
         {
             var result = new List<ShellTaskData>();
             foreach (var task in tasks)
@@ -155,7 +154,7 @@ namespace WindowsFormsApp1.Controlers
             return result;
         }
 
-        private List<DownloadUploadTaskData> ConvertToListOfDownloadUploadTask(List<string> tasks)
+        protected List<DownloadUploadTaskData> ConvertToListOfDownloadUploadTask(List<string> tasks)
         {
             var result = new List<DownloadUploadTaskData>();
             foreach (var task in tasks)
@@ -173,12 +172,6 @@ namespace WindowsFormsApp1.Controlers
             return result;
         }
 
-        public void Remove(int index)
-        {
-            var resp = _proxyService.DeleteClientTask(_selectedClient, _currentType == TaskType.Shell ? true : false, index + 1);
-            if (resp) return;
-
-            _view.DisplayMessage(MessageType.Error, "Delete task", "Error delete task");
-        }
+        public abstract void Remove(int index);
     }
 }

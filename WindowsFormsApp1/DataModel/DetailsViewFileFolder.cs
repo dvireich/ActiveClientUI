@@ -8,11 +8,11 @@ namespace WindowsFormsApp1
         private string _name;
         private string _size;
         private string _lastModificationData;
-        private FileFolderType _type;
+        private FileFolderImageType _type;
 
-        public DetailsViewFileFolder(FileFolderType type, string name, string size, string lastModificationData) : base(type.ToString(),
+        public DetailsViewFileFolder(FileFolderImageType type, string name, string size, string lastModificationData) : base(type.ToString(),
                                                                                                              new List<string>() {name,
-                                                                                                                                 type == FileFolderType.Folder ?  string.Empty : size,
+                                                                                                                                 type == FileFolderImageType.Folder ?  string.Empty : size,
                                                                                                                                   lastModificationData},
                                                                                                              (int)type)
 
@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
             return _lastModificationData;
         }
 
-        public new FileFolderType GetType()
+        public new FileFolderImageType GetType()
         {
             return _type;
         }

@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using WindowsFormsApp1.Controlers;
 using WindowsFormsApp1.DataModel.Enums;
+using WindowsFormsApp1.Forms;
 using WindowsFormsApp1.Interfaces;
 using WindowsFormsApp1.ServiceReference1;
 
@@ -195,7 +196,7 @@ namespace WindowsFormsApp1
         private void ShowUnfinishedTShellasksEventHendler(ListView selectedListViewProperty, ListViewItem selected)
         {
             var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-            using (Tasks taskFrom = new Tasks(TaskType.Shell, id, _wcfServicesPathId))
+            using (TasksForm taskFrom = new ShellTasksForm(id, _wcfServicesPathId))
             {
                 taskFrom.ShowDialog();
             }
@@ -204,7 +205,7 @@ namespace WindowsFormsApp1
         private void ShowUnfinishedDownloadUploadTaskEventHendler(ListView selectedListViewProperty, ListViewItem selected)
         {
             var id = selectedListViewProperty.GetFromListViewAndListViewItemByColumnName(selected, "Id");
-            using (Tasks taskFrom = new Tasks(TaskType.UploadDownload, id, _wcfServicesPathId))
+            using (TasksForm taskFrom = new UploadDownloadTasksForm(id, _wcfServicesPathId))
             {
                 taskFrom.ShowDialog();
             }
@@ -223,7 +224,7 @@ namespace WindowsFormsApp1
             _controler.SelectRemoteClient(id);
         }
 
-        private ContextMenuOvveride CreatePopUpMenu(StatusType type)
+        private ContextMenuOvveride CreatePopUpMenu(StatusImageType type)
         {
             ContextMenuOvveride PopupMenu = new ContextMenuOvveride();
             ListViewItem selected = listView1.SelectedItems[0];
@@ -236,8 +237,8 @@ namespace WindowsFormsApp1
                 var action = kv.Value;
 
                 //at this time block the download of folder
-                if (type == StatusType.Off && userClickActionName == "Set Nick Name" ||
-                    type == StatusType.Off && userClickActionName == "Select") continue;
+                if (type == StatusImageType.Off && userClickActionName == "Set Nick Name" ||
+                    type == StatusImageType.Off && userClickActionName == "Select") continue;
 
                 var menuItemData = new MenuItemData()
                 {
@@ -277,7 +278,7 @@ namespace WindowsFormsApp1
             {
                 var selected = listview.SelectedItems[0];
                 var typeColumnNumber = listview.GetColumnNumber("Status");
-                var type = (StatusType)Enum.Parse(typeof(StatusType), selected.SubItems[typeColumnNumber].Text);
+                var type = (StatusImageType)Enum.Parse(typeof(StatusImageType), selected.SubItems[typeColumnNumber].Text);
                 listview.ContextMenu = CreatePopUpMenu(type);
             }
         }
@@ -289,7 +290,7 @@ namespace WindowsFormsApp1
             if (listview == null || listview.SelectedItems.Count <= 0) return;
             var typeColumnNumber = listview.GetColumnNumber("Status");
             var selected = listview.SelectedItems[0];
-            var type = (StatusType)Enum.Parse(typeof(StatusType), selected.SubItems[typeColumnNumber].Text);
+            var type = (StatusImageType)Enum.Parse(typeof(StatusImageType), selected.SubItems[typeColumnNumber].Text);
             var popUpMenu = CreatePopUpMenu(type);
             listview.ContextMenu = popUpMenu;
         }

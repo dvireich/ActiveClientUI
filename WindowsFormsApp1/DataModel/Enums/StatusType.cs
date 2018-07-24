@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.DataModel.Enums
 {
-    public enum StatusType
+    public enum StatusImageType
     {
         Off,
         On

@@ -109,7 +109,7 @@ namespace WindowsFormsApp1.Controlers
 
                 var id = fields[0].Split(':').Last();
                 var nickName = fields[1].Split(':').Last();
-                var isAlive = bool.Parse(fields[2].Split(':').Last()) ? StatusType.On : StatusType.Off;
+                var isAlive = bool.Parse(fields[2].Split(':').Last()) ? StatusImageType.On : StatusImageType.Off;
                 var shellTasks = new List<string>();
                 var i = 4;
                 while (fields[i] != "Upload And Download Tasks:")

@@ -296,7 +296,7 @@ namespace WindowsFormsApp1
                                                new DirectoryManager());
         }
 
-        private ContextMenuOvveride CreatePopUpMenu(FileFolderType type)
+        private ContextMenuOvveride CreatePopUpMenu(FileFolderImageType type)
         {
             ContextMenuOvveride PopupMenu = new ContextMenuOvveride();
             ListViewItem selected = listView1.SelectedItems[0];
@@ -309,8 +309,8 @@ namespace WindowsFormsApp1
                 var action = kv.Value;
 
                 //at this time block the download of folder
-                if (type == FileFolderType.File && userClickActionName == "Enter" ||
-                    type == FileFolderType.Folder && userClickActionName == "Download") continue;
+                if (type == FileFolderImageType.File && userClickActionName == "Enter" ||
+                    type == FileFolderImageType.Folder && userClickActionName == "Download") continue;
 
                     var menuItemData = new MenuItemData()
                 {
@@ -521,12 +521,12 @@ namespace WindowsFormsApp1
             if (listview == null || listview.SelectedItems.Count <= 0) return;
             var typeColumnNumber = listview.GetColumnNumber("Type");
             var selected = listview.SelectedItems[0];
-            var type = (FileFolderType)Enum.Parse(typeof(FileFolderType), selected.SubItems[typeColumnNumber].Text);
+            var type = (FileFolderImageType)Enum.Parse(typeof(FileFolderImageType), selected.SubItems[typeColumnNumber].Text);
             var popUpMenu = CreatePopUpMenu(type);
             listview.ContextMenu = popUpMenu;
             var menuIndex = this.menuStrip1.GetMenuStripItemIndex("Action");
             var actionMenuItem = (ToolStripMenuItem)this.menuStrip1.Items[menuIndex];
-            if (type == FileFolderType.File)
+            if (type == FileFolderImageType.File)
             {
                 allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
             }
@@ -559,9 +559,9 @@ namespace WindowsFormsApp1
             {
                 var selected = listview.SelectedItems[0];
                 var typeColumnNumber = listview.GetColumnNumber("Type");
-                var type = (FileFolderType)Enum.Parse(typeof(FileFolderType), selected.SubItems[typeColumnNumber].Text);
+                var type = (FileFolderImageType)Enum.Parse(typeof(FileFolderImageType), selected.SubItems[typeColumnNumber].Text);
                 listview.ContextMenu = CreatePopUpMenu(type);
-                if (type == FileFolderType.File)
+                if (type == FileFolderImageType.File)
                 {
                     allActions.ToList().ForEach(actionName => actionMenuItem.MakeVisible(actionName, false));
                 }

@@ -58,6 +58,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlers\CommunicationControler.cs" />
+    <Compile Include="Controlers\ShellTaskFormControler.cs" />
+    <Compile Include="Controlers\UploadDownloadTaskFormControler.cs" />
+    <Compile Include="Forms\ShellTasksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UploadDownloadTasksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Helpers\DirectoryManager.cs" />
     <Compile Include="Helpers\FileManager.cs" />
     <Compile Include="Helpers\Interface\IDirectoryManager.cs" />
@@ -68,9 +76,8 @@
     <Compile Include="Controlers\StatusFormControler.cs" />
     <Compile Include="Controlers\TaskFormControler.cs" />
     <Compile Include="DataModel\DownloadUploadTaskData.cs" />
-    <Compile Include="DataModel\Enums\TaskType.cs" />
     <Compile Include="DataModel\FileFolder.cs" />
-    <Compile Include="DataModel\Enums\FileFolderType.cs" />
+    <Compile Include="DataModel\Enums\FileFolderImageType.cs" />
     <Compile Include="DataModel\Enums\StatusType.cs" />
     <Compile Include="DataModel\ShellTaskData.cs" />
     <Compile Include="DataModel\Showable.cs" />
@@ -150,11 +157,11 @@
     <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\Tasks.cs">
+    <Compile Include="Forms\TasksForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Tasks.Designer.cs">
-      <DependentUpon>Tasks.cs</DependentUpon>
+    <Compile Include="Forms\TasksForm.Designer.cs">
+      <DependentUpon>TasksForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Tests\TestUserAuthentication.cs" />
     <Compile Include="DataModel\DownloadUpLoadData.cs" />
@@ -183,8 +190,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Forms\Tasks.resx">
-      <DependentUpon>Tasks.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\TasksForm.resx">
+      <DependentUpon>TasksForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Connected Services\Authentication\Authentication.wsdl" />
     <None Include="Connected Services\Authentication\Authentication.xsd">

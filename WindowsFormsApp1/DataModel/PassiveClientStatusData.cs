@@ -11,10 +11,10 @@ namespace WindowsFormsApp1
     public class PassiveClientStatusData : Showable
     {
         public string id;
-        public StatusType IsAlive;
+        public StatusImageType IsAlive;
         public string NickName;
 
-        public PassiveClientStatusData(string id, StatusType isAlive, string nickName) : base(isAlive.ToString(), new List<string>() { id, nickName }, (int)isAlive)
+        public PassiveClientStatusData(string id, StatusImageType isAlive, string nickName) : base(isAlive.ToString(), new List<string>() { id, nickName }, (int)isAlive)
         {
             this.id = id;
             this.IsAlive = isAlive;

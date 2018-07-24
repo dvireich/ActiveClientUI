@@ -99,7 +99,7 @@ namespace WindowsFormsApp1
                 var isDirectory = folderList.Contains(lineSplit[3]);
                 if (isDirectory)
                 {
-                    var folder = new FileFolder(FileFolderType.Folder, lineSplit[3], string.Empty, string.Format("{0} {1}", lineSplit[0], lineSplit[1]));
+                    var folder = new FileFolder(FileFolderImageType.Folder, lineSplit[3], string.Empty, string.Format("{0} {1}", lineSplit[0], lineSplit[1]));
                     FileFolderList.Add(folder);
                 }
                 else
@@ -108,7 +108,7 @@ namespace WindowsFormsApp1
                     var persedNumber = long.Parse(lineSplit[2].Replace(",", ""));
                     var fileSize = string.Format("{0} KB", ConvertBytesToKB(persedNumber));
                     var modificationDate = string.Format("{0} {1}", lineSplit[0], lineSplit[1]);
-                    var file = new FileFolder(FileFolderType.File, lineSplit[3], fileSize, modificationDate);
+                    var file = new FileFolder(FileFolderImageType.File, lineSplit[3], fileSize, modificationDate);
                     FileFolderList.Add(file);
                 }
             }
@@ -170,7 +170,7 @@ namespace WindowsFormsApp1
 
             var fileFolderData =  CalculateFileOrFolderData(folderList);
 
-            fileFolderData.Insert(0, new FileFolder(FileFolderType.Folder, "..", "0" , string.Empty));
+            fileFolderData.Insert(0, new FileFolder(FileFolderImageType.Folder, "..", "0" , string.Empty));
 
             return fileFolderData;
         }
@@ -189,7 +189,7 @@ namespace WindowsFormsApp1
 
             if (_view.CurrentView == View.Details)
             {
-                data = ffl.Select(ff => new DetailsViewFileFolder(ff.GetType(), ff.GetName(), ff.getSize(), ff.GetLastModificationDate())).ToList<IShowable>();
+                data = ffl.Select(ff => new DetailsViewFileFolder(ff.GetImageType(), ff.GetName(), ff.getSize(), ff.GetLastModificationDate())).ToList<IShowable>();
             }
             else
             {
@@ -323,13 +323,13 @@ namespace WindowsFormsApp1
                 return;
             }
 
-            if (!Enum.TryParse(fileFolderType, out FileFolderType type))
+            if (!Enum.TryParse(fileFolderType, out FileFolderImageType type))
             {
                 _view.DisplayMessage(MessageType.Error, "Unrecognized type ", $"The type: {fileFolderType} of: {selectedName} is unrecognized");
                 return;
             }
 
-            var pathToPaste = type == FileFolderType.Folder ? Path.Combine(_currentPath, selectedName) : _currentPath;
+            var pathToPaste = type == FileFolderImageType.Folder ? Path.Combine(_currentPath, selectedName) : _currentPath;
             TryToCutPaste(pathToPaste);
             TryToCopyPaste(pathToPaste);
 
