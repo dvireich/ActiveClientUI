@@ -72,15 +72,14 @@ namespace WindowsFormsApp1.Controlers
 
         private bool SignIn(string userName, string password, out string error, out string id)
         {
-            var resp = _authenticationProxy.AuthenticateAndSignIn(new AuthenticateAndSignInRequest()
+            var resp = _authenticationProxy.AuthenticateActiveClientAndSignIn(new AuthenticateActiveClientAndSignInRequest()
             {
                 userName = userName,
                 password = password,
-                userType = _userType
             });
 
             error = resp.error;
-            id = resp.AuthenticateAndSignInResult;
+            id = resp.AuthenticateActiveClientAndSignInResult;
 
             return !string.IsNullOrEmpty(id);
         }

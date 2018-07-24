@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="AuthenticateAndSignIn">
+  <xs:element name="AuthenticatePassiveClientAndSignIn">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="userType" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AuthenticateAndSignInResponse">
+  <xs:element name="AuthenticatePassiveClientAndSignInResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="AuthenticateAndSignInResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AuthenticatePassiveClientAndSignInResult" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="Logout">
+  <xs:element name="AuthenticateActiveClientAndSignIn">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuthenticateActiveClientAndSignInResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AuthenticateActiveClientAndSignInResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActiveLogout">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
@@ -25,10 +40,26 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="LogoutResponse">
+  <xs:element name="ActiveLogoutResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="LogoutResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ActiveLogoutResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PassiveLogout">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="userType" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PassiveLogoutResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PassiveLogoutResult" type="xs:boolean" />
         <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>

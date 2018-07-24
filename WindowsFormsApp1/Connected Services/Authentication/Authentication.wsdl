@@ -6,17 +6,29 @@
       <xsd:import schemaLocation="http://localhost/ShellTrasferServer/Authentication?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IAuthentication_AuthenticateAndSignIn_InputMessage">
-    <wsdl:part name="parameters" element="tns:AuthenticateAndSignIn" />
+  <wsdl:message name="IAuthentication_AuthenticatePassiveClientAndSignIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticatePassiveClientAndSignIn" />
   </wsdl:message>
-  <wsdl:message name="IAuthentication_AuthenticateAndSignIn_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AuthenticateAndSignInResponse" />
+  <wsdl:message name="IAuthentication_AuthenticatePassiveClientAndSignIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticatePassiveClientAndSignInResponse" />
   </wsdl:message>
-  <wsdl:message name="IAuthentication_Logout_InputMessage">
-    <wsdl:part name="parameters" element="tns:Logout" />
+  <wsdl:message name="IAuthentication_AuthenticateActiveClientAndSignIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateActiveClientAndSignIn" />
   </wsdl:message>
-  <wsdl:message name="IAuthentication_Logout_OutputMessage">
-    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  <wsdl:message name="IAuthentication_AuthenticateActiveClientAndSignIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateActiveClientAndSignInResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_ActiveLogout_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActiveLogout" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_ActiveLogout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActiveLogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_PassiveLogout_InputMessage">
+    <wsdl:part name="parameters" element="tns:PassiveLogout" />
+  </wsdl:message>
+  <wsdl:message name="IAuthentication_PassiveLogout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PassiveLogoutResponse" />
   </wsdl:message>
   <wsdl:message name="IAuthentication_SignUp_InputMessage">
     <wsdl:part name="parameters" element="tns:SignUp" />
@@ -49,13 +61,21 @@
     <wsdl:part name="parameters" element="tns:RestorePasswordFromUserNameAndSecurityQuestionResponse" />
   </wsdl:message>
   <wsdl:portType name="IAuthentication">
-    <wsdl:operation name="AuthenticateAndSignIn">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateAndSignIn" message="tns:IAuthentication_AuthenticateAndSignIn_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateAndSignInResponse" message="tns:IAuthentication_AuthenticateAndSignIn_OutputMessage" />
+    <wsdl:operation name="AuthenticatePassiveClientAndSignIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/AuthenticatePassiveClientAndSignIn" message="tns:IAuthentication_AuthenticatePassiveClientAndSignIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/AuthenticatePassiveClientAndSignInResponse" message="tns:IAuthentication_AuthenticatePassiveClientAndSignIn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="Logout">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/Logout" message="tns:IAuthentication_Logout_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/LogoutResponse" message="tns:IAuthentication_Logout_OutputMessage" />
+    <wsdl:operation name="AuthenticateActiveClientAndSignIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateActiveClientAndSignIn" message="tns:IAuthentication_AuthenticateActiveClientAndSignIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/AuthenticateActiveClientAndSignInResponse" message="tns:IAuthentication_AuthenticateActiveClientAndSignIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActiveLogout">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/ActiveLogout" message="tns:IAuthentication_ActiveLogout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/ActiveLogoutResponse" message="tns:IAuthentication_ActiveLogout_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PassiveLogout">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/PassiveLogout" message="tns:IAuthentication_PassiveLogout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthentication/PassiveLogoutResponse" message="tns:IAuthentication_PassiveLogout_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SignUp">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthentication/SignUp" message="tns:IAuthentication_SignUp_InputMessage" />
@@ -80,8 +100,8 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAuthentication" type="tns:IAuthentication">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="AuthenticateAndSignIn">
-      <soap:operation soapAction="http://tempuri.org/IAuthentication/AuthenticateAndSignIn" style="document" />
+    <wsdl:operation name="AuthenticatePassiveClientAndSignIn">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/AuthenticatePassiveClientAndSignIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -89,8 +109,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Logout">
-      <soap:operation soapAction="http://tempuri.org/IAuthentication/Logout" style="document" />
+    <wsdl:operation name="AuthenticateActiveClientAndSignIn">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/AuthenticateActiveClientAndSignIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActiveLogout">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/ActiveLogout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PassiveLogout">
+      <soap:operation soapAction="http://tempuri.org/IAuthentication/PassiveLogout" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

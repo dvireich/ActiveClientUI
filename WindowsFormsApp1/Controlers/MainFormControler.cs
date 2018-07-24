@@ -417,12 +417,11 @@ namespace WindowsFormsApp1
         {
             if (_blockAllOperations) return false;
 
-            var resp = _authenticationProxy.Logout(new LogoutRequest()
+            var resp = _authenticationProxy.ActiveLogout(new ActiveLogoutRequest()
             {
                 userName = username,
-                userType = "ActiveClient"
             });
-            if (resp.LogoutResult) return true;
+            if (resp.ActiveLogoutResult) return true;
 
             _view.DisplayMessage(MessageType.Error, "Logut", $"Error in logout for user: {username} with the error: {resp.error}");
             return false;

@@ -163,7 +163,6 @@
     <Compile Include="Forms\TasksForm.Designer.cs">
       <DependentUpon>TasksForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tests\TestUserAuthentication.cs" />
     <Compile Include="DataModel\DownloadUpLoadData.cs" />
     <EmbeddedResource Include="Forms\AboutBox1.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -200,7 +199,13 @@
     <None Include="Connected Services\Authentication\Authentication1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.AuthenticateAndSignInResponse.datasource">
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.ActiveLogoutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.AuthenticateActiveClientAndSignInResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.AuthenticatePassiveClientAndSignInResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.ChangeUserPasswordResponse.datasource">
@@ -209,7 +214,7 @@
     <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.GetSecurityQuestionResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.LogoutResponse.datasource">
+    <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.PassiveLogoutResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Authentication\WindowsFormsApp1.Authentication.RestorePasswordFromUserNameAndSecurityQuestionResponse.datasource">
@@ -349,6 +354,8 @@
   <ItemGroup>
     <None Include="Resources\Logout_37127.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tests\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
