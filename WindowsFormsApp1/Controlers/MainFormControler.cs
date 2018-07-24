@@ -123,11 +123,13 @@ namespace WindowsFormsApp1
             fileName = ExtractFileName(line, ref i);
         }
 
-        private List<FileFolder> CalculateFileOrFolderData(List<string> folderList)
+        private List<FileFolder> CalculateFileOrFolderData(string dirData)
         {
             var FileFolderList = new List<FileFolder>();
-            var dirData = _proxyService.ActiveNextCommand("dir").Replace("\r", "");
             var dirDataArr = dirData.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            AssignTheFolderPathAndResizeWindow(dirDataArr);
+
             for (var i = 0; i < 6; i++)
             {
                 dirDataArr.RemoveAt(0);
@@ -157,39 +159,25 @@ namespace WindowsFormsApp1
             return FileFolderList;
         }
 
-        private List<string> GetFileListFromFolderList(List<string> folderList)
+        private void AssignTheFolderPathAndResizeWindow(List<string> listOfSplitedDirLines)
         {
-            var allListStr = _proxyService.ActiveNextCommand("dir /b").Replace("\r", "");
-            var allList = allListStr.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            allList.RemoveAt(allList.Count - 1);
-            allList.RemoveAt(0);
-            allList.RemoveAll(file => folderList.Contains(file));
-            return allList;
-        }
-
-        private List<string> GetFolderListFromServerAndAssignTheFolderPath(string folderListStr)
-        {
-            var folderList = folderListStr.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            _currentPath = folderList.ElementAt(folderList.Count - 1);
+            _currentPath = listOfSplitedDirLines.ElementAt(listOfSplitedDirLines.Count - 1);
             if (_view.ShouldChangeCurrentPathText)
             {
                 _view.CurrentPathTextBoxText = _currentPath;
             }
 
             _view.FormWidth = Math.Max(TextRenderer.MeasureText(_view.CurrentPathTextBoxText, _view.CurrentPathTextBoxFont).Width + 100, _view.FormWidth);
-            folderList.RemoveAt(folderList.Count - 1);
-            folderList.RemoveAt(0);
-            return folderList;
         }
 
         private List<FileFolder> GetFileFolderList()
         {
             OpenCmdOnRemoteClientPc();
 
-            string folderListStr = string.Empty;
+            string dirData = string.Empty;
             try
             {
-                folderListStr = _proxyService.ActiveNextCommand("dir /b /ad").Replace("\r", "");
+                dirData = _proxyService.ActiveNextCommand("dir").Replace("\r", "");
             }
             catch
             {
@@ -197,19 +185,15 @@ namespace WindowsFormsApp1
                 return null;
             }
 
-            if (folderListStr == "Client CallBack is Not Found" ||
-                    folderListStr.StartsWith("Error") ||
-                    folderListStr == "The communication object, System.ServiceModel.Channels.ServiceChannel, cannot be used for communication because it has been Aborted.")
+            if (dirData == "Client CallBack is Not Found" ||
+                dirData.StartsWith("Error") ||
+                dirData == "The communication object, System.ServiceModel.Channels.ServiceChannel, cannot be used for communication because it has been Aborted.")
             {
                 _cmdOpenedRemoteClientPc = false;
                 return null;
             }
 
-            var folderList = GetFolderListFromServerAndAssignTheFolderPath(folderListStr);
-
-            var fileList = GetFileListFromFolderList(folderList);
-
-            var fileFolderData =  CalculateFileOrFolderData(folderList);
+            var fileFolderData =  CalculateFileOrFolderData(dirData);
 
             fileFolderData.Insert(0, new FileFolder(FileFolderImageType.Folder, "..", "0" , string.Empty));
 
