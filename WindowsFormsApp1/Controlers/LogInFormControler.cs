@@ -18,8 +18,6 @@ namespace WindowsFormsApp1.Controlers
         IFileManager _fileManager;
         IDirectoryManager _directoryManager;
 
-        private string _userType = "ActiveClient";
-
         public LogInFormControler(string endpointId, 
                                   ILogInView view,
                                   IFileManager fileManager,
