@@ -490,6 +490,7 @@ namespace WindowsFormsApp1
                     if (fileInfo.FileName.StartsWith("Error"))
                     {
                         _view.DisplayMessage(MessageType.Error, "Download", $"Error in download: {downLoadFileData.FileName}");
+                        UpdateViewOnError();
                         error = true;
                         break;
                     }
@@ -521,14 +522,26 @@ namespace WindowsFormsApp1
                 _blockAllOperations = false;
                 _view.EnableViewModification = true;
 
-                if (error) return;
-                
-                _view.ProgressBarValue = 100;
-                _view.DisplayMessage(MessageType.Info, "Download", "Download completed successfully");
-                _view.ProgressBarVisible = false;
-                _view.ProgressLabelVisible = false;
-                _view.ProgressBarValue = 0;
+                if (error)  return;
+
+                UpdateViewOnSuccess("Download");
             }
+        }
+
+        private void UpdateViewOnError()
+        {
+            _view.ProgressBarVisible = false;
+            _view.ProgressLabelVisible = false;
+            _view.ProgressBarValue = 0;
+        }
+
+        private void UpdateViewOnSuccess(string caption)
+        {
+            _view.ProgressBarValue = 100;
+            _view.DisplayMessage(MessageType.Info, caption, $"{caption} completed successfully");
+            _view.ProgressBarVisible = false;
+            _view.ProgressLabelVisible = false;
+            _view.ProgressBarValue = 0;
         }
 
         private RemoteFileInfo WaitUntilDataFullyBufferedOnServerMemory(DownloadUpLoadData downloadData, out bool error)
@@ -566,6 +579,7 @@ namespace WindowsFormsApp1
                         _view.DisplayMessage(MessageType.Error, "Download", $"Error in Buffreing file in server memory:  {response.FileName}");
                         _blockAllOperations = false;
                         _view.EnableViewModification = true;
+                        UpdateViewOnError();
                         error = true;
                         break;
                     }
@@ -667,6 +681,7 @@ namespace WindowsFormsApp1
                     _view.DisplayMessage(MessageType.Error, "Error in upload", $"Error in buffering file in remote client memory: {response.FileName}");
                     _blockAllOperations = false;
                     _view.EnableViewModification = true;
+                    UpdateViewOnError();
                     return;
                 }
                 if (response.FileName.StartsWith("Buffering") && response.FileByteStream.Length == 0)
@@ -718,15 +733,12 @@ namespace WindowsFormsApp1
                     else if (response.FileName.StartsWith("Error"))
                     {
                         _view.DisplayMessage(MessageType.Error, "Error in upload", $"Error in buffering file in remote client memory: {response.FileName}");
+                        UpdateViewOnError();
                         return;
                     }
                     else
                     {
-                        _view.ProgressBarValue = 100;
-                        _view.DisplayMessage(MessageType.Info, "Upload", "Upload completed successfully");
-                        _view.ProgressBarVisible = false;
-                        _view.ProgressLabelVisible = false;
-                        _view.ProgressBarValue = 0;
+                        UpdateViewOnSuccess("Upload");
                         return;
                     }
                 }
